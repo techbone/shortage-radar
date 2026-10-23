@@ -16,7 +16,8 @@
     "replay": "tsx scripts/replay-snapshots.ts",
     "typecheck": "tsc --noEmit",
     "evals:injection": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection",
-    "evals:corpus": "tsx scripts/build-injection-corpus.ts"
+    "evals:corpus": "tsx scripts/build-injection-corpus.ts",
+    "nightshift:check": "tsx --env-file-if-exists=.env scripts/nightshift-check.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
