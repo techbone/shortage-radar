@@ -28,3 +28,13 @@ Recalls by the same company that later reported the shortage: 2–3 of 142. Disc
 ## 2026-10-23 · Zetaris on Apple Silicon
 
 Preflight: platform images are amd64 only, and Docker had 7 GB of the recommended 8 GB. Fix: Rosetta emulation on and Docker memory raised to 12 GB before the first pull.
+
+---
+
+## 2026-10-23 · World Model: no fuzzy merges for drugs, and no O(n²) writes
+
+**Surprise 1.** The reference engine auto-merges name-keyed entities at ≥ 0.85 name similarity. For drugs that is dangerous: look-alike drug names are a known cause of medication errors, and a fuzzy merge would fold two different products into one. **Path:** every drug-side entity is keyed by an identifier (package NDC, normalized substance, normalized company), so the fuzzy resolver never sees them. The resolver still exists and passes `band-001` for name-keyed entities.
+
+**Surprise 2.** The reference rewrites its whole JSON file on every event. A single FDA snapshot is 7,343 events. **Path:** append-only JSONL, buffered and flushed once per write batch; an index of open edges per slot so superseding is O(1). Baseline ingest takes ~60 ms. **Guard:** `tests/world-model-shortages.test.ts` (re-ingest appends 0 events; reload from disk replays to the same canonical state).
+
+**Surprise 3.** 26 NDCs appear twice in the feed (e.g. "Current / Unavailable" and "To Be Discontinued"). **Path:** two bitemporal edge slots per product, `shortage-state` and `discontinuation`.

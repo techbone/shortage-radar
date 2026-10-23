@@ -1,0 +1,25 @@
+{
+  "name": "shortage-radar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent that tells a hospital pharmacy which FDA shortage changes hit its shelf and what to buy instead.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "conformance": "npm run conformance:wm",
+    "conformance:wm": "WORLD_MODEL_IMPL=\"$PWD/src/engines/world-model/index.ts\" tsx conformance/world-model/runner.ts",
+    "snapshot": "tsx scripts/snapshot-fda.ts",
+    "replay": "tsx scripts/replay-snapshots.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
