@@ -1,0 +1,24 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+.env
+.env.*
+!.env.example
+
+# runtime state (engines rebuild it; sample state lives in data/fixtures)
+.state/
+
+# traces: keep curated examples only
+logs/*
+!logs/.gitkeep
+!logs/trace-example-*.jsonl
+
+.DS_Store
+
+__pycache__/
+*.pyc
