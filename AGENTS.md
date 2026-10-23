@@ -23,8 +23,10 @@ Read `ARCHITECTURE.md` first. This file holds the rules that are easy to get wro
 - 180 s ceiling per request; our default is 90 s.
 
 **Meterless engines**
-- `src/engines/world-model` and `src/engines/hmem` are our implementations of the specs in github.com/Meterless/Meterless. They must keep passing the official conformance runners (`npm run conformance`). Do not change a check to make it pass.
+- `src/engines/world-model`, `src/engines/scout-intent` and `src/engines/hmem` are our implementations of the specs in github.com/Meterless/Meterless. They must keep passing the official conformance runners and evals (`npm run conformance`). Do not change a check to make it pass.
 - Every World Model write carries provenance (snapshot id or Zetaris query id).
+- **No untrusted text reaches a model except through `src/agent/untrusted.ts`** (`guardRows` / `guardContext`). That covers Zetaris rows, FDA free text, hospital rows, recalled memories and the buyer's own question. `buildMessages` only accepts a `GuardedContext`.
+- Availability comes from structured status fields and the World Model, never from free text.
 
 ## Runtime rules (judging)
 

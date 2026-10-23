@@ -36,6 +36,7 @@ Every core flow and the exact sponsor capability behind it.
 | "What was this NDC's status on date X" | **World Model**: bitemporal `has-status` edges (`validFrom`/`validTo`), point-in-time `neighborsOf(..., { at })` | Conformance `bitemp-001` |
 | One identity for a drug across NDC, RxCUI, labeler | **World Model**: content-derived stable IDs | Conformance `sid-001/002` |
 | Remember "we bought 14 days of the Fresenius NDC" / "committee rejects this substitute" | **H-MEM**: episodic + semantic memories with source and confidence, retrieval + reinjection into the writer's prompt, trust ledger | H-MEM conformance suite |
+| Keep third-party text (FDA free text, public API rows, notes) from steering the model | **Scout Intent** guard: two-pass injection check, field-level withholding, credential redaction, fenced `<data>` blocks | Official evals: precision 1.000, recall 0.980 on 2,316 examples |
 | Plan the investigation, write the brief, critique citations | **Nightshift** (OpenAI-compatible, `meterless-app: shortage-radar`) routing to **NVIDIA Nemotron**; model name logged per request | Needs Nightshift running |
 
 **Sponsor removal test**
@@ -43,6 +44,7 @@ Every core flow and the exact sponsor capability behind it.
 - Remove Zetaris: no join between private stock and public feeds, so no per-hospital answer.
 - Remove World Model: no "what changed", no status history, no stable drug identity across sources. The brief becomes a dump of 1,609 rows.
 - Remove H-MEM: every handled item re-alerts every morning, which is why alert tools get ignored.
+- Remove Scout Intent: a sentence planted in an FDA field or a public API row goes straight into the model's context.
 - Remove Nightshift/Nemotron: no plan, no brief, no citation critique; the user reads raw rows.
 
 ## 4. System overview
@@ -78,6 +80,7 @@ flowchart LR
 | Zetaris adapter | `src/adapters/zetaris.ts` | `runSql()`: one statement per call, bearer key + `X-Org-ID` + fresh `X-Request-ID`, 60 s timeout, 2 retries, sample-mode fixtures. |
 | Nightshift adapter | `src/adapters/nightshift.ts` | OpenAI client, `meterless-app`/`meterless-scope` headers, 90 s timeout, logs the model that answered. |
 | World Model engine | `src/engines/world-model/` | Our implementation of the Meterless spec, file-backed (JSONL event log + rebuilt views). Passes the official conformance runner. |
+| Scout Intent engine | `src/engines/scout-intent/`, `src/agent/untrusted.ts` | Our implementation of the Scout guard stage. Every untrusted text reaches a model only as a `GuardedContext`. Verified by the official eval runner. |
 | H-MEM engine | `src/engines/hmem/` | Our implementation of the Meterless spec, file-backed. Passes the official conformance runner. |
 | Trace | `src/trace/` | One JSONL line per agent action (guide format) + readable stdout. Secrets masked. |
 | Hospital DB | `db/hospital/` | Schema and a synthetic formulary for a fictional 220-bed hospital. Runs as a Postgres container. |

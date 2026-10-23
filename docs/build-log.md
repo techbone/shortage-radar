@@ -38,3 +38,17 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Surprise 2.** The reference rewrites its whole JSON file on every event. A single FDA snapshot is 7,343 events. **Path:** append-only JSONL, buffered and flushed once per write batch; an index of open edges per slot so superseding is O(1). Baseline ingest takes ~60 ms. **Guard:** `tests/world-model-shortages.test.ts` (re-ingest appends 0 events; reload from disk replays to the same canonical state).
 
 **Surprise 3.** 26 NDCs appear twice in the feed (e.g. "Current / Unavailable" and "To Be Discontinued"). **Path:** two bitemporal edge slots per product, `shortage-state` and `discontinuation`.
+
+---
+
+## 2026-10-23 · Scout Intent: poisoned FDA text must not blank the brief
+
+**Context.** FDA free text (`related_info`, `presentation`) and every Zetaris row from a public API reach the model. That text is written by third parties.
+
+**Dead end.** The spec's `guard()` blocks the whole request when any snippet is poisoned. In our flow that turns one poisoned record into a denial of service on the morning brief.
+
+**Path.** Guard per field, withhold only the poisoned field (`[withheld: suspected prompt injection]`), keep numbers and the rest of the row, and tell the model which sources were withheld. The prompt builder accepts only a `GuardedContext`, which only `src/agent/untrusted.ts` can create, and fences each block as escaped `<data>` so content cannot close its own fence.
+
+**Surprises.** (1) A real manufacturer phrase, "Please disregard previous communication regarding NDC …", tripped the override rule; blocking it would hide a legitimate update. (2) Capital Cyrillic look-alikes slipped through because folding ran in the wrong order. (3) The official runner's gate fails any injection-only run on intent/tool metrics with zero examples.
+
+**Guard.** `tests/scout-intent.test.ts` (targets on each corpus, 0 blocks on 2,242 real FDA fields, field-level withholding, credential redaction, fence escaping). Evidence: `docs/evidence/scout-injection-evals.md`.

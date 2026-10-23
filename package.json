@@ -10,16 +10,19 @@
   },
   "scripts": {
     "test": "vitest run",
-    "conformance": "npm run conformance:wm",
+    "conformance": "npm run conformance:wm && npm run evals:injection",
     "conformance:wm": "WORLD_MODEL_IMPL=\"$PWD/src/engines/world-model/index.ts\" tsx conformance/world-model/runner.ts",
     "snapshot": "tsx scripts/snapshot-fda.ts",
     "replay": "tsx scripts/replay-snapshots.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "evals:injection": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection",
+    "evals:corpus": "tsx scripts/build-injection-corpus.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "yaml": "^2.8.0"
   }
 }
