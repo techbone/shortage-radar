@@ -55,6 +55,7 @@ const fixtureKey = (sql: string) => createHash("sha256").update(sql.replace(/\s+
 export function toRecords(out: any): { columns: string[]; rows: Record<string, unknown>[] } {
   const data = Array.isArray(out) ? out : out?.data ?? out?.rows ?? out?.result?.data ?? [];
   const declared: string[] =
+    out?.headers ??
     out?.columns?.map((c: any) => (typeof c === "string" ? c : c.name ?? c.columnName)) ??
     out?.schema?.map((c: any) => c.name) ??
     out?.metadata?.map((c: any) => c.name ?? c.columnName) ??
@@ -100,7 +101,7 @@ export async function runSql(sql: string, opts: { limit?: number; admin?: boolea
       });
       const text = await res.text();
       if (res.status === 401) throw new ZetarisError("Zetaris rejected the API key (401): create a new key and update .env", "auth", attempt);
-      if (res.status === 400) throw new ZetarisError(`Zetaris 400: ${text.slice(0, 300)} (check X-Org-ID)`, "bad-request", attempt);
+      if (res.status === 400) throw new ZetarisError(`Zetaris 400: ${text.slice(0, 300)}`, "bad-request", attempt); // a SQL message, or a wrong X-Org-ID
       if (!res.ok) throw new ZetarisError(`Zetaris ${res.status}: ${text.slice(0, 400)}`, res.status >= 500 ? "unreachable" : "sql", attempt);
       const { columns, rows } = toRecords(text ? JSON.parse(text) : null);
       if (process.env.ZETARIS_RECORD === "true") {

@@ -20,6 +20,10 @@ describe("Zetaris adapter guards", () => {
     expect(() => assertSingleStatement("SELECT * FROM t WHERE note = 'a; b'")).not.toThrow();
   });
 
+  it("reads column names from Zetaris's `headers` field", () => {
+    expect(toRecords({ headers: ["one", "name"], data: [["1", "x"]], total: 1 })).toEqual({ columns: ["one", "name"], rows: [{ one: "1", name: "x" }] });
+  });
+
   it("normalizes array rows and object rows", () => {
     expect(toRecords({ data: [[1, "a"]], columns: ["id", "name"] })).toEqual({ columns: ["id", "name"], rows: [{ id: 1, name: "a" }] });
     expect(toRecords({ data: [{ id: 1 }] })).toEqual({ columns: ["id"], rows: [{ id: 1 }] });
