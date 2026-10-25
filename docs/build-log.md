@@ -64,3 +64,17 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Path.** Never cap `max_tokens` below ~1024 (rule added to `AGENTS.md`), and plan for 5–9 s per call, which shapes how many model calls one run can afford (plan once, critique once). **Guard:** `npm run nightshift:check` now uses 1024 and prints the answering model.
 
 **Also hit.** Pasting Nightshift's "Copy setup" block into `.env` put the token on a line with spaces and left six non-`KEY=value` lines behind. Fixed by extracting the token into one line; a malformed `.env` is now something to check first when a key "doesn't work".
+
+---
+
+## 2026-10-25 · Zetaris: the hospital database and the FDA feed in one query
+
+**FDA feed as a REST table.** `CREATE LIGHTNING REST TABLE` over `api.fda.gov/drug/shortages.json` (two pages of 1,000), `CACHE TABLE`, then a SchemaStore view with `LATERAL VIEW explode(results)`. Registering took 39–71 s per page and caching 33–61 s, so the cache is refreshed by a separate step, never inside a run. **Check:** `fda.shortages` returns 1,611 rows and 1,585 distinct NDCs, matching openFDA's own total and our snapshot.
+
+**Postgres as a JDBC data source, by trial.** The getting-started repo marks this path unconfirmed, and the API reference needs a password login, so the syntax came from the parser's own errors: `REGISTER DATASOURCE x` fails (only `REGISTER DATASOURCE TABLES FROM x` exists); `CREATE LIGHTNING DATABASE … OPTIONS (jdbc…)` is accepted but makes the wrong kind of object; `CREATE DATASOURCE` works once the option is `jdbcurl` (not `url`) and `DESCRIBE BY` has no parentheses. Tables are then `northwind_pg.<table>` (a two-part name; `northwind_pg.public.x` is rejected). Zetaris's containers reach the database at `host.docker.internal:5433` with a read-only role. **Guard:** `zetaris/02_hospital.sql`.
+
+**First federated query.** Formulary ⨝ stock (Postgres) ⨝ FDA shortages (REST) in one statement, 2.7 s.
+
+**Data quality surfaced.** The FDA availability field has typos and free text ("Limited Availalbility", "Unvailable", "Limited Supply Available. Next Delivery and Estimated Recovery: June 2027"). Status mapping matches on prefixes, so all three land in the right state.
+
+**Safety catch.** The naive "same drug, marked Available" alternate list mixed 10 mg/mL with 20 mg/mL and premixed lidocaine-in-dextrose drips. "Buy instead" now requires the same single ingredient at the same concentration; different strengths are shown as "needs pharmacist review", combinations are excluded.
