@@ -60,11 +60,14 @@ export type SnapshotIngestReport = {
 
 export const SNAPSHOT_DIR = path.join(process.cwd(), "data", "snapshots");
 
+/** Date first, then the same-day revision suffix, with the original (no suffix) first. */
+const order = (f: string) => f.replace(/\.json\.gz$/, "").replace(/^fda-shortages-(\d{4}-\d{2}-\d{2})(?:-(\d{4}z))?$/, (_m, d, t) => `${d}|${t ?? ""}`);
+
 export function listSnapshots(dir = SNAPSHOT_DIR): string[] {
   return fs
     .readdirSync(dir)
-    .filter((f) => /^fda-shortages-\d{4}-\d{2}-\d{2}\.json\.gz$/.test(f))
-    .sort()
+    .filter((f) => /^fda-shortages-\d{4}-\d{2}-\d{2}(?:-\d{4}z)?\.json\.gz$/.test(f)) // -HHMMz: a same-day revision
+    .sort((a, b) => order(a).localeCompare(order(b)))
     .map((f) => path.join(dir, f));
 }
 
@@ -182,7 +185,13 @@ export function stateHistory(world: WorldModel, ndc: string, slot: EdgeSlot = "s
   return world.history(productId(ndc), slot).map((e) => ({ state: e.to.split(":").pop() as ShortageState, validFrom: e.validFrom, validTo: e.validTo ?? null, source: e.source.runId }));
 }
 
+const SEVERITY: Record<ShortageState, number> = { unavailable: 5, limited: 4, listed: 3, "to-be-discontinued": 2, available: 1, resolved: 0, "off-list": 0 };
+
+/** Newest entry wins; on the same date the more severe state wins (the safe reading). */
 function latest(a: FdaShortageRecord | undefined, b: FdaShortageRecord): FdaShortageRecord {
   if (!a) return b;
-  return (fdaDate(b.update_date) ?? "") > (fdaDate(a.update_date) ?? "") ? b : a;
+  const da = fdaDate(a.update_date) ?? "";
+  const db = fdaDate(b.update_date) ?? "";
+  if (da !== db) return db > da ? b : a;
+  return SEVERITY[shortageStateOf(b)] > SEVERITY[shortageStateOf(a)] ? b : a;
 }

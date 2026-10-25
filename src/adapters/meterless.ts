@@ -3,6 +3,7 @@
 // only AI provider; Nightshift routes each request to a lane (Nemotron for us).
 // Settings come from env, falling back to .state/settings.json; the token is never logged.
 
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -152,11 +153,38 @@ export type ChatResult = {
   latencyMs: number;
 };
 
+const FIXTURE_DIR = path.join(process.cwd(), "data", "fixtures", "nightshift");
+const fixtureKey = (model: string, messages: ChatMessage[]) => createHash("sha256").update(JSON.stringify({ model, messages })).digest("hex").slice(0, 20);
+
+/**
+ * SAMPLE_MODE=true replays recorded responses (data/fixtures/nightshift/, keyed by
+ * model + messages) so the full flow runs with no Nightshift; METERLESS_RECORD=true
+ * records live ones. A replayed result keeps the model that answered when recorded.
+ */
 export async function chat(
   input: { messages: ChatMessage[]; model?: string; tools?: ToolSpec[]; temperature?: number; maxTokens?: number; timeoutMs?: number },
   settings: Settings = loadSettings(),
-): Promise<ChatResult> {
+): Promise<ChatResult & { source: "nightshift" | "fixture" }> {
   const model = input.model ?? settings.model;
+  const key = fixtureKey(model, input.messages);
+  if (process.env.SAMPLE_MODE === "true") {
+    const file = path.join(FIXTURE_DIR, `${key}.json`);
+    if (!fs.existsSync(file)) throw new MeterlessError("offline", `SAMPLE_MODE: no recorded model response for this prompt (${key})`);
+    return { ...(JSON.parse(fs.readFileSync(file, "utf-8")) as ChatResult), latencyMs: 0, source: "fixture" };
+  }
+  const result = await liveChat(input, settings, model);
+  if (process.env.METERLESS_RECORD === "true") {
+    fs.mkdirSync(FIXTURE_DIR, { recursive: true });
+    fs.writeFileSync(path.join(FIXTURE_DIR, `${key}.json`), JSON.stringify(result, null, 1));
+  }
+  return { ...result, source: "nightshift" };
+}
+
+async function liveChat(
+  input: { messages: ChatMessage[]; tools?: ToolSpec[]; temperature?: number; maxTokens?: number; timeoutMs?: number },
+  settings: Settings,
+  model: string,
+): Promise<ChatResult> {
   const t0 = Date.now();
   let res: Response;
   try {

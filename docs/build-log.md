@@ -78,3 +78,13 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Data quality surfaced.** The FDA availability field has typos and free text ("Limited Availalbility", "Unvailable", "Limited Supply Available. Next Delivery and Estimated Recovery: June 2027"). Status mapping matches on prefixes, so all three land in the right state.
 
 **Safety catch.** The naive "same drug, marked Available" alternate list mixed 10 mg/mL with 20 mg/mL and premixed lidocaine-in-dextrose drips. "Buy instead" now requires the same single ingredient at the same concentration; different strengths are shown as "needs pharmacist review", combinations are excluded.
+
+---
+
+## 2026-10-25 · openFDA revises records without changing `last_updated`
+
+**Symptom.** The live feed read through Zetaris disagreed with our 23 Oct snapshot on one NDC (clonazepam 0093-3213-01: limited in the file, available live), though both said `last_updated: 2026-10-23`.
+
+**Cause.** openFDA revised that record in place later on 23 Oct (`update_type: Revised`) without bumping the feed date. Our snapshot job skipped any day it had already saved, so it would silently miss same-day revisions. The World Model caught it only because the live Zetaris feed is ingested on top of the snapshots and the diff came out non-empty.
+
+**Path.** The snapshot job compares content, not the date, and saves a same-day revision as `fda-shortages-<date>-<HHMM>z.json.gz`; snapshots replay date-first, original before revision (`-` sorts before `.`, which first put the revision ahead of the original and "undid" it). Separately, 6 NDCs carry two entries with the same status and date; the more severe state now wins, so ordering never decides what a buyer sees. **Guard:** `tests/world-model-shortages.test.ts` (ordering), `npm run replay` shows 14 + 1 changes in order.

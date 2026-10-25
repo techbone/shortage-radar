@@ -80,3 +80,13 @@ describe("FDA shortage snapshots in the World Model", () => {
     expect((await ingestShortageSnapshot(reloaded, real)).eventsAppended).toBe(0);
   });
 });
+
+describe("snapshot ordering", () => {
+  it("replays a same-day revision after the original", () => {
+    const names = listSnapshots().map((f) => f.split("/").pop());
+    const orig = names.indexOf("fda-shortages-2026-10-23.json.gz");
+    const rev = names.indexOf("fda-shortages-2026-10-23-1846z.json.gz");
+    expect(orig).toBeGreaterThan(-1);
+    expect(rev).toBeGreaterThan(orig);
+  });
+});

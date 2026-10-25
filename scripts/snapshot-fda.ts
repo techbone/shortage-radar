@@ -5,7 +5,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
-import { SNAPSHOT_DIR, type FdaShortageRecord } from "../src/domain/fda-shortages";
+import { createHash } from "node:crypto";
+import { SNAPSHOT_DIR, listSnapshots, loadSnapshot, type FdaShortageRecord } from "../src/domain/fda-shortages";
 
 const BASE = "https://api.fda.gov/drug/shortages.json";
 const PAGE = 1000;
@@ -27,16 +28,25 @@ async function getPage(skip: number, attempt = 1): Promise<{ meta: any; results:
 const first = await getPage(0);
 const total: number = first.meta.results.total;
 const lastUpdated: string = first.meta.last_updated;
-const file = path.join(SNAPSHOT_DIR, `fda-shortages-${lastUpdated}.json.gz`);
-
-if (fs.existsSync(file)) {
-  console.log(`[INFO] snapshot for ${lastUpdated} already saved (${path.relative(process.cwd(), file)}), feed unchanged`);
-  process.exit(0);
-}
+let file = path.join(SNAPSHOT_DIR, `fda-shortages-${lastUpdated}.json.gz`);
 
 const results = [...first.results];
 for (let skip = PAGE; skip < total; skip += PAGE) results.push(...(await getPage(skip)).results);
 if (results.length !== total) throw new Error(`expected ${total} records, got ${results.length}`);
+
+// openFDA revises records in place without bumping last_updated, so compare content, not the date.
+const digest = (rs: FdaShortageRecord[]) => createHash("sha256").update(JSON.stringify([...rs].sort((a, b) => (a.package_ndc + a.status).localeCompare(b.package_ndc + b.status)))).digest("hex");
+const sameDay = listSnapshots().filter((f) => path.basename(f).startsWith(`fda-shortages-${lastUpdated}`));
+const newest = sameDay.at(-1);
+if (newest && digest(loadSnapshot(newest).results) === digest(results)) {
+  console.log(`[INFO] feed unchanged since ${path.relative(process.cwd(), newest)}`);
+  process.exit(0);
+}
+if (newest) {
+  const hhmm = new Date().toISOString().slice(11, 16).replace(":", "");
+  file = path.join(SNAPSHOT_DIR, `fda-shortages-${lastUpdated}-${hhmm}z.json.gz`);
+  console.log(`[INFO] same last_updated (${lastUpdated}) but the content changed: saving a same-day revision`);
+}
 
 const meta = { source: BASE, fetched_at: new Date().toISOString(), last_updated: lastUpdated, total, license: first.meta.license };
 fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });

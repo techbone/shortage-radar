@@ -38,7 +38,10 @@ SELECT
     r.update_date,
     r.update_type,
     r.initial_posting_date,
-    r.related_info
+    r.related_info,
+    r.discontinued_date,
+    r.therapeutic_category,
+    to_json(r.openfda) AS openfda_json
 FROM fda_rest.shortages_p0
 LATERAL VIEW explode(results) AS r
 UNION ALL
@@ -53,6 +56,9 @@ SELECT
     r.update_date,
     r.update_type,
     r.initial_posting_date,
-    r.related_info
+    r.related_info,
+    r.discontinued_date,
+    r.therapeutic_category,
+    to_json(r.openfda) AS openfda_json
 FROM fda_rest.shortages_p1
 LATERAL VIEW explode(results) AS r;
