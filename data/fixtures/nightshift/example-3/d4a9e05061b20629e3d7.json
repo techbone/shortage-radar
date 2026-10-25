@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\":\"Prioritize reviewing swap options for Dexmedetomidine and Sufentanil before current stock runs out; Atropine has an immediate alternative available, and Lidocaine preservative-free supply is limited but no swap recommended at this time.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 54,
+  "total_tokens": 1072
+ },
+ "latencyMs": 781
+}

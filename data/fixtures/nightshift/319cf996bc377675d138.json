@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\": \"0409-6695-01\", \"priority\": \"act-today\", \"headline\": \"Etomidate injection unavailable\", \"why\": \"Status changed to unavailable on 2026-10-21; 6 days of stock remain\", \"action\": \"Order swap NDC 65219-445-10 from Caplin Steriles, Ltd.\", \"buy_instead\": \"65219-445-10\", \"citations\": [\"stock:0409-6695-01\", \"fda:0409-6695-01\", \"history:0409-6695-01\", \"alt:65219-445-10\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1658,
+  "completion_tokens": 185,
+  "total_tokens": 1843
+ },
+ "latencyMs": 3915
+}

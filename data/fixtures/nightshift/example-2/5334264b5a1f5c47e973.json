@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\": \"0409-3301-10\", \"priority\": \"act-today\", \"headline\": \"Dexmedetomidine injection limited to 7 days of stock\", \"why\": \"FDA state changed from available to limited on 2026-10-21. On hand 91 units at 13 daily usage, leaving 7 days.\", \"action\": \"Review swap options before current stock runs out.\", \"buy_instead\": \"0781-3493-95\", \"citations\": [\"stock:0409-3301-10\", \"fda:0409-3301-10\", \"history:0409-3301-10\", \"alt:0781-3493-95\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1905,
+  "completion_tokens": 191,
+  "total_tokens": 2096
+ },
+ "latencyMs": 4269
+}

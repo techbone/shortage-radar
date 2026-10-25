@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\": \"Order the etomidate swap from Caplin Steriles immediately as stock is unavailable; review alternative swap options for dexmedetomidine before the current 7-day supply expires; consider Hikma NDC 0143-9594-25 as a replacement for the lidocaine shortage.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 973,
+  "completion_tokens": 70,
+  "total_tokens": 1043
+ },
+ "latencyMs": 5292
+}

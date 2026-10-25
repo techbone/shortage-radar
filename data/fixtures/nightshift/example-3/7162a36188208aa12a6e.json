@@ -1,0 +1,12 @@
+{
+ "content": "{\"focus\": [\"0409-3301-10\", \"0409-1323-05\", \"0409-3382-21\", \"0409-1630-10\"], \"rationale\": \"Four FDA-list items have 7 or fewer days of stock remaining and are unavailable or limited: dexmedetomidine (Anesthesia, limited, 7 days), lidocaine (Anesthesia, limited, 4 days), sufenatil (Analgesia, limited, 6 days), and atropine (Cardiology, limited after improving from unavailable, 7 days). These impact critical shelves and require urgent swap coordination.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1798,
+  "completion_tokens": 7333,
+  "total_tokens": 9131
+ },
+ "latencyMs": 77996
+}

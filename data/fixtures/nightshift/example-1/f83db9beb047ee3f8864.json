@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\": \"0409-3815-12\", \"priority\": \"act-today\", \"headline\": \"Morphine injection limited; 6 days of stock remain\", \"why\": \"FDA reports limited supply with manufacturing delay; only 6 days of inventory on hand\", \"action\": \"Consider swap options; 1 mL unit-dose alternatives available from Amphastar or Hikma\", \"buy_instead\": \"76329-1912-1\", \"citations\": [\"stock:0409-3815-12\", \"fda:0409-3815-12\", \"history:0409-3815-12\", \"alt:76329-1912-1\", \"alt:0641-6019-10\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1846,
+  "completion_tokens": 195,
+  "total_tokens": 2041
+ },
+ "latencyMs": 3706
+}

@@ -1,0 +1,581 @@
+{
+  "run_id": "example-2",
+  "agents": [
+    {
+      "name": "Planner",
+      "role": "Nemotron: reads the request and what changed, picks the items to cover"
+    },
+    {
+      "name": "Investigator",
+      "role": "Code: Zetaris queries, World Model history, H-MEM decisions, alternates"
+    },
+    {
+      "name": "Guard",
+      "role": "Scout Intent: screens every third-party text before a model sees it"
+    },
+    {
+      "name": "Writer",
+      "role": "Nemotron: writes the brief with a citation for every claim"
+    },
+    {
+      "name": "Critic",
+      "role": "Code: rejects invented NDCs, bad citations, wrong day counts, predictions"
+    }
+  ],
+  "trace_id": "trace-example-2",
+  "log_file": "logs/trace-example-2.jsonl",
+  "status": "success",
+  "output": {
+    "headline": "3 to act on today",
+    "summary": "Order the etomidate swap from Caplin Steriles immediately as stock is unavailable; review alternative swap options for dexmedetomidine before the current 7-day supply expires; consider Hikma NDC 0143-9594-25 as a replacement for the lidocaine shortage.",
+    "fda_update": {
+      "date": "2026-10-23",
+      "changes": 13,
+      "hit_your_shelf": 8
+    },
+    "recommendations": [
+      {
+        "ndc": "0409-6695-01",
+        "priority": "act-today",
+        "headline": "Etomidate injection unavailable",
+        "why": "Status changed to unavailable on 2026-10-21; 6 days of stock remain",
+        "action": "Order swap NDC 65219-445-10 from Caplin Steriles, Ltd.",
+        "buy_instead": "65219-445-10",
+        "citations": [
+          "stock:0409-6695-01",
+          "fda:0409-6695-01",
+          "history:0409-6695-01",
+          "alt:65219-445-10"
+        ],
+        "generic": "etomidate",
+        "fda_state": "unavailable",
+        "days_on_hand": 6,
+        "on_hand_units": 192,
+        "daily_usage_units": 32,
+        "swaps": [
+          {
+            "ndc": "65219-445-10",
+            "company": "Caplin Steriles, Ltd.",
+            "availability": "Available",
+            "presentation": "Etomidate, Injection, 2mg/1 mL (NDC 65219-445-10)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 2,
+              "total": 2,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "65219-447-20",
+            "company": "Caplin Steriles, Ltd.",
+            "availability": "Available",
+            "presentation": "Etomidate, Injection, 2mg/mL (NDC 65219-447-20)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 2,
+              "total": 2,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "72485-508-10",
+            "company": "Caplin Steriles, Ltd.",
+            "availability": "Available",
+            "presentation": "Etomidate, Injection, 2 mg/mL (NDC 72485-508-10)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 2,
+              "total": 2,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "review": [],
+        "history": [
+          {
+            "state": "available",
+            "validFrom": "2026-10-08T00:00:00.000Z",
+            "validTo": "2026-10-21T00:00:00.000Z"
+          },
+          {
+            "state": "unavailable",
+            "validFrom": "2026-10-21T00:00:00.000Z",
+            "validTo": null
+          }
+        ],
+        "handling": {
+          "status": "new"
+        },
+        "evidence": [
+          {
+            "id": "stock:0409-6695-01",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "Northwind stock: 192 units, 32/day (northwind_pg.inventory)",
+            "record": {
+              "ndc": "0409-6695-01",
+              "on_hand_units": 192,
+              "daily_usage_units": 32,
+              "days_on_hand": 6
+            }
+          },
+          {
+            "id": "fda:0409-6695-01",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "FDA shortage list: unavailable (fda.shortages)",
+            "record": {
+              "ndc": "0409-6695-01",
+              "state": "unavailable"
+            }
+          },
+          {
+            "id": "history:0409-6695-01",
+            "kind": "world-model",
+            "label": "Status history: available from 2026-10-08 → unavailable from 2026-10-21",
+            "record": {
+              "history": [
+                {
+                  "state": "available",
+                  "validFrom": "2026-10-08T00:00:00.000Z",
+                  "validTo": "2026-10-21T00:00:00.000Z"
+                },
+                {
+                  "state": "unavailable",
+                  "validFrom": "2026-10-21T00:00:00.000Z",
+                  "validTo": null
+                }
+              ]
+            }
+          },
+          {
+            "id": "alt:65219-445-10",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Caplin Steriles, Ltd. NDC 65219-445-10: Available (same concentration and container size)",
+            "record": {
+              "ndc": "65219-445-10",
+              "company": "Caplin Steriles, Ltd.",
+              "presentation": "Etomidate, Injection, 2mg/1 mL (NDC 65219-445-10)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:65219-447-20",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Caplin Steriles, Ltd. NDC 65219-447-20: Available (same concentration and container size)",
+            "record": {
+              "ndc": "65219-447-20",
+              "company": "Caplin Steriles, Ltd.",
+              "presentation": "Etomidate, Injection, 2mg/mL (NDC 65219-447-20)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:72485-508-10",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Caplin Steriles, Ltd. NDC 72485-508-10: Available (same concentration and container size)",
+            "record": {
+              "ndc": "72485-508-10",
+              "company": "Caplin Steriles, Ltd.",
+              "presentation": "Etomidate, Injection, 2 mg/mL (NDC 72485-508-10)",
+              "match": "same-product"
+            }
+          }
+        ],
+        "written_by": "nemotron"
+      },
+      {
+        "ndc": "0409-3301-10",
+        "priority": "act-today",
+        "headline": "Dexmedetomidine injection limited to 7 days of stock",
+        "why": "FDA state changed from available to limited on 2026-10-21. On hand 91 units at 13 daily usage, leaving 7 days.",
+        "action": "Review swap options before current stock runs out.",
+        "buy_instead": "0781-3493-95",
+        "citations": [
+          "stock:0409-3301-10",
+          "fda:0409-3301-10",
+          "history:0409-3301-10",
+          "alt:0781-3493-95"
+        ],
+        "generic": "dexmedetomidine",
+        "fda_state": "limited",
+        "days_on_hand": 7,
+        "on_hand_units": 91,
+        "daily_usage_units": 13,
+        "swaps": [
+          {
+            "ndc": "0781-3493-95",
+            "company": "Jiangsu Hengrui Pharmaceuticals Co., Ltd.",
+            "availability": "Available",
+            "presentation": "Dexmedetomidine Hydrochloride, Injection, 80 mcg/20 mL (NDC 0781-3493-95)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 0.004,
+              "total": 0.08,
+              "unit": "mg",
+              "volumeMl": 20
+            }
+          },
+          {
+            "ndc": "0409-1660-20",
+            "company": "Pfizer Inc.",
+            "availability": "Available",
+            "presentation": "Precedex, Injection, 80 mcg/20 mL (4 mcg/mL) (NDC 0409-1660-20)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 0.004,
+              "total": 0.08,
+              "unit": "mg",
+              "volumeMl": 20
+            }
+          },
+          {
+            "ndc": "70121-1388-1",
+            "company": "Amneal Pharmaceuticals",
+            "availability": "Available",
+            "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 mcg/mL, 50 mL (NDC 70121-1388-1)",
+            "match": "same-concentration",
+            "reason": "same concentration, 1 mL container instead of 20 mL",
+            "strength": {
+              "perMl": 0.004,
+              "total": 0.004,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "review": [
+          {
+            "ndc": "55150-209-02",
+            "company": "Eugia US LLC",
+            "availability": "Available",
+            "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 55150-209-02)",
+            "match": "review",
+            "reason": "different concentration (100 mcg/mL vs ours 4 mcg/mL)",
+            "strength": {
+              "perMl": 0.1,
+              "total": 0.1,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "66794-230-42",
+            "company": "Gland Pharma Limited",
+            "availability": "Available",
+            "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/2 mL (NDC 66794-230-42)",
+            "match": "review",
+            "reason": "different concentration (100 mcg/mL vs ours 4 mcg/mL)",
+            "strength": {
+              "perMl": 0.1,
+              "total": 0.2,
+              "unit": "mg",
+              "volumeMl": 2
+            }
+          }
+        ],
+        "history": [
+          {
+            "state": "available",
+            "validFrom": "2026-09-08T00:00:00.000Z",
+            "validTo": "2026-10-21T00:00:00.000Z"
+          },
+          {
+            "state": "limited",
+            "validFrom": "2026-10-21T00:00:00.000Z",
+            "validTo": null
+          }
+        ],
+        "handling": {
+          "status": "new"
+        },
+        "evidence": [
+          {
+            "id": "stock:0409-3301-10",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "Northwind stock: 91 units, 13/day (northwind_pg.inventory)",
+            "record": {
+              "ndc": "0409-3301-10",
+              "on_hand_units": 91,
+              "daily_usage_units": 13,
+              "days_on_hand": 7
+            }
+          },
+          {
+            "id": "fda:0409-3301-10",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "FDA shortage list: limited (fda.shortages)",
+            "record": {
+              "ndc": "0409-3301-10",
+              "state": "limited"
+            }
+          },
+          {
+            "id": "history:0409-3301-10",
+            "kind": "world-model",
+            "label": "Status history: available from 2026-09-08 → limited from 2026-10-21",
+            "record": {
+              "history": [
+                {
+                  "state": "available",
+                  "validFrom": "2026-09-08T00:00:00.000Z",
+                  "validTo": "2026-10-21T00:00:00.000Z"
+                },
+                {
+                  "state": "limited",
+                  "validFrom": "2026-10-21T00:00:00.000Z",
+                  "validTo": null
+                }
+              ]
+            }
+          },
+          {
+            "id": "alt:0781-3493-95",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Jiangsu Hengrui Pharmaceuticals Co., Ltd. NDC 0781-3493-95: Available (same concentration and container size)",
+            "record": {
+              "ndc": "0781-3493-95",
+              "company": "Jiangsu Hengrui Pharmaceuticals Co., Ltd.",
+              "presentation": "Dexmedetomidine Hydrochloride, Injection, 80 mcg/20 mL (NDC 0781-3493-95)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:0409-1660-20",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Pfizer Inc. NDC 0409-1660-20: Available (same concentration and container size)",
+            "record": {
+              "ndc": "0409-1660-20",
+              "company": "Pfizer Inc.",
+              "presentation": "Precedex, Injection, 80 mcg/20 mL (4 mcg/mL) (NDC 0409-1660-20)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:70121-1388-1",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Amneal Pharmaceuticals NDC 70121-1388-1: Available (same concentration, 1 mL container instead of 20 mL)",
+            "record": {
+              "ndc": "70121-1388-1",
+              "company": "Amneal Pharmaceuticals",
+              "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 mcg/mL, 50 mL (NDC 70121-1388-1)",
+              "match": "same-concentration"
+            }
+          },
+          {
+            "id": "alt:55150-209-02",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Eugia US LLC NDC 55150-209-02: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
+            "record": {
+              "ndc": "55150-209-02",
+              "company": "Eugia US LLC",
+              "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 55150-209-02)",
+              "match": "review"
+            }
+          },
+          {
+            "id": "alt:66794-230-42",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Gland Pharma Limited NDC 66794-230-42: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
+            "record": {
+              "ndc": "66794-230-42",
+              "company": "Gland Pharma Limited",
+              "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/2 mL (NDC 66794-230-42)",
+              "match": "review"
+            }
+          }
+        ],
+        "written_by": "nemotron"
+      },
+      {
+        "ndc": "0409-1323-05",
+        "priority": "act-today",
+        "headline": "Lidocaine preservative-free shortage: limited supply",
+        "why": "4 days of stock remain on hand",
+        "action": "Consider Hikma NDC 0143-9594-25 as alternative",
+        "buy_instead": "0143-9594-25",
+        "citations": [
+          "stock:0409-1323-05",
+          "fda:0409-1323-05",
+          "history:0409-1323-05",
+          "alt:0143-9594-25"
+        ],
+        "generic": "lidocaine",
+        "fda_state": "limited",
+        "days_on_hand": 4,
+        "on_hand_units": 188,
+        "daily_usage_units": 47,
+        "swaps": [
+          {
+            "ndc": "0143-9594-25",
+            "company": "Hikma Pharmaceuticals USA, Inc.",
+            "availability": "Available",
+            "presentation": "Lidocaine Hydrochloride, Preservative Free, Injection, 20 mg/1 mL (NDC 0143-9594-25)",
+            "match": "same-concentration",
+            "reason": "same concentration, 1 mL container instead of 5 mL",
+            "strength": {
+              "perMl": 20,
+              "total": 20,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "review": [
+          {
+            "ndc": "76329-3390-1",
+            "company": "Amphastar Pharmaceuticals, Inc.",
+            "availability": "Available",
+            "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/1 mL (NDC 76329-3390-1)",
+            "match": "review",
+            "reason": "ours is preservative-free; this one is not",
+            "strength": {
+              "perMl": 20,
+              "total": 20,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "83634-651-10",
+            "company": "Anthea Pharma",
+            "availability": "Available",
+            "presentation": "Lidocaine Hydrochloride, Injection, 100 mg/10 mL (NDC 83634-651-10)",
+            "match": "review",
+            "reason": "different concentration (10 mg/mL vs ours 20 mg/mL)",
+            "strength": {
+              "perMl": 10,
+              "total": 100,
+              "unit": "mg",
+              "volumeMl": 10
+            }
+          }
+        ],
+        "history": [
+          {
+            "state": "available",
+            "validFrom": "2026-10-08T00:00:00.000Z",
+            "validTo": "2026-10-21T00:00:00.000Z"
+          },
+          {
+            "state": "limited",
+            "validFrom": "2026-10-21T00:00:00.000Z",
+            "validTo": null
+          }
+        ],
+        "handling": {
+          "status": "new"
+        },
+        "evidence": [
+          {
+            "id": "stock:0409-1323-05",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "Northwind stock: 188 units, 47/day (northwind_pg.inventory)",
+            "record": {
+              "ndc": "0409-1323-05",
+              "on_hand_units": 188,
+              "daily_usage_units": 47,
+              "days_on_hand": 4
+            }
+          },
+          {
+            "id": "fda:0409-1323-05",
+            "kind": "zetaris",
+            "queryId": "zq_cc31b747",
+            "label": "FDA shortage list: limited (fda.shortages)",
+            "record": {
+              "ndc": "0409-1323-05",
+              "state": "limited"
+            }
+          },
+          {
+            "id": "history:0409-1323-05",
+            "kind": "world-model",
+            "label": "Status history: available from 2026-10-08 → limited from 2026-10-21",
+            "record": {
+              "history": [
+                {
+                  "state": "available",
+                  "validFrom": "2026-10-08T00:00:00.000Z",
+                  "validTo": "2026-10-21T00:00:00.000Z"
+                },
+                {
+                  "state": "limited",
+                  "validFrom": "2026-10-21T00:00:00.000Z",
+                  "validTo": null
+                }
+              ]
+            }
+          },
+          {
+            "id": "alt:0143-9594-25",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Hikma Pharmaceuticals USA, Inc. NDC 0143-9594-25: Available (same concentration, 1 mL container instead of 5 mL)",
+            "record": {
+              "ndc": "0143-9594-25",
+              "company": "Hikma Pharmaceuticals USA, Inc.",
+              "presentation": "Lidocaine Hydrochloride, Preservative Free, Injection, 20 mg/1 mL (NDC 0143-9594-25)",
+              "match": "same-concentration"
+            }
+          },
+          {
+            "id": "alt:76329-3390-1",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-3390-1: Available (ours is preservative-free; this one is not)",
+            "record": {
+              "ndc": "76329-3390-1",
+              "company": "Amphastar Pharmaceuticals, Inc.",
+              "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/1 mL (NDC 76329-3390-1)",
+              "match": "review"
+            }
+          },
+          {
+            "id": "alt:83634-651-10",
+            "kind": "zetaris",
+            "queryId": "zq_3cf11b15",
+            "label": "Anthea Pharma NDC 83634-651-10: Available (different concentration (10 mg/mL vs ours 20 mg/mL))",
+            "record": {
+              "ndc": "83634-651-10",
+              "company": "Anthea Pharma",
+              "presentation": "Lidocaine Hydrochloride, Injection, 100 mg/10 mL (NDC 83634-651-10)",
+              "match": "review"
+            }
+          }
+        ],
+        "written_by": "nemotron"
+      }
+    ],
+    "quiet": {
+      "handled": [],
+      "still_listed": 8
+    },
+    "artifacts": [
+      "logs/trace-example-2.jsonl"
+    ]
+  },
+  "models": [
+    "nvidia/nemotron-3.5-lightning-30b-a3b"
+  ],
+  "execution_time_seconds": 51.4
+}

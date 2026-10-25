@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\":\"Order swap NDC 65219-445-10 for etomidate injection first; review swap options for morphine, dexmedetomidine, sufentanil, and lidocaine preservative-free before current stock runs out, and swap to Medefil NDC 64253-400-91 for atropine.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1102,
+  "completion_tokens": 85,
+  "total_tokens": 1187
+ },
+ "latencyMs": 2844
+}

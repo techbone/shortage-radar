@@ -1,0 +1,12 @@
+{
+ "content": "{\n  \"focus\": [\"0409-6695-01\", \"0409-3815-12\", \"0409-3301-10\", \"0409-1323-05\", \"0409-3382-21\", \"0409-1630-10\"],\n  \"rationale\": \"Six FDA-list items are now unavailable or limited with 7 or fewer days on hand: etomidate (unavailable, 6d), morphine (limited, 6d), dexmedetomidine (limited, 7d), lidocaine (limited, 4d), sufenatil (limited, 6d), and atropine (improved from unavailable to limited, 7d). These impact Anesthesia, Analgesia, and Cardiology shelves urgently.\"\n}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1929,
+  "completion_tokens": 2249,
+  "total_tokens": 4178
+ },
+ "latencyMs": 28819
+}

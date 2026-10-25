@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\": \"0409-1630-10\", \"priority\": \"act-today\", \"headline\": \"Atropine injection limited; 7 days of stock remain\", \"why\": \"FDA reports limited supply with manufacturing delay; only 7 days of inventory on hand.\", \"action\": \"Swap to Medefil NDC 64253-400-91 for same concentration and container size.\", \"buy_instead\": \"64253-400-91\", \"citations\": [\"stock:0409-1630-10\", \"fda:0409-1630-10\", \"history:0409-1630-10\", \"alt:64253-400-91\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1941,
+  "completion_tokens": 186,
+  "total_tokens": 2127
+ },
+ "latencyMs": 2071
+}
