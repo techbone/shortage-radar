@@ -10,14 +10,15 @@
   },
   "scripts": {
     "test": "vitest run",
-    "conformance": "npm run conformance:wm && npm run evals:injection",
+    "conformance": "npm run conformance:wm && npm run conformance:hmem && npm run evals:injection",
     "conformance:wm": "WORLD_MODEL_IMPL=\"$PWD/src/engines/world-model/index.ts\" tsx conformance/world-model/runner.ts",
     "snapshot": "tsx scripts/snapshot-fda.ts",
     "replay": "tsx scripts/replay-snapshots.ts",
     "typecheck": "tsc --noEmit",
     "evals:injection": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection",
     "evals:corpus": "tsx scripts/build-injection-corpus.ts",
-    "nightshift:check": "tsx --env-file-if-exists=.env scripts/nightshift-check.ts"
+    "nightshift:check": "tsx --env-file-if-exists=.env scripts/nightshift-check.ts",
+    "conformance:hmem": "HMEM_IMPL=\"$PWD/src/engines/hmem/index.ts\" tsx conformance/hmem/runner.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",

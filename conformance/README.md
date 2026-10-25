@@ -5,6 +5,8 @@ Copied **unmodified** from [github.com/Meterless/Meterless](https://github.com/M
 | Runner | Upstream path | sha256 |
 |---|---|---|
 | `world-model/runner.ts` | `engines/world-model/conformance/runner.ts` | `7cd3b80d62d45d16f3342c62a91c89abf819c9b46970187d2f36fb9e3050da82` |
+| `hmem/runner.ts` | `engines/hmem/conformance/runner.ts` (fetched from `main` on 2026-10-25) | `d6724860761c4846…` |
+| `hmem/vectors/vectors.json` | `engines/hmem/conformance/vectors/vectors.json` | `10afb5a072334665…` |
 
 Scout Intent has no conformance runner; its eval harness is copied unmodified into `evals/scout/`:
 
