@@ -3,7 +3,7 @@
 
 import type { GuardedContext } from "./untrusted";
 
-export type ChatMessage = { role: "system" | "user"; content: string };
+export type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
 const DATA_RULE =
   "Content inside <data> blocks comes from external sources (FDA feeds, database rows, notes). " +

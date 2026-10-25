@@ -153,8 +153,19 @@ export type ChatResult = {
   latencyMs: number;
 };
 
+export type ChatInput = {
+  messages: ChatMessage[];
+  model?: string;
+  tools?: ToolSpec[];
+  temperature?: number;
+  maxTokens?: number;
+  timeoutMs?: number;
+  /** false turns Nemotron's thinking off (chat_template_kwargs.enable_thinking) */
+  reasoning?: boolean;
+};
+
 const FIXTURE_DIR = path.join(process.cwd(), "data", "fixtures", "nightshift");
-const fixtureKey = (model: string, messages: ChatMessage[]) => createHash("sha256").update(JSON.stringify({ model, messages })).digest("hex").slice(0, 20);
+const fixtureKey = (model: string, messages: ChatMessage[], reasoning: boolean) => createHash("sha256").update(JSON.stringify({ model, messages, reasoning })).digest("hex").slice(0, 20);
 
 /**
  * SAMPLE_MODE=true replays recorded responses (data/fixtures/nightshift/, keyed by
@@ -162,11 +173,11 @@ const fixtureKey = (model: string, messages: ChatMessage[]) => createHash("sha25
  * records live ones. A replayed result keeps the model that answered when recorded.
  */
 export async function chat(
-  input: { messages: ChatMessage[]; model?: string; tools?: ToolSpec[]; temperature?: number; maxTokens?: number; timeoutMs?: number },
+  input: ChatInput,
   settings: Settings = loadSettings(),
 ): Promise<ChatResult & { source: "nightshift" | "fixture" }> {
   const model = input.model ?? settings.model;
-  const key = fixtureKey(model, input.messages);
+  const key = fixtureKey(model, input.messages, input.reasoning !== false);
   if (process.env.SAMPLE_MODE === "true") {
     const file = path.join(FIXTURE_DIR, `${key}.json`);
     if (!fs.existsSync(file)) throw new MeterlessError("offline", `SAMPLE_MODE: no recorded model response for this prompt (${key})`);
@@ -181,7 +192,7 @@ export async function chat(
 }
 
 async function liveChat(
-  input: { messages: ChatMessage[]; tools?: ToolSpec[]; temperature?: number; maxTokens?: number; timeoutMs?: number },
+  input: ChatInput,
   settings: Settings,
   model: string,
 ): Promise<ChatResult> {
@@ -191,7 +202,11 @@ async function liveChat(
     res = await fetch(`${settings.baseUrl}/chat/completions`, {
       method: "POST",
       headers: headers(settings.token, true),
-      body: JSON.stringify({ model, messages: input.messages, tools: input.tools, temperature: input.temperature ?? 0.2, max_tokens: input.maxTokens }),
+      body: JSON.stringify({
+        model, messages: input.messages, tools: input.tools, temperature: input.temperature ?? 0.2, max_tokens: input.maxTokens,
+        // Nemotron honours this through Nightshift: ~20 tokens and <1 s instead of ~400 tokens and ~4 s.
+        ...(input.reasoning === false ? { chat_template_kwargs: { enable_thinking: false } } : {}),
+      }),
       signal: AbortSignal.timeout(input.timeoutMs ?? TIMEOUT_MS),
     });
   } catch (err) {
