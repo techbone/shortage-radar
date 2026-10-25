@@ -1,0 +1,5 @@
+{
+  "run_id": "example-2",
+  "input": { "query": "Anesthesia only. Which anesthesia drugs are short, and which have no same-strength alternate?" },
+  "options": { "max_items": 5 }
+}

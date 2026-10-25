@@ -183,7 +183,11 @@ export async function chat(
     if (!fs.existsSync(file)) throw new MeterlessError("offline", `SAMPLE_MODE: no recorded model response for this prompt (${key})`);
     return { ...(JSON.parse(fs.readFileSync(file, "utf-8")) as ChatResult), latencyMs: 0, source: "fixture" };
   }
-  const result = await liveChat(input, settings, model);
+  // NVIDIA's endpoint intermittently returns 502 empty_response; one quiet retry before surfacing it.
+  const result = await liveChat(input, settings, model).catch((err) => {
+    if (err instanceof MeterlessError && err.httpStatus === 502 && /empty_response/.test(err.message)) return liveChat(input, settings, model);
+    throw err;
+  });
   if (process.env.METERLESS_RECORD === "true") {
     fs.mkdirSync(FIXTURE_DIR, { recursive: true });
     fs.writeFileSync(path.join(FIXTURE_DIR, `${key}.json`), JSON.stringify(result, null, 1));

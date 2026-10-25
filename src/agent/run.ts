@@ -9,7 +9,9 @@ import { ZetarisError, type QueryResult } from "../adapters/zetaris";
 import { HMEM } from "../engines/hmem";
 import { WorldModel } from "../engines/world-model";
 import { rankAlternates, type Candidate } from "../domain/alternates";
-import { handlingFor } from "../domain/decisions";
+import { handlingFor, recordDecision, type DecisionInput } from "../domain/decisions";
+import fs from "node:fs";
+import os from "node:os";
 import {
   ingestShortageSnapshot, listSnapshots, loadSnapshot, shortageStateOf, stateHistory,
   type FdaShortageRecord, type ShortageChange, type ShortageState,
@@ -26,6 +28,8 @@ import { guardContext, guardRows } from "./untrusted";
 export type RunInput = {
   run_id?: string;
   input: { query?: string };
+  /** buyer decisions to record in H-MEM before the sweep (what the UI's buttons send) */
+  decisions?: DecisionInput[];
   options?: { sample_mode?: boolean; max_items?: number; quiet?: boolean };
 };
 
@@ -93,7 +97,7 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
   // ---- Ingest: rebuild the World Model from saved FDA snapshots, then today's feed via Zetaris.
   const world = new WorldModel({ namespace: "sweep" });
   const reports: Awaited<ReturnType<typeof ingestShortageSnapshot>>[] = [];
-  for (const file of listSnapshots()) reports.push(await ingestShortageSnapshot(world, loadSnapshot(file)));
+  for (const file of snapshotsForRun()) reports.push(await ingestShortageSnapshot(world, loadSnapshot(file)));
   const feed = await queries.feed();
   q("fda-feed", feed);
   const today = process.env.SAMPLE_MODE === "true" ? reports.at(-1)!.snapshot : new Date().toISOString().slice(0, 10);
@@ -120,7 +124,13 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
   logGuard(tracer, guardedExposure.context.withheld.length, exposureQ.rows.length);
   const exposure = toExposure(guardedExposure.rows);
 
-  const hmem = new HMEM({ directory: path.join(process.cwd(), ".state", "hmem"), namespace: "northwind", actor: "investigator" });
+  // Live runs remember across sessions; sample mode uses a throwaway store so every judge sees the same result.
+  const hmemDir = process.env.SAMPLE_MODE === "true" ? fs.mkdtempSync(path.join(os.tmpdir(), "radar-hmem-")) : path.join(process.cwd(), ".state", "hmem");
+  const hmem = new HMEM({ directory: hmemDir, namespace: "northwind", actor: "investigator", clock: process.env.SAMPLE_MODE === "true" ? () => Date.parse("2026-10-25T08:00:00Z") : undefined });
+  for (const d of req.decisions ?? []) {
+    const m = recordDecision(hmem, d);
+    tracer.log({ agent_name: "Investigator", action: "hmem:remember", engine: "hmem", output_summary: `buyer decision stored as ${m.id}: ${m.content}`, status: "success" });
+  }
   const candidates: Item[] = [];
   const handled: { ndc: string; generic: string; summary?: string }[] = [];
   let stillListed = 0;
@@ -188,6 +198,20 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
     quiet: { handled, still_listed: stillListed },
     artifacts: [path.relative(process.cwd(), tracer.file)],
   };
+}
+
+const MANIFEST = path.join(process.cwd(), "data", "fixtures", "manifest.json");
+
+/** Sample mode replays exactly the snapshots that existed when its fixtures were recorded. */
+function snapshotsForRun(): string[] {
+  const all = listSnapshots();
+  if (process.env.ZETARIS_RECORD === "true" || process.env.METERLESS_RECORD === "true") {
+    fs.mkdirSync(path.dirname(MANIFEST), { recursive: true });
+    fs.writeFileSync(MANIFEST, JSON.stringify({ snapshots: all.map((f) => path.basename(f)), recorded_at: new Date().toISOString() }, null, 2) + "\n");
+  }
+  if (process.env.SAMPLE_MODE !== "true" || !fs.existsSync(MANIFEST)) return all;
+  const pinned = new Set<string>((JSON.parse(fs.readFileSync(MANIFEST, "utf-8")) as { snapshots: string[] }).snapshots);
+  return all.filter((f) => pinned.has(path.basename(f)));
 }
 
 function currentState(world: WorldModel, ndc: string): ShortageState | null {
@@ -283,7 +307,8 @@ async function write(items: Item[], tracer: Tracer, models: Set<string>): Promis
 async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promise<{ item: BriefItem; by: "nemotron" | "fallback" }> {
   const context = guardContext([{ text: JSON.stringify(itemForWriter(item)), source: `item:${item.ndc}` }]);
   if (context.withheld.length) logGuard(tracer, context.withheld.length, 1);
-  let messages = buildMessages({ system: WRITER_SYSTEM, task: `Write the brief item for NDC ${item.ndc}.`, context });
+  const baseTask = `Write the brief item for NDC ${item.ndc}.`;
+  let messages = buildMessages({ system: WRITER_SYSTEM, task: baseTask, context });
   for (let attempt = 0; attempt <= MAX_CRITIC_LOOPS; attempt++) {
     let r;
     try {
@@ -299,14 +324,16 @@ async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promi
       draft = { ...parseJsonReply<BriefItem>(r.content), ndc: item.ndc };
     } catch {
       tracer.log({ agent_name: "Writer", action: "write", model: r.model, ms: r.latencyMs, retry_count: attempt, output_summary: `${item.generic}: reply was not valid JSON`, status: "warning" });
-      messages = [...messages, { role: "user", content: "Reply with the JSON object only." }];
+      messages = buildMessages({ system: WRITER_SYSTEM, task: `${baseTask} Reply with the JSON object only, no other text.`, context });
       continue;
     }
     const violations = critique({ headline: "", summary: "", items: [draft] }, [item]);
     tracer.log({ agent_name: "Writer", action: "write", target_agent: "Critic", model: r.model, ms: r.latencyMs, retry_count: attempt, output_summary: `${item.generic}: "${draft.headline}"`, status: "success", details: { usage: r.usage } });
     tracer.log({ agent_name: "Critic", action: "critique", target_agent: violations.length ? "Writer" : undefined, retry_count: attempt, output_summary: violations.length ? `${item.generic}: ${violations.map((v) => `${v.rule} (${v.detail})`).join("; ")}` : `${item.generic}: every claim checks out`, status: violations.length ? "warning" : "success", details: { violations } });
     if (!violations.length) return { item: draft, by: "nemotron" };
-    messages = [...messages, { role: "assistant", content: r.content }, { role: "user", content: `The Critic rejected this. Fix it and reply with the full JSON again:\n${violations.map((v) => `- ${v.rule}: ${v.detail}`).join("\n")}` }];
+    // A fresh single-turn prompt: multi-turn refinements with thinking off come back empty from the endpoint.
+    const notes = violations.map((v) => `- ${v.rule}: ${v.detail}`).join("\n");
+    messages = buildMessages({ system: WRITER_SYSTEM, task: `${baseTask}\nYour previous draft was rejected by the Critic:\n${notes}\nPrevious draft: ${JSON.stringify(draft)}\nReply with the corrected JSON only.`, context });
   }
   return { item: fallbackItem(item), by: "fallback" };
 }

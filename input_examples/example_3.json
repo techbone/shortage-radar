@@ -1,0 +1,8 @@
+{
+  "run_id": "example-3",
+  "input": { "query": "Give me the morning brief." },
+  "decisions": [
+    { "ndc": "0409-6695-01", "generic": "etomidate", "action": "bought-alternate", "alternateNdc": "65219-445-10", "stateAtDecision": "unavailable", "note": "2 weeks from Caplin via Cardinal", "by": "buyer-1" },
+    { "ndc": "0409-3815-12", "generic": "morphine", "action": "do-not-substitute", "stateAtDecision": "limited", "note": "P&T: keep the 1 mg/mL concentration; ration to OR and ICU", "by": "buyer-1" }
+  ]
+}

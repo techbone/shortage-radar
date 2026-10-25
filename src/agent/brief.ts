@@ -75,6 +75,7 @@ export const WRITER_SYSTEM = `You are the Writer in Shortage Radar. Write one it
 Rules:
 - Use only the evidence provided. "citations" lists evidence ids from the item's evidence list.
 - "buy_instead" must be one NDC from swap_options, or null. Never invent or alter an NDC.
+- If you set buy_instead, include "alt:<that ndc>" in citations.
 - State days on hand exactly as given. Never give a reason for the shortage unless fda_note states one.
 - If fda_note gives a next delivery or estimated recovery, you may say "the manufacturer reports ..." with that date.
 - Do not predict future shortages or say a drug "will" run out.
