@@ -21,6 +21,7 @@ Read `ARCHITECTURE.md` first. This file holds the rules that are easy to get wro
 - Model ids are routing modes (`meterless/auto`, `meterless/<class>.<disposition>`); read them from `GET /v1/models`. Log the model the response reports for every request.
 - The NVIDIA key lives in Nightshift's Providers tab, never in this repo or `.env`.
 - 180 s ceiling per request; our default is 90 s.
+- Nemotron reasons before it answers (~500 tokens for a one-line reply, 5–9 s). Never cap `max_tokens` below ~1024, or the request fails with a 502 `empty_response`. Budget run time for it.
 
 **Meterless engines**
 - `src/engines/world-model`, `src/engines/scout-intent` and `src/engines/hmem` are our implementations of the specs in github.com/Meterless/Meterless. They must keep passing the official conformance runners and evals (`npm run conformance`). Do not change a check to make it pass.

@@ -52,3 +52,15 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Surprises.** (1) A real manufacturer phrase, "Please disregard previous communication regarding NDC …", tripped the override rule; blocking it would hide a legitimate update. (2) Capital Cyrillic look-alikes slipped through because folding ran in the wrong order. (3) The official runner's gate fails any injection-only run on intent/tool metrics with zero examples.
 
 **Guard.** `tests/scout-intent.test.ts` (targets on each corpus, 0 blocks on 2,242 real FDA fields, field-level withholding, credential redaction, fence escaping). Evidence: `docs/evidence/scout-injection-evals.md`.
+
+---
+
+## 2026-10-25 · Nemotron answered with nothing: the token cap ate the answer
+
+**Symptom.** First live request through Nightshift returned `502 provider_error … nemotron-3.5-lightning-30b-a3b_empty_response`. Auth, model discovery and routing all worked; the request reached NVIDIA.
+
+**Cause.** Our check capped the reply at 80 tokens. Nemotron 3.5 Lightning is a reasoning model: a one-sentence answer cost 530–590 completion tokens, nearly all of it thinking, so an 80-token cap left no room for visible text.
+
+**Path.** Never cap `max_tokens` below ~1024 (rule added to `AGENTS.md`), and plan for 5–9 s per call, which shapes how many model calls one run can afford (plan once, critique once). **Guard:** `npm run nightshift:check` now uses 1024 and prints the answering model.
+
+**Also hit.** Pasting Nightshift's "Copy setup" block into `.env` put the token on a line with spaces and left six non-`KEY=value` lines behind. Fixed by extracting the token into one line; a malformed `.env` is now something to check first when a key "doesn't work".
