@@ -4,7 +4,8 @@
 
 import path from "node:path";
 import { randomUUID } from "node:crypto";
-import { chat, loadSettings, MeterlessError } from "../adapters/meterless";
+import { chat, fixtureScope, loadSettings, MeterlessError } from "../adapters/meterless";
+import { isSample, modeScope } from "../adapters/mode";
 import { ZetarisError, type QueryResult } from "../adapters/zetaris";
 import { HMEM } from "../engines/hmem";
 import { WorldModel } from "../engines/world-model";
@@ -62,21 +63,21 @@ const AGENTS = [
 const RUN_BUDGET_MS = 5 * 60_000;
 const MAX_CRITIC_LOOPS = 2;
 
-export async function runSweep(req: RunInput): Promise<RunOutput> {
-  if (req.options?.sample_mode) process.env.SAMPLE_MODE = "true";
+export async function runSweep(req: RunInput, opts: { onTrace?: (e: unknown) => void } = {}): Promise<RunOutput> {
   const runId = req.run_id ?? `run-${new Date().toISOString().slice(0, 10)}-${randomUUID().slice(0, 6)}`;
-  const tracer = new Tracer(runId, req.options?.quiet);
+  const sample = req.options?.sample_mode ?? isSample();
+  const tracer = new Tracer(runId, req.options?.quiet, opts.onTrace as never, sample);
   const t0 = Date.now();
   const models = new Set<string>();
-  const base = { run_id: runId, agents: AGENTS, trace_id: `trace-${runId}`, log_file: path.relative(process.cwd(), tracer.file) };
-  tracer.log({ agent_name: "Orchestrator", action: "start", input_summary: req.input.query || "morning sweep", status: "success", details: { sample_mode: process.env.SAMPLE_MODE === "true" } });
+  const base = { run_id: runId, agents: AGENTS, trace_id: `trace-${runId}${sample ? "-sample" : ""}`, log_file: path.relative(process.cwd(), tracer.file) };
+  tracer.log({ agent_name: "Orchestrator", action: "start", input_summary: req.input.query || "morning sweep", status: "success", details: { sample_mode: sample } });
 
   let timer: NodeJS.Timeout | undefined;
   const budget = new Promise<never>((_, reject) => {
     timer = setTimeout(() => reject(new Error(`run exceeded ${RUN_BUDGET_MS / 1000}s`)), RUN_BUDGET_MS);
   });
   try {
-    const output = await Promise.race([sweep(req, tracer, models), budget]);
+    const output = await Promise.race([modeScope.run({ sample }, () => fixtureScope.run(runId, () => sweep(req, tracer, models))), budget]);
     const status = output.recommendations.some((r) => r.written_by === "fallback") ? "partial" : "success";
     tracer.log({ agent_name: "Orchestrator", action: "complete", output_summary: `${output.recommendations.length} items in the brief, ${status}`, ms: Date.now() - t0, status: "success" });
     return { ...base, status, output, models: [...models], execution_time_seconds: secs(t0) };
@@ -100,7 +101,7 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
   for (const file of snapshotsForRun()) reports.push(await ingestShortageSnapshot(world, loadSnapshot(file)));
   const feed = await queries.feed();
   q("fda-feed", feed);
-  const today = process.env.SAMPLE_MODE === "true" ? reports.at(-1)!.snapshot : new Date().toISOString().slice(0, 10);
+  const today = isSample() ? reports.at(-1)!.snapshot : new Date().toISOString().slice(0, 10);
   reports.push(await ingestShortageSnapshot(world, feedToSnapshot(feed.rows, today, feed.queryId)));
   tracer.log({ agent_name: "Investigator", action: "world-model:ingest", engine: "world-model", output_summary: `${reports.length} feeds replayed, ${world.eventCount()} events; today's Zetaris feed added ${reports.at(-1)!.changes.length} changes`, status: "success" });
 
@@ -125,9 +126,10 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
   const exposure = toExposure(guardedExposure.rows);
 
   // Live runs remember across sessions; sample mode uses a throwaway store so every judge sees the same result.
-  const hmemDir = process.env.SAMPLE_MODE === "true" ? fs.mkdtempSync(path.join(os.tmpdir(), "radar-hmem-")) : path.join(process.cwd(), ".state", "hmem");
-  const hmem = new HMEM({ directory: hmemDir, namespace: "northwind", actor: "investigator", clock: process.env.SAMPLE_MODE === "true" ? () => Date.parse("2026-10-25T08:00:00Z") : undefined });
+  const hmemDir = isSample() ? fs.mkdtempSync(path.join(os.tmpdir(), "radar-hmem-")) : path.join(process.cwd(), ".state", "hmem");
+  const hmem = new HMEM({ directory: hmemDir, namespace: "northwind", actor: "investigator", clock: isSample() ? () => Date.parse("2026-10-25T08:00:00Z") : undefined });
   for (const d of req.decisions ?? []) {
+    if (hmem.store.byTag("decision").some((x) => !x.supersededBy && (x.data as DecisionInput | undefined)?.ndc === d.ndc && (x.data as DecisionInput).action === d.action && (x.data as DecisionInput).stateAtDecision === d.stateAtDecision)) continue; // the UI resends its decisions on every run
     const m = recordDecision(hmem, d);
     tracer.log({ agent_name: "Investigator", action: "hmem:remember", engine: "hmem", output_summary: `buyer decision stored as ${m.id}: ${m.content}`, status: "success" });
   }
@@ -209,7 +211,7 @@ function snapshotsForRun(): string[] {
     fs.mkdirSync(path.dirname(MANIFEST), { recursive: true });
     fs.writeFileSync(MANIFEST, JSON.stringify({ snapshots: all.map((f) => path.basename(f)), recorded_at: new Date().toISOString() }, null, 2) + "\n");
   }
-  if (process.env.SAMPLE_MODE !== "true" || !fs.existsSync(MANIFEST)) return all;
+  if (!isSample() || !fs.existsSync(MANIFEST)) return all;
   const pinned = new Set<string>((JSON.parse(fs.readFileSync(MANIFEST, "utf-8")) as { snapshots: string[] }).snapshots);
   return all.filter((f) => pinned.has(path.basename(f)));
 }
@@ -269,7 +271,7 @@ async function write(items: Item[], tracer: Tracer, models: Set<string>): Promis
   const writtenBy = new Map<string, string>();
   if (!items.length) return { brief: { headline: "Nothing on your shelf needs action from the latest FDA update.", summary: "No formulary items are newly short or running low.", items: [] }, writtenBy };
 
-  // One small call per item (Nemotron thinking off: the Critic checks every claim), three at a time.
+  // One small call per item (Nemotron thinking off: the Critic checks every claim), two at a time to stay inside the free endpoint's limits.
   const finalItems: BriefItem[] = new Array(items.length);
   let next = 0;
   const worker = async () => {
@@ -280,7 +282,7 @@ async function write(items: Item[], tracer: Tracer, models: Set<string>): Promis
       writtenBy.set(items[idx].ndc, by);
     }
   };
-  await Promise.all([worker(), worker(), worker()]);
+  await Promise.all([worker(), worker()]);
 
   const fallbacks = [...writtenBy.values()].filter((v) => v === "fallback").length;
   if (fallbacks) tracer.log({ agent_name: "Critic", action: "fallback", output_summary: `${fallbacks} item(s) still failed after ${MAX_CRITIC_LOOPS} refinements; replaced with plain deterministic text`, status: "warning" });
@@ -312,7 +314,14 @@ async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promi
   for (let attempt = 0; attempt <= MAX_CRITIC_LOOPS; attempt++) {
     let r;
     try {
-      r = await chat({ messages, reasoning: false, maxTokens: 700, timeoutMs: 60_000 });
+      // The free NVIDIA endpoint has latency spikes (20-40 s seen, some past 60 s): retry a timeout once with the guide's 90 s ceiling.
+      r = await chat({ messages, reasoning: false, maxTokens: 700, timeoutMs: 60_000 }).catch((err) => {
+        if (err instanceof MeterlessError && err.status === "offline" && /timeout|aborted/i.test(err.message)) {
+          tracer.log({ agent_name: "Writer", action: "write", retry_count: attempt, output_summary: `${item.generic}: model call timed out after 60 s; retrying once with 90 s`, status: "warning" });
+          return chat({ messages, reasoning: false, maxTokens: 700, timeoutMs: 90_000 });
+        }
+        throw err;
+      });
     } catch (err) {
       tracer.log({ agent_name: "Writer", action: "write", retry_count: attempt, output_summary: `${item.generic}: writer failed (${(err as Error).message.slice(0, 120)})`, status: "error" });
       if (err instanceof MeterlessError && err.status === "unauthorized") throw err;

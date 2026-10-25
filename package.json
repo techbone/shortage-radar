@@ -20,13 +20,27 @@
     "nightshift:check": "tsx --env-file-if-exists=.env scripts/nightshift-check.ts",
     "conformance:hmem": "HMEM_IMPL=\"$PWD/src/engines/hmem/index.ts\" tsx conformance/hmem/runner.ts",
     "zetaris:setup": "tsx --env-file-if-exists=.env scripts/zetaris-setup.ts",
-    "zq": "tsx --env-file-if-exists=.env scripts/zq.ts"
+    "zq": "tsx --env-file-if-exists=.env scripts/zq.ts",
+    "dev": "next dev -p ${PORT:-8000}",
+    "build": "next build",
+    "start": "next start -p ${PORT:-8000} -H 0.0.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4",
     "yaml": "^2.8.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/instrument-sans": "^5.2.5",
+    "lucide-react": "^0.468.0",
+    "next": "^15.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }

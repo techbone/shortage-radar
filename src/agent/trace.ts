@@ -33,17 +33,20 @@ export class Tracer {
   readonly file: string;
   readonly events: (TraceEvent & { timestamp: string; run_id: string })[] = [];
 
-  constructor(readonly runId: string, private quiet = false) {
+  /** A sample-mode replay writes trace-<id>-sample.jsonl so it never overwrites the live trace of the same example. */
+  constructor(readonly runId: string, private quiet = false, private onEvent?: (e: TraceEvent & { timestamp: string; run_id: string }) => void, sample = false) {
     const dir = path.join(process.cwd(), "logs");
     fs.mkdirSync(dir, { recursive: true });
-    this.file = path.join(dir, `trace-${runId}.jsonl`);
+    this.file = path.join(dir, `trace-${runId}${sample ? "-sample" : ""}.jsonl`);
     fs.writeFileSync(this.file, "");
   }
 
   log(e: TraceEvent): void {
     const event = { timestamp: new Date().toISOString(), run_id: this.runId, ...e };
     const line = mask(JSON.stringify(event));
-    this.events.push(JSON.parse(line));
+    const masked = JSON.parse(line);
+    this.events.push(masked);
+    this.onEvent?.(masked);
     fs.appendFileSync(this.file, line + "\n");
     if (this.quiet) return;
     const level = e.status === "error" ? "ERROR" : e.status === "warning" ? "WARN" : "INFO";

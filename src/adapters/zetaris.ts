@@ -10,6 +10,7 @@
 // keyed by a hash of the SQL; ZETARIS_RECORD=true records live responses there.
 
 import { createHash, randomUUID } from "node:crypto";
+import { isSample } from "./mode";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -33,7 +34,7 @@ const FIXTURE_DIR = path.join(process.cwd(), "data", "fixtures", "zetaris");
 const TIMEOUT_MS = 60_000;
 const READ_ONLY = /^\s*(?:select|with|show|describe|desc)\b/i;
 
-export const sampleMode = () => process.env.SAMPLE_MODE === "true";
+export const sampleMode = isSample;
 
 /** Lightning SQL is one statement per call; reject stacked statements outright. */
 export function assertSingleStatement(sql: string): void {

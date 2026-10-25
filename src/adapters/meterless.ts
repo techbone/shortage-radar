@@ -3,6 +3,8 @@
 // only AI provider; Nightshift routes each request to a lane (Nemotron for us).
 // Settings come from env, falling back to .state/settings.json; the token is never logged.
 
+import { AsyncLocalStorage } from "node:async_hooks";
+import { isSample } from "./mode";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -167,10 +169,14 @@ export type ChatInput = {
 const FIXTURE_DIR = path.join(process.cwd(), "data", "fixtures", "nightshift");
 const fixtureKey = (model: string, messages: ChatMessage[], reasoning: boolean) => createHash("sha256").update(JSON.stringify({ model, messages, reasoning })).digest("hex").slice(0, 20);
 
+/** The current run id, so a recorded example replays exactly the replies it got when it ran. */
+export const fixtureScope = new AsyncLocalStorage<string>();
+
 /**
- * SAMPLE_MODE=true replays recorded responses (data/fixtures/nightshift/, keyed by
- * model + messages) so the full flow runs with no Nightshift; METERLESS_RECORD=true
- * records live ones. A replayed result keeps the model that answered when recorded.
+ * SAMPLE_MODE=true replays recorded responses so the full flow runs with no Nightshift;
+ * METERLESS_RECORD=true records live ones. Two copies are kept under data/fixtures/nightshift/:
+ * <runId>/<key>.json (exact replay of that run) and <key>.json (first reply for a prompt,
+ * the fallback for any other run). A replayed result keeps the model that answered when recorded.
  */
 export async function chat(
   input: ChatInput,
@@ -178,9 +184,12 @@ export async function chat(
 ): Promise<ChatResult & { source: "nightshift" | "fixture" }> {
   const model = input.model ?? settings.model;
   const key = fixtureKey(model, input.messages, input.reasoning !== false);
-  if (process.env.SAMPLE_MODE === "true") {
-    const file = path.join(FIXTURE_DIR, `${key}.json`);
-    if (!fs.existsSync(file)) throw new MeterlessError("offline", `SAMPLE_MODE: no recorded model response for this prompt (${key})`);
+  const scope = fixtureScope.getStore();
+  const perRun = scope ? path.join(FIXTURE_DIR, scope.replace(/[^\w.-]/g, "_"), `${key}.json`) : undefined;
+  const byPrompt = path.join(FIXTURE_DIR, `${key}.json`);
+  if (isSample()) {
+    const file = [perRun, byPrompt].find((f) => f && fs.existsSync(f));
+    if (!file) throw new MeterlessError("offline", `SAMPLE_MODE: no recorded model response for this prompt (${key})`);
     return { ...(JSON.parse(fs.readFileSync(file, "utf-8")) as ChatResult), latencyMs: 0, source: "fixture" };
   }
   // NVIDIA's endpoint intermittently returns 502 empty_response; one quiet retry before surfacing it.
@@ -189,8 +198,13 @@ export async function chat(
     throw err;
   });
   if (process.env.METERLESS_RECORD === "true") {
+    const body = JSON.stringify(result, null, 1);
     fs.mkdirSync(FIXTURE_DIR, { recursive: true });
-    fs.writeFileSync(path.join(FIXTURE_DIR, `${key}.json`), JSON.stringify(result, null, 1));
+    if (!fs.existsSync(byPrompt)) fs.writeFileSync(byPrompt, body);
+    if (perRun) {
+      fs.mkdirSync(path.dirname(perRun), { recursive: true });
+      fs.writeFileSync(perRun, body);
+    }
   }
   return { ...result, source: "nightshift" };
 }
