@@ -7,6 +7,7 @@
 //                                                            each placed at its beat's start
 //   node scripts/demo/assemble.mjs --music                   add a quiet synthesized pad under the voice, ducked while you speak
 //   node scripts/demo/assemble.mjs --burn-srt                burn the narration subtitles in (use with footage recorded --no-captions)
+//   node scripts/demo/assemble.mjs --out some.mp4            write somewhere else instead of docs/demo/shortage-radar-demo.mp4
 //
 // Always writes docs/demo/shortage-radar-demo.srt (the narration, timed to the beats) for upload as captions.
 // ffmpeg: set FFMPEG to its path, or have it on PATH (brew install ffmpeg).
@@ -23,7 +24,7 @@ const FFMPEG = process.env.FFMPEG ?? "ffmpeg";
 
 const timing = JSON.parse(fs.readFileSync(path.join(OUT, "beats.json"), "utf-8"));
 const { beats, duration_seconds: duration } = timing;
-const target = path.join(OUT, "shortage-radar-demo.mp4");
+const target = opt("--out") ? path.resolve(opt("--out")) : path.join(OUT, "shortage-radar-demo.mp4");
 
 // ---- subtitles from the narration: sentences, spread over each beat by length
 const stamp = (s) => { const ms = Math.round(s * 1000); const p = (n, w = 2) => String(n).padStart(w, "0"); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
@@ -40,6 +41,7 @@ const srtPath = path.join(OUT, "shortage-radar-demo.srt");
 fs.writeFileSync(srtPath, srt);
 
 // ---- audio inputs
+// libass sizes SRT styles on a 288-line canvas: FontSize=9 is about 34 px at 1080p.
 // Frames carry their real timestamps (frames.txt gives each one's duration), so video time equals wall-clock time.
 const inputs = ["-f", "concat", "-safe", "0", "-i", path.join(OUT, timing.frames_list)];
 const filters = []; const audioLabels = [];
@@ -49,7 +51,7 @@ if (opt("--voice")) addVoice(path.resolve(opt("--voice")), Number(opt("--voice-d
 if (opt("--voice-dir")) {
   const dir = path.resolve(opt("--voice-dir"));
   for (const b of beats) {
-    const file = ["m4a", "wav", "mp3", "aac", "mp4", "ogg"].map((e) => path.join(dir, `${b.id}.${e}`)).find((f) => fs.existsSync(f));
+    const file = ["m4a", "wav", "mp3", "aac", "mp4", "ogg", "aiff", "aif", "flac", "webm"].map((e) => path.join(dir, `${b.id}.${e}`)).find((f) => fs.existsSync(f));
     if (!file) { console.warn(`[WARN] no take for beat "${b.id}" in ${dir}`); continue; }
     addVoice(file, b.start, `v_${b.id}`);
     takes.push({ id: b.id, file });
@@ -70,16 +72,21 @@ if (has("--music")) {
   const expr = f.map((hz, i) => `0.25*sin(2*PI*${hz}*t+${i})*(0.7+0.3*sin(2*PI*0.08*t+${i}))`).join("+");
   inputs.push("-f", "lavfi", "-t", String(duration), "-i", `aevalsrc=${expr}:s=44100:c=stereo`);
   const mi = inputs.filter((x) => x === "-i").length - 1;
-  filters.push(`[${mi}:a]lowpass=f=1400,volume=0.22,afade=t=in:st=0:d=3,afade=t=out:st=${Math.max(0, duration - 4)}:d=4[music]`);
-  if (audio) { filters.push(`${audio}asplit=2[vk][vm]`); filters.push(`[music][vk]sidechaincompress=threshold=0.02:ratio=10:attack=30:release=600[duck]`); filters.push(`[duck][vm]amix=inputs=2:duration=longest:normalize=0[mix]`.replace(":normalize=0", "")); audio = "[mix]"; }
-  else { filters.push("[music]anull[mix]"); audio = "[mix]"; }
+  const fmt = "aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo"; // sidechaincompress and amix need identical formats
+  filters.push(`[${mi}:a]lowpass=f=1400,volume=0.22,afade=t=in:st=0:d=3,afade=t=out:st=${Math.max(0, duration - 4)}:d=4,${fmt}[music]`);
+  if (audio) {
+    filters.push(`${audio}${fmt},asplit=2[vk][vm]`);
+    filters.push(`[music][vk]sidechaincompress=threshold=0.02:ratio=10:attack=30:release=600[duck]`);
+    filters.push(`[duck][vm]amix=inputs=2:duration=longest:dropout_transition=0,volume=2[mix]`);
+    audio = "[mix]";
+  } else { filters.push("[music]anull[mix]"); audio = "[mix]"; }
 }
 if (!audio) { inputs.push("-f", "lavfi", "-t", String(duration), "-i", "anullsrc=r=44100:cl=stereo"); audio = `${inputs.filter((x) => x === "-i").length - 1}:a`; }
 else { filters.push(`${audio}loudnorm=I=-16:TP=-1.5:LRA=11[final]`); audio = "[final]"; }
 
 const vf = [`scale=1920:1080:flags=lanczos`, "fps=30"];
-if (has("--burn-srt")) vf.push(`subtitles=${srtPath.replace(/'/g, "\\'")}:force_style='FontName=Helvetica,FontSize=22,PrimaryColour=&H00F5F5F5,OutlineColour=&HCC0C0A09,BorderStyle=3,Outline=0,Shadow=0,MarginV=34'`);
-const cmd = ["-y", "-hide_banner", "-loglevel", "error", ...inputs, ...(filters.length ? ["-filter_complex", filters.join(";")] : []), "-map", "0:v", "-vf", vf.join(","), "-map", audio.startsWith("[") ? audio : audio, "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "-t", String(duration), target];
+if (has("--burn-srt")) vf.push(`subtitles=${srtPath.replace(/'/g, "\\'")}:force_style='FontName=Helvetica,FontSize=9,PrimaryColour=&H00F5F5F5,BorderStyle=3,OutlineColour=&H260C0A09,Outline=4,Shadow=0,Alignment=2,MarginV=12'`);
+const cmd = ["-y", "-hide_banner", "-loglevel", "error", ...inputs, ...(filters.length ? ["-filter_complex", filters.join(";")] : []), "-map", "0:v", "-vf", vf.join(","), "-map", audio.startsWith("[") ? audio : audio, "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart", "-t", String(duration), target];
 // With -filter_complex, -vf on the same input is not allowed; fold the video filter into the graph.
 const gi = cmd.indexOf("-vf");
 let finalCmd = cmd;
