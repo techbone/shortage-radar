@@ -22,7 +22,14 @@ logs/*
 
 __pycache__/
 *.pyc
-docs/demo/raw/
-docs/demo/*.mp4
-docs/demo/takes/
-docs/demo/raw-proof/
+
+# Build-time tooling kept local: the demo video kit, the deck sources, the submission draft, the snapshot cron
+docs/demo/
+scripts/demo/
+scripts/build-deck.mjs
+scripts/build-pptx.mjs
+docs/deck/*
+!docs/deck/Shortage-Radar-deck.pdf
+!docs/deck/Shortage-Radar-deck.pptx
+docs/submission.md
+scripts/daily-snapshot.sh

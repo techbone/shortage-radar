@@ -1,5 +1,7 @@
 # Shortage Radar
 
+![Shortage Radar: the morning brief, with days on hand and what to buy instead for each drug](docs/screenshot.png)
+
 ### Shortage Radar doesn't guess what will run short. It tells a hospital buyer what to do about what just did.
 
 [![tests](https://img.shields.io/badge/tests-76%20passing-0f766e)](#tests-and-evidence)
@@ -14,11 +16,11 @@ An agent for a hospital pharmacy buyer. Every morning it checks the FDA drug sho
 
 **Real:** the FDA shortage data (openFDA, live), the NDCs, every query through Zetaris, every model call through Nightshift to Nemotron. **Fictional:** the hospital, "Northwind General", whose stock levels are invented.
 
-[**Watch the demo**](#demo) · [**Run it (2 minutes, no keys)**](#run-it) · [**Verify it yourself**](#verify-it-yourself-in-60-seconds) · [**Architecture**](ARCHITECTURE.md) · [**Build log**](docs/build-log.md)
+[**Watch the demo (3:54)**](https://youtu.be/xAKDnQNLiOQ) · [**Run it (2 minutes, no keys)**](#run-it) · [**Verify it yourself**](#verify-it-yourself-in-60-seconds) · [**Architecture**](ARCHITECTURE.md) · [**Build log**](docs/build-log.md)
 
 ## Demo
 
-**[Demo video](https://youtu.be/xAKDnQNLiOQ)** (3:54, one real live run, narrated; nothing sped up). How it was made, and the script it follows, are in [docs/demo/](docs/demo/README.md). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
+**[Demo video](https://youtu.be/xAKDnQNLiOQ)** (3:54, one real live run, narrated; nothing sped up). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
 
 The app also runs in **Sample mode** on a fresh clone with no Zetaris, Nightshift or network: it replays a recorded live run, labelled as a replay, so what you see is what the live system produced.
 
@@ -148,6 +150,8 @@ Details, the component table and the data model are in [ARCHITECTURE.md](ARCHITE
 
 ## Run it
 
+There is no hosted link on purpose: Zetaris runs as local containers, so a public deployment could not reach the data layer. The app ships as a Docker image instead, which opens in Sample mode with no keys.
+
 **Sample mode, no keys, no services** (what a judge needs):
 
 ```bash
@@ -164,13 +168,22 @@ Without Zetaris and Nightshift the app opens in Sample mode on its own. `SAMPLE_
 **Live mode** needs [Zetaris](https://github.com/zetaris/getting-started) running locally and Meterless Nightshift with an NVIDIA key and a Nemotron lane:
 
 ```bash
-cp .env.example .env                                   # fill in ZETARIS_API_KEY, METERLESS_RUNTIME_TOKEN
+cp .env.example .env                                   # fill in the two keys below
 docker compose up -d hospital-db                       # the synthetic hospital database
 npm run zetaris:setup                                  # registers the FDA feed and the hospital database in Zetaris
 npm run nightshift:check                               # wrong token → unauthorized, auto-detect, a real Nemotron reply
 npm run build && npm start                             # http://localhost:8000 → Live
 npx tsx --env-file=.env run.ts input_examples/example_1.json   # or headless, JSON out
 ```
+
+| Variable | Required | What it is |
+|---|---|---|
+| `ZETARIS_API_KEY` | live mode | API token created in the Zetaris UI (Management, API Tokens) |
+| `ZETARIS_REST_URL`, `ZETARIS_ORG_ID` | no | defaults `http://localhost:8888/api/v1.0` and `1` |
+| `METERLESS_RUNTIME_TOKEN` | live mode | Nightshift Runtime token, from Nightshift's Console |
+| `METERLESS_BASE_URL`, `METERLESS_MODEL` | no | defaults `http://127.0.0.1:8088/v1` and `meterless/auto` |
+| `SAMPLE_MODE` | no | `true` replays recorded runs, no services needed |
+| `OPENFDA_API_KEY` | no | raises openFDA's rate limit for `npm run snapshot` |
 
 Inside Docker, Zetaris and Nightshift on the host are reached at `host.docker.internal` (set automatically by `docker compose up app`). The NVIDIA key lives only in Nightshift's Providers tab and is never in this repo, `.env`, logs or traces. A live sweep takes about 40-160 s, bounded by a 5-minute budget.
 
@@ -203,7 +216,7 @@ data/snapshots/         saved FDA feeds (gzipped); data/fixtures/ recorded rows 
 conformance/, evals/    the official Meterless runners, unmodified, plus our corpus files
 tests/                  Vitest
 input_examples/, output_examples/, logs/    three examples, their live outputs and traces
-docs/                   build-log.md, evidence/, deck/ (slides), demo/ (video kit), submission.md
+docs/                   build-log.md (what broke and how we fixed it), evidence/ (saved test output), deck/ (slides, PDF and PPTX)
 ```
 
 ## Limitations and disclosure
@@ -212,5 +225,5 @@ docs/                   build-log.md, evidence/, deck/ (slides), demo/ (video ki
 - Alternate matching reads strengths from FDA presentation text. Presentations it cannot parse go to "Pharmacist review", never to a swap.
 - Scout is pattern based and covers the guard stage of the spec, not intent routing or tool planning.
 - The free NVIDIA endpoint has latency spikes (20-40 s seen) and occasional empty replies; the adapter retries once and the Critic loop falls back to plain text rather than fail.
-- **Dependencies:** Next.js is on 15.5.28, past the December 2025 RSC advisory (CVE-2025-66478). `npm audit` still lists `postcss` inside Next's build tooling and `image-size` in the slide-deck script; both only read our own files at build time, and the first can only be fixed by a breaking jump to Next 16. See [docs/build-log.md](docs/build-log.md).
+- **Dependencies:** Next.js is on 15.5.28, past the December 2025 RSC advisory (CVE-2025-66478). `npm audit` still lists `postcss` inside Next's build tooling; it only reads our own CSS at build time, and the fix is a breaking jump to Next 16. See [docs/build-log.md](docs/build-log.md).
 - Built for the Open Agent Hackathon 2026, Track 02, solo. First commit 23 Oct 2026. Built with Claude Code. No product code predates the build window; the engines follow the Apache-2.0 specs in [Meterless/Meterless](https://github.com/Meterless/Meterless), whose official test runners are included unmodified. The FDA data is public domain ([openFDA terms](https://open.fda.gov/terms/)).
