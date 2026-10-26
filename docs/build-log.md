@@ -88,3 +88,13 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Cause.** openFDA revised that record in place later on 23 Oct (`update_type: Revised`) without bumping the feed date. Our snapshot job skipped any day it had already saved, so it would silently miss same-day revisions. The World Model caught it only because the live Zetaris feed is ingested on top of the snapshots and the diff came out non-empty.
 
 **Path.** The snapshot job compares content, not the date, and saves a same-day revision as `fda-shortages-<date>-<HHMM>z.json.gz`; snapshots replay date-first, original before revision (`-` sorts before `.`, which first put the revision ahead of the original and "undid" it). Separately, 6 NDCs carry two entries with the same status and date; the more severe state now wins, so ordering never decides what a buyer sees. **Guard:** `tests/world-model-shortages.test.ts` (ordering), `npm run replay` shows 14 + 1 changes in order.
+
+---
+
+## 2026-10-26 · A known-vulnerable Next.js, caught by a log line in the Docker build
+
+**Symptom.** The Docker build's `npm ci` printed `npm warn deprecated next@15.3.3: This version has a security vulnerability (CVE-2025-66478)`. We had pinned 15.3.3 on day 4 without checking it.
+
+**Path.** Checked which releases were clean (`npm view next@<v> deprecated`): 15.3.6, 15.4.8 and 15.5.7 were themselves deprecated for the follow-up advisory; 15.3.8 and 15.5.9+ were not. Upgraded to 15.5.28, ran `npm audit fix`, and upgraded the dev tools that had advisories (vitest 5, yaml, pptxgenjs 4). Rebuilt, re-ran the 76 tests, the official runners, and every browser flow (decisions, reload, Forget, a live Nemotron run, `POST /run`).
+
+**Left, on purpose.** `npm audit` still reports `postcss` inside Next's build (fixable only by moving to Next 16, a breaking change) and `image-size` in the PPTX builder script. Both only process our own files at build time; neither is reachable from a network request. **Lesson:** read the install log of a fresh build, not just the exit code.
