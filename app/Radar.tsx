@@ -14,6 +14,12 @@ type Rec = NonNullable<RunOutput["output"]>["recommendations"][number];
 type Status = { live_available: boolean; zetaris: string; nightshift: string; sample_available: boolean };
 type Tab = "brief" | "trace" | "engines";
 
+// Sample mode replays the model replies recorded for the example that asked this same question.
+const REPLAYS: Record<string, string> = {
+  "Give me the morning brief: what changed on the FDA list that hits our shelf?": "example-1",
+  "Anesthesia only. Which anesthesia drugs are short, and which have no same-strength alternate?": "example-2",
+};
+
 const QUERIES = [
   { label: "Morning brief", text: "Give me the morning brief: what changed on the FDA list that hits our shelf?" },
   { label: "Anesthesia only", text: "Anesthesia only. Which anesthesia drugs are short, and which have no same-strength alternate?" },
@@ -150,7 +156,7 @@ export function Radar() {
       const res = await fetch("/api/run?stream=1", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ input: { query }, decisions, options: { sample_mode: mode === "sample" } }),
+        body: JSON.stringify({ input: { query }, decisions, options: { sample_mode: mode === "sample", replay_of: mode === "sample" ? REPLAYS[query] : undefined } }),
       });
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => null);
@@ -260,7 +266,7 @@ export function Radar() {
           {tab === "brief" && (
             <>
               {!out && !running && !error && <Empty />}
-              {!out && running && <p className="muted">{(() => { const cur = steps.find((x) => x.state === "running"); return cur ? `${cur.label}: ${cur.detail}` : "Starting…"; })()}</p>}
+              {!out && running && <LiveLog events={events} elapsed={elapsed} />}
               {out && (
                 <>
                   <section className="hero">
@@ -307,6 +313,27 @@ export function Radar() {
 
 // ---------------------------------------------------------------- views
 
+function LiveLog({ events, elapsed }: { events: Trace[]; elapsed: number }) {
+  const t0 = events.length ? Date.parse(events[0].timestamp) : 0;
+  const shown = events.filter((e) => !(e.agent_name === "Orchestrator" && e.action === "start")).slice(-12);
+  return (
+    <section className="live" aria-live="polite" aria-label="Live trace">
+      <div className="live-head"><Loader2 className="i spin" /><span>Live trace</span><span className="muted mono">{events.length} events · {elapsed}s</span></div>
+      {shown.length === 0 && <p className="muted" style={{ margin: 0 }}>Starting…</p>}
+      <ul>
+        {shown.map((e, i) => (
+          <li key={e.timestamp + i} className={i === shown.length - 1 ? "latest" : undefined}>
+            <span className="mono t">+{((Date.parse(e.timestamp) - t0) / 1000).toFixed(1)}s</span>
+            <span className="who">{e.agent_name}</span>
+            <span className="what">{e.output_summary ?? e.input_summary}</span>
+            {e.model && <span className="chip mono">{e.model.replace("nvidia/", "")}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Empty() {
   return (
     <div className="empty">
@@ -331,7 +358,7 @@ function BriefTable({ recs, selected, onSelect }: { recs: Rec[]; selected: strin
             const swap = r.swaps.find((s) => s.ndc === r.buy_instead);
             const was = prevState(r);
             return (
-              <tr key={r.ndc} className="row" tabIndex={0} aria-selected={selected === r.ndc} onClick={() => onSelect(r.ndc)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSelect(r.ndc)}>
+              <tr key={r.ndc} className="row" data-ndc={r.ndc} data-swaps={r.swaps.length} data-review={r.review.length} tabIndex={0} aria-selected={selected === r.ndc} onClick={() => onSelect(r.ndc)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSelect(r.ndc)}>
                 <td><div className="drug" style={{ textTransform: "capitalize" }}>{r.generic}</div><div className="sub mono">{r.ndc}</div><div className="sub">{r.headline}</div></td>
                 <td data-label="FDA status"><div><StateChip state={r.fda_state} />{was && was !== r.fda_state && <div className="sub">was {stateLabel[was]?.toLowerCase() ?? was}</div>}</div></td>
                 <td className="num" data-label="Days on hand"><div><span className={`days ${r.days_on_hand <= 7 ? "low" : ""}`}>{num(r.days_on_hand)}</span><div className="sub mono">{r.on_hand_units} at {r.daily_usage_units}/day</div></div></td>

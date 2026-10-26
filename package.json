@@ -24,7 +24,8 @@
     "dev": "next dev -p ${PORT:-8000}",
     "build": "next build",
     "start": "next start -p ${PORT:-8000} -H 0.0.0.0",
-    "evals:injection:raw": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection"
+    "evals:injection:raw": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection",
+    "zetaris:refresh": "tsx --env-file-if-exists=.env scripts/zetaris-refresh.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",

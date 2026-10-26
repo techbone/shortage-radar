@@ -45,6 +45,14 @@ describe("sample mode replays a recorded live run", () => {
     expect(r.output!.recommendations.length).toBeGreaterThan(0);
   });
 
+  it("replay_of gives a UI-style sample run the exact recorded replies, with no warnings", async () => {
+    const r = await runSweep({ run_id: "ui-like-run", input: { query: example(1).input.query }, options: { sample_mode: true, quiet: true, replay_of: "example-1" } });
+    expect(r.status).toBe("success");
+    const recorded = JSON.parse(fs.readFileSync("output_examples/example_1.json", "utf-8")).output;
+    expect(r.output!.summary).toBe(recorded.summary);
+    expect(r.output!.recommendations.map((x) => x.headline)).toEqual(recorded.recommendations.map((x: { headline: string }) => x.headline));
+  });
+
   it("two requests with different modes do not leak into each other", async () => {
     const before = process.env.SAMPLE_MODE;
     await runSweep(sample(example(1), "test-leak"));

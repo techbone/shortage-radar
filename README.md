@@ -2,7 +2,7 @@
 
 ### Shortage Radar doesn't guess what will run short. It tells a hospital buyer what to do about what just did.
 
-[![tests](https://img.shields.io/badge/tests-TESTS_N%20passing-0f766e)](#tests-and-evidence)
+[![tests](https://img.shields.io/badge/tests-76%20passing-0f766e)](#tests-and-evidence)
 [![World Model](https://img.shields.io/badge/World%20Model%20conformance-8%2F8-0f766e)](docs/evidence/world-model-conformance.md)
 [![H-MEM](https://img.shields.io/badge/H--MEM%20conformance-13%2F13-0f766e)](docs/evidence/hmem-conformance.md)
 [![Scout](https://img.shields.io/badge/Scout%20injection-P%201.000%20%C2%B7%20R%200.980-0f766e)](docs/evidence/scout-injection-evals.md)
@@ -18,7 +18,9 @@ An agent for a hospital pharmacy buyer. Every morning it checks the FDA drug sho
 
 ## Demo
 
-_Demo video: link added at submission._ The app also runs in **Sample mode** on a fresh clone with no Zetaris, Nightshift or network: it replays a recorded live run, so what you see is what the live system produced.
+_Demo video (3.5 minutes, one real live run, nothing sped up): link added at submission._ How it was made, and the script it follows, are in [docs/demo/](docs/demo/README.md). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
+
+The app also runs in **Sample mode** on a fresh clone with no Zetaris, Nightshift or network: it replays a recorded live run, labelled as a replay, so what you see is what the live system produced.
 
 ## Verify it yourself in 60 seconds
 
@@ -28,7 +30,7 @@ git clone https://github.com/techbone/shortage-radar && cd shortage-radar && npm
 npm run conformance:wm      # World Model, official runner       →  8/8 checks passed
 npm run conformance:hmem    # H-MEM, official runner             →  13/13 checks passed
 npm run evals:injection     # Scout, official eval runner        →  injection_precision 1.000, injection_recall 0.980 (2,316 cases)
-npm test                    # unit + integration tests           →  TESTS_N passed
+npm test                    # unit + integration tests           →  76 passed
 
 # the whole agent, offline, no keys:
 SAMPLE_MODE=true npx tsx run.ts input_examples/example_1.json
@@ -172,7 +174,7 @@ npx tsx --env-file=.env run.ts input_examples/example_1.json   # or headless, JS
 
 Inside Docker, Zetaris and Nightshift on the host are reached at `host.docker.internal` (set automatically by `docker compose up app`). The NVIDIA key lives only in Nightshift's Providers tab and is never in this repo, `.env`, logs or traces. A live sweep takes about 40-160 s, bounded by a 5-minute budget.
 
-**The `/run` API** takes `{"run_id", "input": {"query"}, "decisions": [...], "options": {"sample_mode", "max_items"}}` and returns `{run_id, status, output, agents, models, trace_id, log_file, execution_time_seconds}`. `?stream=1` streams trace events as they happen. Failures return `{status: "error", error: {type, message, recoverable}}`. Three example inputs and their live outputs are in [input_examples/](input_examples/) and [output_examples/](output_examples/); example 3 shows H-MEM keeping two handled items out of the brief.
+**The `/run` API** takes `{"run_id", "input": {"query"}, "decisions": [...], "options": {"sample_mode", "max_items", "fallback", "replay_of"}}` (`replay_of` names the recorded example whose exact model replies a sample run should replay) and returns `{run_id, status, output, agents, models, trace_id, log_file, execution_time_seconds}`. `?stream=1` streams trace events as they happen. Failures return `{status: "error", error: {type, message, recoverable}}`. Three example inputs and their live outputs are in [input_examples/](input_examples/) and [output_examples/](output_examples/); example 3 shows H-MEM keeping two handled items out of the brief.
 
 ## Tests and evidence
 
@@ -181,7 +183,7 @@ Inside Docker, Zetaris and Nightshift on the host are reached at `host.docker.in
 | World Model conformance (official runner) | `npm run conformance:wm` | 8/8 |
 | H-MEM conformance (official runner) | `npm run conformance:hmem` | 13/13 |
 | Scout injection evals (official runner + our FDA corpus) | `npm run evals:injection` | precision 1.000, recall 0.980 on 2,316 cases |
-| Tests | `npm test` | TESTS_N passing |
+| Tests | `npm test` | 76 passing |
 | Nightshift contract and live Nemotron request | `npm run nightshift:check` | [evidence](docs/evidence/nightshift-nemotron-check.md) |
 
 The injection result has caveats written down: some of our cases were written while fixing misses, so the domain figures are optimistic, and on 6 attacks written after the rules it caught **0** (5 were then patched, Polish still gets through). The figures to trust are the official set and the 2,242 real FDA text fields, none of which was blocked. Full list of misses and fixes: [docs/evidence/scout-injection-evals.md](docs/evidence/scout-injection-evals.md).
@@ -201,7 +203,7 @@ data/snapshots/         saved FDA feeds (gzipped); data/fixtures/ recorded rows 
 conformance/, evals/    the official Meterless runners, unmodified, plus our corpus files
 tests/                  Vitest
 input_examples/, output_examples/, logs/    three examples, their live outputs and traces
-docs/                   build-log.md, evidence/, demo-script.md, submission.md
+docs/                   build-log.md, evidence/, deck/ (slides), demo/ (video kit), submission.md
 ```
 
 ## Limitations and disclosure

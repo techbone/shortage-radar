@@ -213,3 +213,15 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--sunken)
   .t.brief tr.row:hover td { background: none; }
   .sub { max-width: none; white-space: normal; }
 }
+
+/* ---- live trace while a run is in progress ---- */
+.live { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 16px 20px; max-width: 980px; }
+.live-head { display: flex; align-items: center; gap: 10px; font-weight: 600; margin-bottom: 12px; }
+.live-head .muted { margin-left: auto; font-weight: 400; }
+.live ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.live li { display: grid; grid-template-columns: 64px 96px 1fr auto; gap: 12px; align-items: baseline; font-size: 13px; color: var(--muted); }
+.live li.latest { color: var(--text); }
+.live .t { color: var(--muted); }
+.live .who { font-weight: 600; color: var(--text); }
+.live .what { overflow-wrap: anywhere; }
+@media (max-width: 760px) { .live li { grid-template-columns: 52px 1fr; } .live .who { display: none; } .live .chip { display: none; } }

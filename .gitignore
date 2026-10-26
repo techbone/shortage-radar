@@ -22,3 +22,5 @@ logs/*
 
 __pycache__/
 *.pyc
+docs/demo/raw/
+docs/demo/*.mp4

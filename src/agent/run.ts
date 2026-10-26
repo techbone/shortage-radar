@@ -31,7 +31,7 @@ export type RunInput = {
   input: { query?: string };
   /** buyer decisions to record in H-MEM before the sweep (what the UI's buttons send) */
   decisions?: DecisionInput[];
-  options?: { sample_mode?: boolean; max_items?: number; quiet?: boolean; /** default true: replay a recorded run if live services are unreachable */ fallback?: boolean };
+  options?: { sample_mode?: boolean; max_items?: number; quiet?: boolean; /** default true: replay a recorded run if live services are unreachable */ fallback?: boolean; /** sample mode: replay the exact model replies recorded for this example run (e.g. "example-1") */ replay_of?: string };
 };
 
 export type RunOutput = {
@@ -79,7 +79,7 @@ export async function runSweep(req: RunInput, opts: { onTrace?: (e: unknown) => 
     timer = setTimeout(() => reject(new Error(`run exceeded ${RUN_BUDGET_MS / 1000}s`)), RUN_BUDGET_MS);
   });
   try {
-    const output = await Promise.race([modeScope.run({ sample }, () => fixtureScope.run(runId, () => sweep(req, tracer, models))), budget]);
+    const output = await Promise.race([modeScope.run({ sample }, () => fixtureScope.run(req.options?.replay_of ?? runId, () => sweep(req, tracer, models))), budget]);
     const status = output.recommendations.some((r) => r.written_by === "fallback") ? "partial" : "success";
     tracer.log({ agent_name: "Orchestrator", action: "complete", output_summary: `${output.recommendations.length} items in the brief, ${status}`, ms: Date.now() - t0, status: "success" });
     return { ...base, status, output, models: [...models], execution_time_seconds: secs(t0) };
@@ -274,7 +274,7 @@ async function plan(query: string, candidates: Item[], maxItems: number, tracer:
     tracer.log({ agent_name: "Planner", action: "plan", target_agent: "Investigator", model: r.model, ms: r.latencyMs, input_summary: query || "morning brief", output_summary: `${focus.length} items: ${focus.map((n) => candidates.find((c) => c.ndc === n)!.generic).join(", ")}. ${reply.rationale ?? ""}`, status: focus.length ? "success" : "warning", details: { dropped: (reply.focus ?? []).length - focus.length } });
     return focus.length ? focus : fallback;
   } catch (err) {
-    tracer.log({ agent_name: "Planner", action: "plan", output_summary: `planner failed (${(err as Error).message.slice(0, 120)}); using priority order`, status: "warning" });
+    tracer.log({ agent_name: "Planner", action: "plan", output_summary: sampleMiss(err) ? `${SAMPLE_NOTE}, so the items are covered in priority order.` : `planner failed (${(err as Error).message.slice(0, 120)}); using priority order`, status: "warning" });
     if (err instanceof MeterlessError && err.status === "unauthorized") throw err;
     return fallback;
   }
@@ -314,7 +314,7 @@ async function write(items: Item[], tracer: Tracer, models: Set<string>): Promis
     if (!bad && reply.summary) summary = reply.summary;
     tracer.log({ agent_name: "Writer", action: "summarize", model: r.model, ms: r.latencyMs, output_summary: bad ? "summary used prediction language; kept the plain one" : reply.summary, status: bad ? "warning" : "success" });
   } catch (err) {
-    tracer.log({ agent_name: "Writer", action: "summarize", output_summary: `kept plain summary (${(err as Error).message.slice(0, 100)})`, status: "warning" });
+    tracer.log({ agent_name: "Writer", action: "summarize", output_summary: sampleMiss(err) ? `${SAMPLE_NOTE}; plain summary used.` : `kept plain summary (${(err as Error).message.slice(0, 100)})`, status: "warning" });
   }
   return { brief: { headline, summary, items: finalItems }, writtenBy };
 }
@@ -337,7 +337,7 @@ async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promi
         throw err;
       });
     } catch (err) {
-      tracer.log({ agent_name: "Writer", action: "write", retry_count: attempt, output_summary: `${item.generic}: writer failed (${(err as Error).message.slice(0, 120)})`, status: "error" });
+      tracer.log({ agent_name: "Writer", action: "write", retry_count: attempt, output_summary: sampleMiss(err) ? `${item.generic}: ${SAMPLE_NOTE}; plain text used.` : `${item.generic}: writer failed (${(err as Error).message.slice(0, 120)})`, status: sampleMiss(err) ? "warning" : "error" });
       if (err instanceof MeterlessError && err.status === "unauthorized") throw err;
       break;
     }
@@ -364,6 +364,10 @@ async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promi
 function logGuard(tracer: Tracer, withheld: number, total: number) {
   tracer.log({ agent_name: "Guard", action: "scout:screen", engine: "scout-intent", output_summary: withheld ? `${withheld} field(s) withheld as suspected prompt injection (of ${total} rows)` : `${total} rows screened, nothing withheld`, status: withheld ? "warning" : "success" });
 }
+
+/** In sample mode a variation nobody recorded has no model reply to replay. That is expected, not a fault. */
+const sampleMiss = (err: unknown): boolean => isSample() && /no recorded model response/.test((err as Error).message ?? "");
+const SAMPLE_NOTE = "Sample mode has no recorded Nemotron reply for this variation";
 
 const secs = (t0: number) => Math.round((Date.now() - t0) / 100) / 10;
 
