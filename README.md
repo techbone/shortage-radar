@@ -20,7 +20,7 @@ An agent for a hospital pharmacy buyer. Every morning it checks the FDA drug sho
 
 ## Demo
 
-**[Demo video](https://youtu.be/xAKDnQNLiOQ)** (3:54, one real live run, narrated; nothing sped up). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
+**[Demo video](https://youtu.be/xAKDnQNLiOQ)** (3:54, one real live run, narrated; nothing sped up). The slide deck was submitted with the entry on HackOS.
 
 The app also runs in **Sample mode** on a fresh clone with no Zetaris, Nightshift or network: it replays a recorded live run, labelled as a replay, so what you see is what the live system produced.
 
@@ -216,7 +216,7 @@ data/snapshots/         saved FDA feeds (gzipped); data/fixtures/ recorded rows 
 conformance/, evals/    the official Meterless runners, unmodified, plus our corpus files
 tests/                  Vitest
 input_examples/, output_examples/, logs/    three examples, their live outputs and traces
-docs/                   build-log.md (what broke and how we fixed it), evidence/ (saved test output), deck/ (slides, PDF and PPTX)
+docs/                   build-log.md (what broke and how we fixed it), evidence/ (saved test output)
 ```
 
 ## Limitations and disclosure

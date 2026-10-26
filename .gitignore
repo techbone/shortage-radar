@@ -28,8 +28,6 @@ docs/demo/
 scripts/demo/
 scripts/build-deck.mjs
 scripts/build-pptx.mjs
-docs/deck/*
-!docs/deck/Shortage-Radar-deck.pdf
-!docs/deck/Shortage-Radar-deck.pptx
+docs/deck/
 docs/submission.md
 scripts/daily-snapshot.sh
