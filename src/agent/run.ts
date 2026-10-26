@@ -31,7 +31,7 @@ export type RunInput = {
   input: { query?: string };
   /** buyer decisions to record in H-MEM before the sweep (what the UI's buttons send) */
   decisions?: DecisionInput[];
-  options?: { sample_mode?: boolean; max_items?: number; quiet?: boolean };
+  options?: { sample_mode?: boolean; max_items?: number; quiet?: boolean; /** default true: replay a recorded run if live services are unreachable */ fallback?: boolean };
 };
 
 export type RunOutput = {
@@ -46,6 +46,8 @@ export type RunOutput = {
     artifacts: string[];
   };
   error?: { type: string; message: string; recoverable: boolean };
+  /** set when a live run could not reach Zetaris or Nightshift and this result is a replay of a recorded run */
+  fallback?: { from: "live"; to: "sample"; reason: string };
   agents: { name: string; role: string }[];
   models: string[];
   trace_id: string;
@@ -85,6 +87,15 @@ export async function runSweep(req: RunInput, opts: { onTrace?: (e: unknown) => 
     const e = err as Error;
     const type = err instanceof ZetarisError ? `Zetaris:${err.kind}` : err instanceof MeterlessError ? `Nightshift:${err.status}` : /exceeded/.test(e.message) ? "Timeout" : "Error";
     tracer.log({ agent_name: "Orchestrator", action: "error", output_summary: e.message.slice(0, 300), status: "error" });
+    // Zetaris or Nightshift unreachable on a live run: show a recorded run instead of nothing, and say so.
+    const upstream = /^(Zetaris:(unreachable|timeout|auth)|Nightshift:(offline|unauthorized)|Timeout)$/.test(type);
+    if (!sample && upstream && req.options?.fallback !== false) {
+      tracer.log({ agent_name: "Orchestrator", action: "fallback", output_summary: `${type}: ${e.message.slice(0, 160)}. Replaying the recorded run instead.`, status: "warning" });
+      const replay = await runSweep({ ...req, options: { ...req.options, sample_mode: true, fallback: false } }, opts);
+      if (replay.status !== "error") {
+        return { ...replay, status: "partial", fallback: { from: "live", to: "sample", reason: `${type}: ${e.message.slice(0, 200)}` } };
+      }
+    }
     return { ...base, status: "error", error: { type, message: e.message, recoverable: type !== "Error" }, models: [...models], execution_time_seconds: secs(t0) };
   } finally {
     clearTimeout(timer);
@@ -170,7 +181,8 @@ async function sweep(req: RunInput, tracer: Tracer, models: Set<string>): Promis
 
   // ---- Alternatives: same drug, same concentration, from manufacturers the FDA lists as available.
   if (items.length) {
-    const altQ = await queries.alternates(items.map((i) => i.ndc));
+    // Asked for every formulary NDC, not just the chosen items: a fixed query that does not change with the plan or with what the buyer has handled, so sample mode can replay it.
+    const altQ = await queries.alternates(exposure.map((e) => e.ndc).sort());
     q("alternates", altQ);
     const guardedAlt = guardRows(altQ.rows, { table: "alternates", key: "alt_ndc" });
     logGuard(tracer, guardedAlt.context.withheld.length, altQ.rows.length);
@@ -245,6 +257,7 @@ async function plan(query: string, candidates: Item[], maxItems: number, tracer:
     tracer.log({ agent_name: "Guard", action: "scout:block-request", engine: "scout-intent", output_summary: "buyer request withheld by the injection guard; planning on defaults", status: "warning" });
   }
   const messages = buildMessages({ system: PLANNER_SYSTEM, task: `Choose at most ${maxItems} items.`, context });
+  tracer.log({ agent_name: "Planner", action: "plan:start", target_agent: "Nemotron", input_summary: `Nemotron is choosing what to cover from ${candidates.length} candidates (thinking on, can take a while)`, status: "success" });
   try {
     // Reasoning on: choosing what matters is the judgement call. Retry with thinking off if it comes back empty.
     const r = await chat({ messages, maxTokens: 8192, timeoutMs: 120_000 }).catch((err) => {
@@ -310,6 +323,7 @@ async function writeItem(item: Item, tracer: Tracer, models: Set<string>): Promi
   const context = guardContext([{ text: JSON.stringify(itemForWriter(item)), source: `item:${item.ndc}` }]);
   if (context.withheld.length) logGuard(tracer, context.withheld.length, 1);
   const baseTask = `Write the brief item for NDC ${item.ndc}.`;
+  tracer.log({ agent_name: "Writer", action: "write:start", input_summary: `Writing ${item.generic} (${item.ndc}) from ${item.evidence.length} evidence records`, status: "success" });
   let messages = buildMessages({ system: WRITER_SYSTEM, task: baseTask, context });
   for (let attempt = 0; attempt <= MAX_CRITIC_LOOPS; attempt++) {
     let r;

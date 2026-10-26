@@ -1,0 +1,12 @@
+{
+ "content": "{\"focus\": [\"0409-6695-01\", \"0409-3815-12\", \"0409-3301-10\", \"0409-1323-05\", \"0409-3382-21\", \"0409-1630-10\"], \"rationale\": \"Six FDA-listed items have 7 or fewer days of stock remaining and are unavailable or limited, urgently impacting Anesthesia, Analgesia, and Cardiology shelves. Immediate swap coordination and alternative sourcing are required.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1892,
+  "completion_tokens": 3360,
+  "total_tokens": 5252
+ },
+ "latencyMs": 33451
+}

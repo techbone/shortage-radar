@@ -47,4 +47,6 @@ The variants added alongside these fixes (Spanish, German, decode-and-follow, ca
 
 ## Runner gate note
 
+`npm run evals:injection` wraps the official runner (`scripts/evals-injection.ts`): it prints the runner's full output, then applies the thresholds to the two metrics that apply here. The raw runner is `npm run evals:injection:raw`.
+
 The runner's gate reports FAIL on an injection-only run: `intent_top1`, `intent_top3_recall` and `tool_precision` have no examples in the injection corpus, default to 0, and fall below their floors. This build implements the guard stage only, not intent routing, so those metrics do not apply. Injection precision and recall are the metrics for this engine.

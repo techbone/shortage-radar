@@ -1,12 +1,12 @@
 {
- "content": "{\"summary\":\"Order swap NDC 65219-445-10 for etomidate injection first; review swap options for morphine, dexmedetomidine, sufentanil, and lidocaine preservative-free before current stock runs out, and swap to Medefil NDC 64253-400-91 for atropine.\"}",
+ "content": "{\"summary\": \"Order swap NDC 65219-445-10 from Caplin Steriles, Ltd. for etomidate injection unavailable; review swap options for morphine, dexmedetomidine, sufentanil, and atropine injections before current stock depletes, and consider Hikma NDC 0143-9594-25 as an alternative for lidocaine preservative-free shortage.\"}",
  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
  "requestedModel": "meterless/auto",
  "toolCalls": [],
  "usage": {
-  "prompt_tokens": 1102,
-  "completion_tokens": 85,
-  "total_tokens": 1187
+  "prompt_tokens": 1046,
+  "completion_tokens": 98,
+  "total_tokens": 1144
  },
- "latencyMs": 2844
+ "latencyMs": 1218
 }

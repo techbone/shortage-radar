@@ -15,7 +15,7 @@
     "snapshot": "tsx scripts/snapshot-fda.ts",
     "replay": "tsx scripts/replay-snapshots.ts",
     "typecheck": "tsc --noEmit",
-    "evals:injection": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection",
+    "evals:injection": "tsx scripts/evals-injection.ts",
     "evals:corpus": "tsx scripts/build-injection-corpus.ts",
     "nightshift:check": "tsx --env-file-if-exists=.env scripts/nightshift-check.ts",
     "conformance:hmem": "HMEM_IMPL=\"$PWD/src/engines/hmem/index.ts\" tsx conformance/hmem/runner.ts",
@@ -23,7 +23,8 @@
     "zq": "tsx --env-file-if-exists=.env scripts/zq.ts",
     "dev": "next dev -p ${PORT:-8000}",
     "build": "next build",
-    "start": "next start -p ${PORT:-8000} -H 0.0.0.0"
+    "start": "next start -p ${PORT:-8000} -H 0.0.0.0",
+    "evals:injection:raw": "SCOUT_IMPL=\"$PWD/src/engines/scout-intent/index.ts\" tsx evals/scout/runner/index.ts injection"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",

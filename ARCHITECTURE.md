@@ -1,169 +1,114 @@
-# Shortage Radar — Architecture
+# Shortage Radar: architecture
 
-> **750 shortage updates a week. Three of them hit your shelf. Here is what to buy instead, and why.**
+> Shortage Radar doesn't guess what will run short. It tells a hospital buyer what to do about what just did.
 
-Open Agent Hackathon 2026 · Track 02, *The Agent That Can Explain Why*.
+Open Agent Hackathon 2026 · Track 02, *The Agent That Can Explain Why* · solo. This file describes what is built. The day-by-day reasoning, dead ends and fixes are in [docs/build-log.md](docs/build-log.md).
 
 ## 1. Pitch
 
-The FDA drug shortage list is the source of truth for US drug supply, and it is noisy: in the week to 22 Oct 2026, **746 of its 1,609 entries changed**. Each entry is one package NDC from one company, marked Available, Limited or Unavailable. A hospital pharmacy buyer has to work out, every morning, which of those changes touch *their* formulary, how many days of stock they have left, and which NDC from which manufacturer they can buy instead.
+The FDA drug shortage list is the source of truth for US drug supply and it is noisy: **746 of its 1,609 entries were updated in the week to 22 Oct 2026**, each one a package NDC from one company marked Available, Limited or Unavailable. A hospital pharmacy buyer has to work out, every morning, which changes touch *their* formulary, how many days of stock they have, and which NDC from which manufacturer they can safely buy instead.
 
-Shortage Radar is an agent that does that triage. It joins the hospital's own formulary and stock (a private database) with the FDA shortage list, the FDA NDC directory, RxNorm and CMS NADAC prices through **Zetaris**, tracks every product's status over time in a **Meterless World Model**, remembers what the pharmacist already decided in **Meterless H-MEM**, and has **NVIDIA Nemotron** (through **Meterless Nightshift**) write a short brief in which every claim links to the query row that backs it.
+Shortage Radar does that triage. It joins the hospital's private stock database with the FDA feed through **Zetaris**, tracks every product's status over time in a **World Model**, remembers the buyer's decisions in **H-MEM**, screens third-party text with **Scout Intent**, and has **Nemotron** (through **Meterless Nightshift**) plan the brief and write each item. A **Critic written in plain code** rejects any claim its evidence doesn't back.
 
-**What makes it different**
+What makes it different:
 
-- It does not pretend to predict shortages. We tested the obvious signal (a recent recall of the same drug) against 142 shortages posted in 2025–26 and it was *less* common before a shortage than for drugs that never went short (0.7–0.9×; see `docs/build-log.md`). The agent works on what the data supports: exposure, runway, alternatives.
-- The "why" is a chain of SQL queries the user can open, not a paragraph.
-- It gets quieter over time: decisions the pharmacist already made are remembered and not re-alerted.
+- **It does not predict shortages.** We tested the obvious signal, a recent recall of the same drug, against 142 shortages posted in 2025-26: it was *less* common before a shortage than for drugs that never went short (0.7-0.9x; [evidence](docs/evidence/2026-10-22-recall-backtest.md)). The agent reports exposure, runway and swaps.
+- **The "why" is a chain of records.** Every sentence cites evidence ids that resolve to a Zetaris query id and its SQL, a World Model status history, or an H-MEM memory.
+- **It gets quieter.** A decision the buyer already made stays out of the brief until the FDA status moves again.
+- **A swap means the same strength.** The naive "same drug, marked available" list mixed 10 mg/mL with 20 mg/mL and lidocaine-in-dextrose drips; swaps are same-concentration only, everything else is "pharmacist review".
 
-## 2. Problem
+## 2. Problem and capability map
 
 | | |
 |---|---|
-| **User** | The buyer at a 150–300 bed community hospital pharmacy. No supply-chain analytics team. |
-| **Today** | Checks the FDA and ASHP shortage pages, reads wholesaler allocation emails, tracks it in a spreadsheet. Often finds out when an order fails. |
-| **Cost** | Vizient (2019) estimated shortages cost US hospitals ~$359M a year in extra labour, ~8.6M hours. ASHP counted 323 active shortages in Q1 2024, the most since tracking began in 2001. *(Both to be re-verified with sources before quoting in the submission.)* |
-| **Evidence** | openFDA shortages endpoint: 1,609 entries, 809 current entries are injections, 746 changed in the 7 days to 22 Oct 2026, 1,046 in 30 days (snapshot in `data/snapshots/`). |
+| **User** | The buyer at a 150-300 bed community hospital pharmacy, with no supply-chain analytics team. |
+| **Today** | Checks the FDA and ASHP shortage pages, reads wholesaler allocation emails, keeps a spreadsheet, and often finds out when an order fails. |
+| **Cost** | A 2019 [Vizient survey](https://vizientinc.com/newsroom/news-releases/2019/new-vizient-survey-finds-drug-shortages-cost-hospitals-just-under-360m-annually-in-labor-expenses) found US hospitals spend 8.6 million extra labor hours, just under $360 million a year, managing shortages. [ASHP counted a record 323 active shortages in Q1 2024](https://www.aha.org/news/headline/2024-04-12-ashp-reports-record-high-number-drug-shortages). |
+| **Evidence we measured** | 1,609 FDA entries, 746 updated in 7 days, 1,046 in 30; 13 NDCs changed status between the 22 and 23 Oct feeds; 8 of them are on our hospital's formulary. |
 
-## 3. Capability map
-
-Every core flow and the exact sponsor capability behind it.
-
-| User flow | Sponsor capability | Status |
+| User flow | Sponsor capability | Test or evidence |
 |---|---|---|
-| Join hospital formulary + stock with FDA shortages, NDC directory, NADAC in one query | **Zetaris**: FDA/NADAC/RxNorm registered as REST tables, hospital Postgres registered as a datasource, federated Lightning SQL via `POST /sql-editor/sqls/run` | To verify: REST-table pagination, Postgres reachability from the Zetaris container |
-| "What changed since yesterday" | **World Model**: idempotent ingest of each FDA snapshot; `ingest()` returns `changed` and the changed records | Conformance suite in `tests/` |
-| "What was this NDC's status on date X" | **World Model**: bitemporal `has-status` edges (`validFrom`/`validTo`), point-in-time `neighborsOf(..., { at })` | Conformance `bitemp-001` |
-| One identity for a drug across NDC, RxCUI, labeler | **World Model**: content-derived stable IDs | Conformance `sid-001/002` |
-| Remember "we bought 14 days of the Fresenius NDC" / "committee rejects this substitute" | **H-MEM**: episodic + semantic memories with source and confidence, retrieval + reinjection into the writer's prompt, trust ledger | H-MEM conformance suite |
-| Keep third-party text (FDA free text, public API rows, notes) from steering the model | **Scout Intent** guard: two-pass injection check, field-level withholding, credential redaction, fenced `<data>` blocks | Official evals: precision 1.000, recall 0.980 on 2,316 examples |
-| Plan the investigation, write the brief, critique citations | **Nightshift** (OpenAI-compatible, `meterless-app: shortage-radar`) routing to **NVIDIA Nemotron**; model name logged per request | Needs Nightshift running |
+| Join hospital stock with the FDA list in one query | **Zetaris**: `fda.shortages` (REST table over openFDA) ⨝ `northwind_pg.*` (JDBC data source) | live traces; `tests/zetaris.test.ts` for the read-only guard |
+| What changed since the last update; status on any date | **World Model**: bitemporal `shortage-state` and `discontinuation` edges per NDC, idempotent ingest of every snapshot | official runner 8/8; `tests/world-model-shortages.test.ts` |
+| Remember "bought the alternate" / "do not substitute" | **H-MEM**: decision records with source and confidence, trust ledger, supersede-never-delete | official runner 13/13; `tests/hmem-decisions.test.ts` |
+| Screen FDA free text and database rows before a model reads them | **Scout Intent**: two-pass guard, field-level withholding, credential redaction | official evals, precision 1.000, recall 0.980; `tests/scout-intent.test.ts` |
+| Plan the brief and write each item | **Nemotron 3.5 Lightning via Nightshift**: OpenAI-format chat, model named on every trace line | `npm run nightshift:check`; live traces |
+| Reject unsupported claims | Code Critic (not a model) | `tests/critic.test.ts` |
 
-**Sponsor removal test**
+**Sponsor removal test.** Without Zetaris: no join between private stock and the public feed. Without the World Model: no "what changed", no history. Without H-MEM: every handled item re-alerts daily. Without Scout: a sentence planted in an FDA note goes into the model's context. Without Nightshift/Nemotron: no plan and no write-ups, only raw rows.
 
-- Remove Zetaris: no join between private stock and public feeds, so no per-hospital answer.
-- Remove World Model: no "what changed", no status history, no stable drug identity across sources. The brief becomes a dump of 1,609 rows.
-- Remove H-MEM: every handled item re-alerts every morning, which is why alert tools get ignored.
-- Remove Scout Intent: a sentence planted in an FDA field or a public API row goes straight into the model's context.
-- Remove Nightshift/Nemotron: no plan, no brief, no citation critique; the user reads raw rows.
-
-## 4. System overview
+## 3. System overview
 
 ```mermaid
 flowchart LR
-  subgraph Public["Public sources (live APIs)"]
-    FDA[openFDA drug shortages]
-    NDC[openFDA NDC directory]
-    RX[NLM RxNorm]
-    NADAC[CMS NADAC prices]
+  subgraph Public["Public sources"]
+    FDA[openFDA shortages]
   end
-  subgraph Hospital["Hospital (private)"]
-    PG[(Postgres<br/>formulary · stock · usage)]
+  subgraph Hospital["Hospital, synthetic"]
+    PG[(Postgres<br/>formulary, stock)]
   end
-  FDA & NDC & RX & NADAC -->|REST tables| Z[Zetaris Lightning]
-  PG -->|datasource| Z
-  Z -->|SQL over REST :8888| AG[Agent loop]
-  AG <--> WM[World Model engine<br/>products · status edges · diffs]
-  AG <--> HM[H-MEM engine<br/>decisions · trust]
-  AG -->|OpenAI format| NS[Meterless Nightshift :8088] --> NV[NVIDIA Nemotron]
-  AG --> TR[logs/trace-&lt;run&gt;.jsonl + stdout]
-  AG --> API[POST /api/run] --> UI[Next.js morning brief]
+  FDA -->|REST table| Z[Zetaris Lightning]
+  PG -->|JDBC data source| Z
+  Z -->|SQL over REST :8888| INV
+  subgraph Agent["src/agent/run.ts"]
+    INV[Investigator, code]
+    INV --> WM[World Model]
+    INV --> HM[H-MEM]
+    INV --> SC[Scout guard]
+    SC --> PL[Planner, Nemotron]
+    PL --> WR[Writer per item, Nemotron]
+    WR <--> CR[Critic, code]
+  end
+  PL & WR -->|OpenAI format :8088| NS[Meterless Nightshift] --> NV[NVIDIA Nemotron]
+  CR --> API[POST /run · web app<br/>logs/trace-*.jsonl]
 ```
 
-## 5. Components
+## 4. Components
 
 | Component | Path | Role |
 |---|---|---|
-| Web app + API | `app/` | Next.js. Morning brief, evidence drawer, decision buttons. `POST /api/run` takes the guide's JSON input and returns the structured output. |
-| CLI entry | `run.ts` | `npx tsx run.ts input_examples/example_1.json` runs one input headless and prints JSON. |
-| Agent | `src/agent/` | Planner → Investigator (tools) → Writer → Critic. Bounded: 2 critic loops, 6 tool calls per item. |
-| Zetaris adapter | `src/adapters/zetaris.ts` | `runSql()`: one statement per call, bearer key + `X-Org-ID` + fresh `X-Request-ID`, 60 s timeout, 2 retries, sample-mode fixtures. |
-| Nightshift adapter | `src/adapters/nightshift.ts` | OpenAI client, `meterless-app`/`meterless-scope` headers, 90 s timeout, logs the model that answered. |
-| World Model engine | `src/engines/world-model/` | Our implementation of the Meterless spec, file-backed (JSONL event log + rebuilt views). Passes the official conformance runner. |
-| Scout Intent engine | `src/engines/scout-intent/`, `src/agent/untrusted.ts` | Our implementation of the Scout guard stage. Every untrusted text reaches a model only as a `GuardedContext`. Verified by the official eval runner. |
-| H-MEM engine | `src/engines/hmem/` | Our implementation of the Meterless spec, file-backed. Passes the official conformance runner. |
-| Trace | `src/trace/` | One JSONL line per agent action (guide format) + readable stdout. Secrets masked. |
-| Hospital DB | `db/hospital/` | Schema and a synthetic formulary for a fictional 220-bed hospital. Runs as a Postgres container. |
-| Zetaris setup | `zetaris/` | Lightning SQL that registers every source. |
-| Snapshots | `data/snapshots/` | Daily FDA shortage snapshots (gzipped JSON), captured from 22 Oct 2026. Drive the World Model and sample mode. |
+| Web app and API | `app/` | Next.js. Morning brief, named steps, evidence drawer with decision buttons, trace and engines tabs. `POST /api/run` (alias `/run`) takes the hackathon's JSON input and returns its JSON output; `?stream=1` streams trace events as NDJSON. `GET /api/status`, `DELETE /api/memory`. |
+| CLI entry | `run.ts` | `npx tsx run.ts input_examples/example_1.json` runs one input headless and prints the JSON result. |
+| Sweep | `src/agent/run.ts` | Ingest, Diff, Match, Alternatives, Brief, Critique. Bounded: 5-minute run budget, 2 critic refinements per item, 2 concurrent model calls. |
+| Zetaris adapter | `src/adapters/zetaris.ts` | One Lightning SQL statement per call; bearer key, `X-Org-ID`, fresh `X-Request-ID`; 60 s timeout, 2 retries; refuses stacked statements and anything that is not SELECT, WITH, SHOW or DESCRIBE unless the caller is setup code; records and replays fixtures. |
+| Nightshift adapter | `src/adapters/meterless.ts` | Runtime provider contract v4: URL normalization, token, `meterless-app` and `meterless-scope` headers, model discovery, unauthorized vs offline, reasoning switch, one retry on an empty reply; records and replays fixtures per run. |
+| Sample mode | `src/adapters/mode.ts` | Request-scoped, never process-global, so a visitor's sample run cannot flip a live server. |
+| World Model | `src/engines/world-model/` | Append-only JSONL event log, folded state, content-derived ids, bitemporal edges, single-writer queue. |
+| H-MEM | `src/engines/hmem/` | Tiered memories, canonical hybrid ranking, trust ledger, preview-first sleep, approval-gated dreaming, conflict resolution that never deletes. |
+| Scout Intent | `src/engines/scout-intent/`, `src/agent/untrusted.ts` | Pattern pack, Unicode folding, snippet pass; `untrusted.ts` is the only way text becomes a `GuardedContext`, and the prompt builder accepts nothing else. |
+| Domain | `src/domain/` | `fda-shortages.ts` (snapshots into the World Model), `alternates.ts` (strength parsing and ranking), `decisions.ts` (H-MEM records). |
+| Trace | `src/agent/trace.ts` | One JSONL line per action (agent, action, handoff, model, SQL, query id, rows, ms, status); secrets masked in the file and on stdout. |
+| Hospital DB | `db/hospital/`, `docker-compose.yml` | Schema and a seeded synthetic formulary for "Northwind General" (82 lines, real NDCs, invented stock), read-only role for Zetaris. |
+| Zetaris setup | `zetaris/`, `scripts/zetaris-setup.ts` | Lightning SQL that registers both sources; idempotent. |
+| Snapshots | `data/snapshots/` | Gzipped FDA feeds, captured twice a day; same-day revisions saved separately. |
 
-## 6. Data model
+## 5. Data model
 
-**World Model** (stream-shaped aggregate)
+**World Model.** Entities: `product:ndc:<package_ndc>`, `company:fda:<name>`, `ingredient:substance:<name>`, `state:fda:<state>`. Every drug-side entity is keyed by an identifier, never by fuzzy name: look-alike drug names cause medication errors, so the resolver's merge bands (kept, and passing the official check) never see them. Relationships: `made-by`, `contains`, and two bitemporal slots per product, `shortage-state` and `discontinuation` (the feed lists some NDCs twice). A new edge in a slot closes the old one; nothing is deleted. Every write carries provenance.
 
-- Entities: `product:ndc:<package_ndc>` (generic, form, strength, presentation, labeler), `ingredient:<normalized name>` (+ RxCUI when resolved), `company:<normalized name>`.
-- Contexts: one per FDA snapshot, keyed by the feed's `last_updated`.
-- Relationships: `product —has-status→ status:<Available|Limited|Unavailable|To Be Discontinued|Resolved>` (bitemporal), `product —made-by→ company`, `product —contains→ ingredient`.
-- Every write carries provenance: the snapshot it came from, or the Zetaris query id.
+**H-MEM.** One factual, long-term memory per decision, with source (`buyer:<id>`), confidence 0.9, entities (NDCs, ingredient) and the structured decision in `data`. An item is "handled" while its recorded FDA state equals the current one; it returns as "changed since decision" the moment the state moves.
 
-**H-MEM**
+**Hospital DB.** `formulary_item(ndc, generic_name, form, presentation, labeler, category, critical, ndc_source)` and `inventory(ndc, on_hand_units, daily_usage_units, reorder_point, wholesaler)`.
 
-- Episodic: pharmacist decisions per NDC/ingredient, with date, author and confidence.
-- Semantic: standing rules ("no compounded substitutes in pediatrics").
-- Trust ledger: append-only history of every memory change.
+## 6. The flows that matter
 
-**Hospital DB** (synthetic)
+**Morning sweep.** Zetaris returns the FDA feed; the World Model replays the saved snapshots and today's feed and reports what changed; one federated query joins formulary, stock and FDA status; H-MEM sets aside handled items; Scout screens every row; Nemotron chooses what to cover (thinking on); one Zetaris query returns every available same-drug product; for each item Nemotron writes (thinking off) and the Critic checks the draft against NDCs on the swap list, citation ids, day counts, causes the FDA note doesn't state, and prediction language, sending it back up to twice before falling back to plain deterministic text.
 
-- `formulary_item(ndc, rxcui, generic_name, form, strength, route, category, critical)`
-- `inventory(ndc, on_hand_units, daily_usage_units, reorder_point, wholesaler)`
+**Why.** Opening an item shows the cited records, each tied to a Zetaris query id whose SQL is one click away, plus the dated status history.
 
-## 7. Key flows
+**Decide.** "Bought the alternate", "Do not substitute" or "Monitor" is stored in H-MEM and the item leaves the brief.
 
-**A. Morning sweep** (the demo's main flow)
+## 7. Reliability and judging
 
-```mermaid
-sequenceDiagram
-  participant U as Buyer
-  participant A as Agent
-  participant Z as Zetaris
-  participant W as World Model
-  participant M as H-MEM
-  participant N as Nemotron (Nightshift)
-  U->>A: run (or scheduled 6am)
-  A->>Z: SELECT today's FDA shortage list
-  A->>W: ingest(snapshot) → diff
-  A->>Z: JOIN diff NDCs/ingredients × formulary × inventory
-  A->>Z: alternates: same ingredient/form/strength, other labelers, not Unavailable (+ NADAC)
-  A->>M: recall decisions for affected items
-  A->>N: write brief (rows + history + memories)
-  A->>N: critic: does every claim cite a row?
-  A-->>U: 3 items that hit your shelf, days left, what to buy, evidence
-```
+- `SAMPLE_MODE=true` (or the Sample toggle, or no reachable services) replays recorded Zetaris rows and model replies, exactly per example. A live run that cannot reach Zetaris or Nightshift falls back to the replay and reports it.
+- Timeouts: Zetaris 60 s, Nightshift 60-120 s (a timed-out write is retried once at 90 s), whole run 5 minutes. Failures return `{status: "error", error: {type, message, recoverable}}`.
+- Every run writes `logs/trace-<run_id>.jsonl` and prints readable lines. Sample runs write `…-sample.jsonl`.
+- The Docker image installs and builds everything at build time, takes secrets only at run time, and binds `0.0.0.0`.
 
-**B. "Why?"** Open an item: the SQL that found it, the rows it returned, the NDC's status history from the World Model, and the memories used.
+## 8. Stack and why
 
-**C. Decide.** "Bought 14 days of alternate" or "Do not substitute". Stored in H-MEM with source and confidence. The next sweep shows it as handled and stays quiet unless the status changes again.
+TypeScript on Node 22 throughout, because the Meterless reference engines and runners are TypeScript and our engines run against them directly. Next.js for the UI and API on one port (8000, since Zetaris's UI owns 3000). Vitest. Fonts and icons are bundled, so the UI needs no network. Postgres 16 in Docker for the hospital data; the engines are file-backed and need no infrastructure. The hackathon guide's example is Python (`run.py`); the contract is the same (`run.ts`, `POST /run`, JSON in and out).
 
-## 8. Stack
+## 9. Out of scope
 
-- TypeScript everywhere (Node 22). The Meterless reference engines and conformance runners are TypeScript, so our engines run against them directly.
-- Next.js (App Router) for UI and `POST /api/run`; `tsx` for the CLI and scripts; Vitest for tests.
-- `openai` SDK pointed at Nightshift. No other model provider in the app.
-- Postgres 16 in Docker for the hospital data. Engines are file-backed; no extra infrastructure.
-- Docker Compose runs the app and the hospital DB. Zetaris and Nightshift run on the host and are reached via `host.docker.internal`.
-
-Deviation from the hackathon guide's Python example (`run.py`): same contract (`run.ts`, `POST /api/run`, JSON in/out), different language, because the engines are TypeScript.
-
-## 9. Reliability and judging
-
-- `SAMPLE_MODE=true` replays recorded Zetaris rows and Nemotron responses from `data/fixtures/`, so the full flow runs with no Zetaris, Nightshift or network.
-- Timeouts: Zetaris 60 s, Nightshift 90 s, whole run 5 min. Failures return the guide's structured error object.
-- Every run writes `logs/trace-<run_id>.jsonl`: agent, action, handoff, Zetaris query, engine call, model, retry, status.
-
-## 10. Out of scope
-
-- Predicting shortages (tested, not supported by the data).
-- Placing orders with wholesalers; the agent recommends, the buyer buys.
-- Patient data of any kind. The hospital is fictional and its data synthetic.
-- Non-US regulators, multi-hospital tenancy, auth.
-
-## 11. Milestones
-
-| | Milestone | Shows | Target |
-|---|---|---|---|
-| M0 | Repo, docs, FDA snapshots, World Model engine + conformance | `npm run conformance:wm` green; diff between two real snapshots | 23 Oct |
-| M1 | Zetaris live: sources registered, one federated query returns formulary items hit by shortages | CLI prints affected items with the SQL behind them | 23–24 Oct |
-| M2 | Nightshift + Nemotron agent loop with critic, JSONL traces | Brief with citations; model logged per request | 24 Oct |
-| M3 | H-MEM decisions + conformance | Second run stays quiet on handled items | 25 Oct |
-| M4 | Web UI, `POST /api/run`, sample mode, Docker | Live link in sample mode; `docker run` works | 25–26 Oct |
-| M5 | 3 input/output examples, README, demo video, deck, submission | Submitted | 27 Oct, before 23:45 UTC |
+Predicting shortages (tested, not supported by the data); placing orders; patient data of any kind; non-US regulators; auth and multi-hospital tenancy; Scout's intent routing and tool planning (only its guard stage is built).

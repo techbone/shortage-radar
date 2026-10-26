@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\": \"Order the etomidate swap from Caplin Steriles immediately as the only unavailable item; review swap options for morphine, dexmedetomidine, lidocaine, and sufentanil before their current stock depletes, and proceed with the atropine substitution to Medefil.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1101,
+  "completion_tokens": 66,
+  "total_tokens": 1167
+ },
+ "latencyMs": 1471
+}

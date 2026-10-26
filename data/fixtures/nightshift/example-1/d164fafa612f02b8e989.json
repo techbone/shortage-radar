@@ -1,12 +1,12 @@
 {
- "content": "{\"ndc\": \"0409-1323-05\", \"priority\": \"act-today\", \"headline\": \"Lidocaine preservative-free shortage: limited supply\", \"why\": \"4 days of stock remain on hand\", \"action\": \"Consider Hikma NDC 0143-9594-25 as alternative\", \"buy_instead\": \"0143-9594-25\", \"citations\": [\"stock:0409-1323-05\", \"fda:0409-1323-05\", \"history:0409-1323-05\", \"alt:0143-9594-25\"]}",
+ "content": "{\n  \"ndc\": \"0409-1323-05\",\n  \"priority\": \"act-today\",\n  \"headline\": \"Lidocaine preservative-free shortage: limited supply\",\n  \"why\": \"4 days of stock remain on hand\",\n  \"action\": \"Consider Hikma NDC 0143-9594-25 as alternative\",\n  \"buy_instead\": \"0143-9594-25\",\n  \"citations\": [\"stock:0409-1323-05\", \"fda:0409-1323-05\", \"history:0409-1323-05\", \"alt:0143-9594-25\"]\n}",
  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
  "requestedModel": "meterless/auto",
  "toolCalls": [],
  "usage": {
   "prompt_tokens": 1734,
-  "completion_tokens": 169,
-  "total_tokens": 1903
+  "completion_tokens": 177,
+  "total_tokens": 1911
  },
- "latencyMs": 2053
+ "latencyMs": 3848
 }

@@ -1,0 +1,3725 @@
+{
+ "sql": "SELECT f.ndc AS for_ndc, a.package_ndc AS alt_ndc, a.company_name, a.availability, a.presentation, a.update_date\nFROM northwind_pg.formulary_item f\nJOIN fda.shortages a ON lower(a.generic_name) LIKE concat(lower(f.generic_name), '%')\n  AND lower(a.dosage_form) LIKE concat(lower(f.form), '%')\n  AND a.package_ndc <> f.ndc AND a.status = 'Current' AND lower(a.availability) LIKE 'available%'\nWHERE f.ndc IN ('0115-1694-30', '0143-9300-10', '0143-9665-10', '0143-9709-10', '0338-0042-20', '0338-9159-30', '0404-9825-10', '0409-0151-10', '0409-0152-24', '0409-1005-20', '0409-1159-02', '0409-1323-05', '0409-1630-10', '0409-1858-12', '0409-1985-30', '0409-2050-20', '0409-2051-05', '0409-2596-05', '0409-3299-06', '0409-3301-10', '0409-3382-21', '0409-3795-01', '0409-3815-12', '0409-4031-01', '0409-4264-01', '0409-4887-50', '0409-6102-02', '0409-6625-14', '0409-6695-01', '0409-7037-10', '0409-7517-16', '0409-9094-22', '0517-0740-20', '0548-5601-00', '0615-8015-05', '0641-6145-25', '0781-3208-85', '0781-9053-95', '23155-909-41', '42192-614-10', '42571-331-38', '43598-265-25', '43598-830-05', '51662-1335-1', '51662-1358-1', '51662-1375-1', '51662-1379-1', '51662-1386-3', '51662-1387-1', '51662-1388-1', '51662-1694-2', '55150-235-11', '55154-1557-5', '55154-2134-5', '55154-5102-5', '60687-325-01', '62037-725-01', '63323-285-13', '63323-724-05', '64980-642-03', '65219-572-10', '65219-624-20', '65219-630-19', '67296-0020-1', '67457-824-99', '67457-856-20', '68071-4907-1', '68083-488-01', '70121-1453-7', '70121-1573-1', '70518-4233-0', '70594-065-01', '70700-249-23', '70710-1464-1', '71872-7271-1', '71872-7311-1', '71872-7321-1', '72603-146-01', '72603-363-10', '76045-103-20', '76045-114-10', '86211-113-10')",
+ "columns": [
+  "for_ndc",
+  "alt_ndc",
+  "company_name",
+  "availability",
+  "presentation",
+  "update_date"
+ ],
+ "rows": [
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4282-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 40 mg/2 mL (2%; 20 mg/mL) (NDC 0409-4282-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4277-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride In Plastic Container, Injection, 400 mg/20 mL (2%; 20 mg/mL) (NDC 0409-4277-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-651-20",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 200 mg/20 mL (NDC 83634-651-20)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-202-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/1 mL (NDC 63323-202-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-163-30",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 10 mg/1 mL (NDC 55150-163-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0143-9577-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 10 mg/1 mL (NDC 0143-9577-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4283-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride Preservative Free, Injection, 200 mg/5 mL (4%; 40 mg/mL) (NDC 0409-4283-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-653-30",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 300 mg/30 mL (NDC 83634-653-30)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-201-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride In Plastic Container, Injection, 10 mg/1 mL (NDC 63323-201-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0264-9594-20",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride And Dextrose, Injection, 5 g/100 mL; .4 g/100 mL (NDC 0264-9594-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-492-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 10 mg/1 mL (NDC 63323-492-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-492-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 10 mg/1 mL (NDC 63323-492-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-164-02",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/mL (NDC 55150-164-02)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-651-10",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 100 mg/10 mL (NDC 83634-651-10)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4277-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride In Plastic Container, Injection, 1,000 mg/50 mL (2%; 20 mg/mL) (NDC 0409-4277-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-485-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 10 mg/1 mL (NDC 63323-485-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4713-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride Preservative Free, Injection, 50 mg/5 mL (1%; 10 mg/mL) (NDC 0409-4713-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-162-05",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 10 mg/1 mL (NDC 55150-162-05)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-251-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 10 mg/mL (NDC 55150-251-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0264-9594-10",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride And Dextrose, Injection, 5 g/100 mL; .4 g/100 mL (NDC 0264-9594-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4279-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 300 mg/30 mL (1%; 10 mg/mL) (NDC 0409-4279-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-2066-05",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 100 mg/5 mL (2%; 20 mg/mL) (NDC 0409-2066-05)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-495-07",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 20 mg/1 mL (NDC 63323-495-07)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-486-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 20 mg/1 mL (NDC 63323-486-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-653-02",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/2 mL (NDC 83634-653-02)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-492-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 10 mg/1 mL (NDC 63323-492-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0338-0409-03",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride And Dextrose, Injection, 4 mg/1 mL (NDC 0338-0409-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-9137-05",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride Preservative Free In Plastic Container, Injection, 50 mg/5mL (1%, 10 mg/1 mL) Syringes (NDC 0409-9137-05)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "76329-3390-1",
+   "company_name": "Amphastar Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/1 mL (NDC 76329-3390-1)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-491-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 5 mg/1 mL (NDC 63323-491-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0264-9598-20",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride And Dextrose, Injection, 5 g/100 mL; .8 g/100 mL (NDC 0264-9598-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4276-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride In Plastic Container, Injection, 200 mg/20 mL (1%; 10 mg/mL) (NDC 0409-4276-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0143-9594-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Preservative Free, Injection, 20 mg/1 mL (NDC 0143-9594-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0143-9575-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/1 mL (NDC 0143-9575-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4276-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride In Plastic Container, Injection, 500 mg/50 mL (1%; 10 mg/mL) (NDC 0409-4276-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0338-0411-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride And Dextrose, Injection, 8 mg/1 mL (NDC 0338-0411-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-161-02",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 10 mg/1 mL (NDC 55150-161-02)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4278-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 250 mg/50 mL (0.5%; 5 mg/mL) (NDC 0409-4278-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-651-50",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 500 mg/50 mL (NDC 83634-651-50)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-495-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 20 mg/1 mL (NDC 63323-495-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4282-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 200 mg/10 mL (2%; 20 mg/mL) (NDC 0409-4282-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "83634-653-05",
+   "company_name": "Anthea Pharma",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydochloride, Injection, 50 mg/5 mL (NDC 83634-653-05)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "55150-255-20",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride, Injection, 20 mg/mL (NDC 55150-255-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "63323-486-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, 20 mg/1 mL (NDC 63323-486-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1323-05",
+   "alt_ndc": "0409-4776-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Lidocaine Hydrochloride Preservative Free, Injection, 300 mg/20 mL (1.5%; 15 mg/mL) (NDC 0409-4776-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-2510-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 25 mg/10 mL (2.5 mg/mL) (NDC 0409-2510-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-2253-25",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 225 mg/30 mL (NDC 0409-2253-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1162-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 150 mg/30 mL (5 mg/mL) (NDC 0409-1162-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-275-32",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 31722-275-32)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-472-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 7.5 mg/1 mL (NDC 63323-472-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1746-30",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine With Epinephrine, Injection, Marcaine with Epinephrine 1:200,000 as the bitartrate 75 mg/30 mL (2.5 mg/mL 1:200,000) (NDC 0409-1746-30)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-752-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 70069-752-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1165-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 7.5 mg/1 mL (NDC 0409-1165-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-468-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 2.5 mg/1 mL; .005 mg/1 mL (NDC 63323-468-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-276-34",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 31722-276-34)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-169-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 55150-169-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "72266-263-10",
+   "company_name": "ONESOURCE SPECIALTY PTE LTD",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride PRESERVATIVE FREE, Injection, 2.5 mg/1 mL\n5mg / 1mL (NDC 72266-263-10)",
+   "update_date": "09/18/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1746-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine With Epinephrine, Injection, Marcaine with Epinephrine 1:200,000 as the bitartrate 25 mg/10 mL (2.5 mg/mL 1:200,000) (NDC 0409-1746-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-171-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 7.5 mg/1 mL (NDC 55150-171-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-465-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 2.5 mg/1 mL (NDC 63323-465-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1165-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, Marcaine 75 mg/10 mL (7.5 mg/mL) (NDC 0409-1165-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-460-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 7.5 mg/1 mL; .005 mg/1 mL (NDC 63323-460-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1530-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 150 mg/30 mL (5 mg/mL) (NDC 0409-1530-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-466-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 5 mg/1 mL (NDC 63323-466-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-167-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 55150-167-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1755-50",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine With Epinephrine, Injection, Marcaine with Epinephrine 1:200,000 as the bitartrate 250 mg/50 mL (5 mg/mL 1:200,000) (NDC 0409-1755-50)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-464-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 2.5 mg/1 mL (NDC 63323-464-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-250-50",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 55150-250-50)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-3613-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, Bupivacaine Spinal 15 mg/2 mL (7.5 mg/mL in 8.25% dextrose) (NDC 0409-3613-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-462-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 5 mg/1 mL; .005 mg/1 mL (NDC 63323-462-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-0525-25",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 250 mg/50 mL (NDC 0409-0525-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-752-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 70069-752-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-7535-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 75 mg/30 mL (2.5 mg/mL) (NDC 0409-7535-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-5010-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 50 mg/10 mL (5 mg/mL) (NDC 0409-5010-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-467-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 5 mg/1 mL (NDC 63323-467-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-172-30",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 7.5 mg/1 mL (NDC 55150-172-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-2253-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, Marcaine 225 mg/30 mL (7.5 mg/mL) (NDC 0409-2253-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1160-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 125 mg/50 mL (2.5 mg/mL) (NDC 0409-1160-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1749-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine With Epinephrine, Injection, Marcaine with Epinephrine 1:200,000 as the bitartrate 50 mg/10 mL (5 mg/mL 1:200,000) (NDC 0409-1749-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-466-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 5 mg/1 mL (NDC 63323-466-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-468-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 2.5 mg/1 mL; .005 mg/1 mL (NDC 63323-468-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1163-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 250 mg/50 mL (5 mg/mL) (NDC 0409-1163-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-276-32",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 31722-276-32)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-275-34",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 31722-275-34)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-464-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 2.5 mg/1 mL (NDC 63323-464-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-249-50",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 55150-249-50)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-753-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-753-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1749-29",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine With Epinephrine, Injection, Marcaine with Epinephrine 1:200,000 as the bitartrate 150 mg/30 mL (5 mg/mL 1:200,000) (NDC 0409-1749-29)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-277-34",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 7.5 mg/1 mL (NDC 31722-277-34)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-170-30",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 55150-170-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-752-01",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 70069-752-01)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-753-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-753-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-472-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 7.5 mg/1 mL (NDC 63323-472-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1162-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 50 mg/10 mL (5 mg/mL) (NDC 0409-1162-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "55150-168-30",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 2.5 mg/1 mL (NDC 55150-168-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1165-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 225 mg/30 mL (7.5 mg/mL) (NDC 0409-1165-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1761-62",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, 0.75% 15 mg/2 mL (NDC 0409-1761-62)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "63323-462-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sensorcaine, Injection, 5 mg/1 mL; .005 mg/1 mL (NDC 63323-462-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "31722-277-32",
+   "company_name": "Aspiro Pharma Limited",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 7.5 mg/1 mL (NDC 31722-277-32)",
+   "update_date": "07/17/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1160-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Marcaine, Injection, Marcaine 125 mg/50 mL (2.5 mg/mL) (NDC 0409-1160-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "0409-1159-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 25 mg/10 mL (2.5 mg/mL) (NDC 0409-1159-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1159-02",
+   "alt_ndc": "70069-753-01",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Bupivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-753-01)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-286-63",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 5 mg/1 mL (NDC 63323-286-63)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-062-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 70069-062-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-285-23",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 2 mg/1 mL (NDC 63323-285-23)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-288-11",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 10 mg/1 mL (NDC 63323-288-11)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "25021-652-82",
+   "company_name": "InfoRLife SA",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 25021-652-82)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "55150-197-20",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 55150-197-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-061-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 70069-061-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "55150-201-20",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 10 mg/1 mL (NDC 55150-201-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-067-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 10 mg/1 mL (NDC 70069-067-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "25021-671-87",
+   "company_name": "InfoRLife SA",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 25021-671-87)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "65219-632-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 2 mg/1 mL (NDC 65219-632-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-286-23",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 5 mg/1 mL (NDC 63323-286-23)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-064-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-064-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "25021-652-87",
+   "company_name": "InfoRLife SA",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 25021-652-87)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-288-21",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 10 mg/1 mL (NDC 63323-288-21)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-285-64",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 2 mg/1 mL (NDC 63323-285-64)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "55150-196-99",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 55150-196-99)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-064-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-064-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "25021-671-66",
+   "company_name": "InfoRLife SA",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 25021-671-66)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "55150-198-30",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 55150-198-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "25021-671-82",
+   "company_name": "InfoRLife SA",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 25021-671-82)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-064-01",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-064-01)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-062-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 70069-062-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-285-65",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 2 mg/1 mL (NDC 63323-285-65)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-061-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 2 mg/1 mL (NDC 70069-061-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "55150-200-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 10 mg/1 mL (NDC 55150-200-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-063-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 70069-063-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-286-00",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 5 mg/1 mL (NDC 63323-286-00)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "43066-027-10",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 10 mg/1 mL (NDC 43066-027-10)",
+   "update_date": "06/10/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "43066-019-10",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 5 mg/1 mL (NDC 43066-019-10)",
+   "update_date": "06/10/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "70069-067-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Ropivacaine Hydrochloride, Injection, 10 mg/1 mL (NDC 70069-067-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-286-35",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 5 mg/1 mL (NDC 63323-286-35)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "63323-287-21",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 7.5 mg/1 mL (NDC 63323-287-21)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-285-13",
+   "alt_ndc": "65219-632-20",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Naropin, Injection, 2 mg/1 mL (NDC 65219-632-20)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "0143-9311-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 0143-9311-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72266-146-10",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 72266-146-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72572-161-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 72572-161-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72266-147-10",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 72266-147-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "0143-9310-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 0143-9310-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72485-509-10",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/mL (NDC 72485-509-10)",
+   "update_date": "06/16/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "65219-447-20",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2mg/mL (NDC 65219-447-20)",
+   "update_date": "06/16/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "0143-9506-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 0143-9506-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "67457-903-20",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 67457-903-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "0143-9507-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 0143-9507-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72485-508-10",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/mL (NDC 72485-508-10)",
+   "update_date": "06/16/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "65219-445-10",
+   "company_name": "Caplin Steriles, Ltd.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2mg/1 mL (NDC 65219-445-10)",
+   "update_date": "06/16/2026"
+  },
+  {
+   "for_ndc": "0409-6695-01",
+   "alt_ndc": "72572-160-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Etomidate, Injection, 2 mg/1 mL (NDC 72572-160-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "44567-611-10",
+   "company_name": "WG Critical Care",
+   "availability": "Available",
+   "presentation": "Midazolam In 0.9% Sodium Chloride, Injection, 1 mg/1 mL (NDC 44567-611-10)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "63323-412-25",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 63323-412-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "44567-610-10",
+   "company_name": "WG Critical Care",
+   "availability": "Available",
+   "presentation": "Midazolam In 0.9% Sodium Chloride, Injection, 1 mg/1 mL (NDC 44567-610-10)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0641-6057-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 0641-6057-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "63323-412-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 63323-412-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "63323-411-12",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 63323-411-12)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0641-6059-01",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 0641-6059-01)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "63323-411-25",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 63323-411-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0641-6060-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 0641-6060-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "23155-601-42",
+   "company_name": "Avet Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 23155-601-42)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "23155-600-41",
+   "company_name": "Avet Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 23155-600-41)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0641-6061-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 0641-6061-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "23155-601-41",
+   "company_name": "Avet Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 5 mg/1 mL (NDC 23155-601-41)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0409-2596-03",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 25 mg/5 mL (5 mg/mL) (NDC 0409-2596-03)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-2596-05",
+   "alt_ndc": "0641-6056-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Midazolam Hydrochloride, Injection, 1 mg/1 mL (NDC 0641-6056-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1985-30",
+   "alt_ndc": "76329-8261-1",
+   "company_name": "Amphastar Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Lorazepam, Injection, 2 mg/1 mL (NDC 76329-8261-1)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1985-30",
+   "alt_ndc": "65219-368-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Lorazepam, Injection, 2 mg/1 mL (NDC 65219-368-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "55150-296-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 55150-296-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "52536-125-10",
+   "company_name": "Azurity Pharmaceuticals, Inc",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 mcg/50 mL (4 ug/1 mL) (NDC 52536-125-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "67457-251-02",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 67457-251-02)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "55150-209-02",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 55150-209-02)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-0155-02",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 400 mcg/100 mL (4 mcg/mL) (NDC 0409-0155-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "44567-600-04",
+   "company_name": "HQ Specialty Pharma",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 44567-600-04)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1454-20",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 200 mcg/50 mL (4 mcg/mL) (NDC 0409-1454-20)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "43066-557-12",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 ug/100 mL (NDC 43066-557-12)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1638-02",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 200 mcg/2 mL (100 mcg/mL) (NDC 0409-1638-02)",
+   "update_date": "09/08/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0781-3494-95",
+   "company_name": "Jiangsu Hengrui Pharmaceuticals Co., Ltd.",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 mcg/50 mL (NDC 0781-3494-95)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "71288-505-03",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 71288-505-03)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "67457-924-50",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/50 mL (NDC 67457-924-50)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "72572-127-10",
+   "company_name": "Azurity Pharmaceuticals, Inc",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 mcg/50 mL (4 ug/1 mL) (NDC 72572-127-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-7853-24",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 400 mcg/100 mL (NDC 0409-7853-24)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "43598-976-58",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 43598-976-58)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1434-01",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 1000 mcg/250 mL Single Dose Glass Bottle (NDC 0409-1434-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70069-759-04",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 70069-759-04)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "44567-602-24",
+   "company_name": "HQ Specialty Pharma",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 44567-602-24)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70121-1388-8",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 70121-1388-8)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "44567-601-04",
+   "company_name": "HQ Specialty Pharma",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 44567-601-04)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0781-3495-95",
+   "company_name": "Jiangsu Hengrui Pharmaceuticals Co., Ltd.",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 mcg/100 mL (NDC 0781-3495-95)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "52536-126-08",
+   "company_name": "Azurity Pharmaceuticals, Inc",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 mcg/100 mL (4 ug/1 mL) (NDC 52536-126-08)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0143-9532-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 0143-9532-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "44567-603-24",
+   "company_name": "HQ Specialty Pharma",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 44567-603-24)",
+   "update_date": "10/01/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70121-1389-7",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 70121-1389-7)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70121-1389-1",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 mcg/mL, 100 mL (NDC 70121-1389-1)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1660-20",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 80 mcg/20 mL (4 mcg/mL) (NDC 0409-1660-20)",
+   "update_date": "09/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0338-9555-24",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/50 mL (NDC 0338-9555-24)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1596-10",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 400 mcg/100 mL (4 mcg/mL) (NDC 0409-1596-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "43066-555-24",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/50 mL (NDC 43066-555-24)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0781-3493-95",
+   "company_name": "Jiangsu Hengrui Pharmaceuticals Co., Ltd.",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 80 mcg/20 mL (NDC 0781-3493-95)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-4596-20",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 200 mcg/50 mL (4 mcg/mL) (NDC 0409-4596-20)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "67457-925-10",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 ug/100 mL (NDC 67457-925-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-7838-24",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 200 mcg/50 mL (NDC 0409-7838-24)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-7875-12",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 1000 mcg/250 mL (NDC 0409-7875-12)",
+   "update_date": "09/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70121-1388-1",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 mcg/mL, 50 mL (NDC 70121-1388-1)",
+   "update_date": "10/05/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "70069-758-04",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 100 ug/1 mL (NDC 70069-758-04)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "66794-230-42",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 200 ug/2 mL (NDC 66794-230-42)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1174-10",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 400 mcg/100 mL (4 mcg/mL) (NDC 0409-1174-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-2815-01",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 1000 mcg/250 mL Glass Bottle NovaPlus (NDC 0409-2815-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "55150-297-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 55150-297-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "43598-975-58",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 4 ug/1 mL (NDC 43598-975-58)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0338-9557-12",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 ug/100 mL (NDC 0338-9557-12)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "72572-128-08",
+   "company_name": "Azurity Pharmaceuticals, Inc",
+   "availability": "Available",
+   "presentation": "Dexmedetomidine Hydrochloride, Injection, 400 mcg/100 mL (4 ug/1 mL) (NDC 72572-128-08)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3301-10",
+   "alt_ndc": "0409-1660-50",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Precedex, Injection, 200 mcg/50 mL (4 mcg/mL) (NDC 0409-1660-50)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0409-1403-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (10 mg/mL) (NDC 0409-1403-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "39822-4200-6",
+   "company_name": "XGen Pharmaceuticals DJB, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 100 mg/10 mL (NDC 39822-4200-6)",
+   "update_date": "09/22/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0409-3189-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (10 mg/mL) (NDC 0409-3189-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "43066-007-10",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (NDC 43066-007-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0143-9250-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 0143-9250-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "63323-426-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 63323-426-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "39822-4200-2",
+   "company_name": "XGen Pharmaceuticals DJB, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (NDC 39822-4200-2)",
+   "update_date": "09/22/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "67457-228-10",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 67457-228-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "67457-228-05",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 67457-228-05)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "55150-225-05",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (NDC 55150-225-05)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0781-3220-92",
+   "company_name": "Sandoz Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 0781-3220-92)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0409-5160-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 100 mg/10 mL (10 mg/mL) (NDC 0409-5160-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "43066-013-10",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 100 mg/10 mL (NDC 43066-013-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "71288-718-11",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 71288-718-11)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "66794-228-41",
+   "company_name": "Piramal Critical Care Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 50 mg/5 mL (NDC 66794-228-41)",
+   "update_date": "09/15/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "55150-226-10",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 100 mg/10 mL (NDC 55150-226-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0781-3220-95",
+   "company_name": "Sandoz Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 0781-3220-95)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "25021-687-05",
+   "company_name": "Sagent Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 25021-687-05)",
+   "update_date": "10/08/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "71288-700-06",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 71288-700-06)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-7037-10",
+   "alt_ndc": "0143-9251-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Rocuronium Bromide, Injection, 10 mg/1 mL (NDC 0143-9251-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "0517-1001-25",
+   "company_name": "American Regent, Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 1 mg/1 mL (NDC 0517-1001-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "16729-484-45",
+   "company_name": "Accord Healthcare Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 0.1 mg/1 mL (NDC 16729-484-45)",
+   "update_date": "10/17/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "70069-641-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 1 mg/1 mL (NDC 70069-641-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "76329-3340-1",
+   "company_name": "Amphastar Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, .1 mg/1 mL (NDC 76329-3340-1)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "64253-400-91",
+   "company_name": "Medefil, Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 1 mg/10 mL (0.1 mg/mL) Syringes (NDC 64253-400-91)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "70069-631-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, .4 mg/1 mL (NDC 70069-631-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "0409-9630-05",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 0.25 mg/5 mL (0.05 mg/mL) Syringes (NDC 0409-9630-05)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "70069-481-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, .4 mg/1 mL (NDC 70069-481-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "0641-6251-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, 0.4 mg/1 mL (NDC 0641-6251-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-1630-10",
+   "alt_ndc": "0517-1004-25",
+   "company_name": "American Regent, Inc.",
+   "availability": "Available",
+   "presentation": "Atropine Sulfate, Injection, .4 mg/1 mL (NDC 0517-1004-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-489-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .005 mg/1 mL; 20 mg/1 mL (NDC 63323-489-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-483-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .01 mg/1 mL; 20 mg/1 mL (NDC 63323-483-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-488-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .005 mg/1 mL; 15 mg/1 mL (NDC 63323-488-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-482-27",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .01 mg/1 mL; 10 mg/1 mL (NDC 63323-482-27)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-482-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .01 mg/1 mL; 10 mg/1 mL (NDC 63323-482-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-483-57",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .01 mg/1 mL; 20 mg/1 mL (NDC 63323-483-57)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-488-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .005 mg/1 mL; 15 mg/1 mL (NDC 63323-488-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-487-17",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .005 mg/1 mL; 10 mg/1 mL (NDC 63323-487-17)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0115-1694-30",
+   "alt_ndc": "63323-487-37",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Xylocaine, Injection, .005 mg/1 mL; 10 mg/1 mL (NDC 63323-487-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6040-01",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Infumorph 500 (Preservative-Free Morphine Sulfate Sterile Solution), Injection, 25 mg/1 mL (NDC 0641-6040-01)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0409-1890-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 2 mg/1 mL Syringes (NDC 0409-1890-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "63323-452-01",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 2 mg/1 mL (NDC 63323-452-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6127-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 10 mg/1 mL (NDC 0641-6127-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "66794-160-02",
+   "company_name": "Piramal Critical Care Inc.",
+   "availability": "Available",
+   "presentation": "Mitigo, Injection, 200 mg/20 mL (NDC 66794-160-02)",
+   "update_date": "09/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6125-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 4 mg/1 mL (NDC 0641-6125-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0409-1891-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 4 mg/1 mL Syringes (NDC 0409-1891-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0409-3814-12",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 5 mg/10 mL (0.5 mg/mL) (NDC 0409-3814-12)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6020-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Duramorph, Injection, .5 mg/1 mL (NDC 0641-6020-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "76045-004-11",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 2 mg/1 mL (NDC 76045-004-11)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6019-10",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Duramorph, Injection, 1 mg/1 mL (NDC 0641-6019-10)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "63323-451-01",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 10 mg/1 mL (NDC 63323-451-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "76329-1912-1",
+   "company_name": "Amphastar Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 1 mg/1 mL (NDC 76329-1912-1)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "76045-005-11",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 4 mg/1 mL (NDC 76045-005-11)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "66794-162-02",
+   "company_name": "Piramal Critical Care Inc.",
+   "availability": "Available",
+   "presentation": "Mitigo, Injection, 500 mg/20 mL (NDC 66794-162-02)",
+   "update_date": "09/15/2026"
+  },
+  {
+   "for_ndc": "0409-3815-12",
+   "alt_ndc": "0641-6126-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Morphine Sulfate, Injection, 8 mg/1 mL (NDC 0641-6126-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0703-0110-03",
+   "company_name": "Teva Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 0703-0110-03)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-1304-31",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 4 mg/1 mL Syringes (NDC 0409-1304-31)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-851-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 63323-851-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-852-25",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 1 mg/1 mL (NDC 63323-852-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-851-15",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 63323-851-15)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-1312-30",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 2 mg/1 mL Syringes (NDC 0409-1312-30)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-854-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 4 mg/1 mL (NDC 63323-854-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-2634-05",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 50 mg/5 mL (10 mg/mL) (NDC 0409-2634-05)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0703-0018-01",
+   "company_name": "Teva Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 0703-0018-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-851-50",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 63323-851-50)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-2634-50",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 500 mg/50 mL (10 mg/mL) (NDC 0409-2634-50)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-3365-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 2 mg/1 mL (NDC 0409-3365-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-1283-31",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 1 mg/1 mL Syringes (NDC 0409-1283-31)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0409-2634-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 10 mg/1 mL (NDC 0409-2634-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "0641-0121-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 2 mg/1 mL (NDC 0641-0121-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-4264-01",
+   "alt_ndc": "63323-853-25",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Hydromorphone Hydrochloride, Injection, 2 mg/1 mL (NDC 63323-853-25)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-806-50",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate Preservative Free, Injection, .05 mg/1 mL (NDC 63323-806-50)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0409-9094-61",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 2500 mcg/50 mL (50 ug/1 mL) (NDC 0409-9094-61)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0641-6030-01",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 mcg/1 mL (NDC 0641-6030-01)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-806-05",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate Preservative Free, Injection, .05 mg/1 mL (NDC 63323-806-05)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-806-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate Preservative Free, Injection, .05 mg/1 mL (NDC 63323-806-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0641-6247-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 mcg/1 mL (NDC 0641-6247-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-808-11",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 ug/1 mL (NDC 63323-808-11)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0641-6027-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 mcg/1 mL (NDC 0641-6027-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0641-6028-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 mcg/1 mL (NDC 0641-6028-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-806-20",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate Preservative Free, Injection, .05 mg/1 mL (NDC 63323-806-20)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "63323-806-01",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate Preservative Free, Injection, .05 mg/1 mL (NDC 63323-806-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0641-6029-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 50 mcg/1 mL (NDC 0641-6029-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-9094-22",
+   "alt_ndc": "0409-9094-55",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Fentanyl Citrate, Injection, 2,500 mcg/50 mL (50 mcg/mL) Single Dose Glass Fliptop Vial (NDC 0409-9094-55)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "63323-724-05",
+   "alt_ndc": "63323-725-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Remifentanil Hydrochloride, Injection, 1 mg/1 mL (NDC 63323-725-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "63323-724-05",
+   "alt_ndc": "72078-036-05",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Ultiva, Injection, 5 mg (NDC 72078-036-05)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-724-05",
+   "alt_ndc": "72078-035-02",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Ultiva, Injection, 2 mg (NDC 72078-035-02)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "63323-724-05",
+   "alt_ndc": "72078-034-01",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Ultiva, Injection, 1 mg/1 mL (NDC 72078-034-01)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "62332-599-25",
+   "company_name": "Alembic Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 62332-599-25)",
+   "update_date": "05/15/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "72266-119-25",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 72266-119-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "62332-600-25",
+   "company_name": "Alembic Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 62332-600-25)",
+   "update_date": "05/15/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "25021-701-02",
+   "company_name": "Sagent Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-02)",
+   "update_date": "10/08/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "62332-601-25",
+   "company_name": "Alembic Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 60 mg/2 mL (NDC 62332-601-25)",
+   "update_date": "05/15/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "0338-0072-25",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 0338-0072-25)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "25021-700-01",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 25021-700-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "25021-701-01",
+   "company_name": "Sagent Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-01)",
+   "update_date": "10/08/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "63323-161-01",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 63323-161-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "25021-701-01",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "25021-701-02",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3795-01",
+   "alt_ndc": "72266-118-25",
+   "company_name": "Gland Pharma Limited",
+   "availability": "Available",
+   "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 72266-118-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "0641-6146-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 0641-6146-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "55150-304-25",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 10 mg/1 mL (NDC 55150-304-25)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "70069-025-10",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 10 mg/1 mL (NDC 70069-025-10)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "67457-420-10",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 10 mg/1 mL (NDC 67457-420-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "63323-516-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 10 mg/1 mL (NDC 63323-516-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "67457-422-54",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 67457-422-54)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "70069-021-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate Preservative Free, Injection, 10 mg/1 mL (NDC 70069-021-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "63323-506-01",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate Preservative Free, Injection, 10 mg/1 mL (NDC 63323-506-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "63323-165-05",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 63323-165-05)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "76045-0210-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 76045-0210-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "0641-0367-25",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 10 mg/1 mL (NDC 0641-0367-25)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "67457-423-12",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 67457-423-12)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "76045-210-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 76045-210-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "63323-165-30",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 63323-165-30)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0641-6145-25",
+   "alt_ndc": "67457-421-30",
+   "company_name": "Mylan Institutional, a Viatris Company",
+   "availability": "Available",
+   "presentation": "Dexamethasone Sodium Phosphate, Injection, 4 mg/1 mL (NDC 67457-421-30)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "70121-1573-5",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Methylprednisolone Acetate, Injection, 40 mg/1 mL (NDC 70121-1573-5)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "70121-1574-5",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Methylprednisolone Acetate, Injection, 80 mg/1 mL (NDC 70121-1574-5)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-0306-12",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 80 mg/1 mL (NDC 0009-0306-12)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "25021-820-05",
+   "company_name": "Sagent Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Methylprednisolone Acetate, Injection, 40 mg/1 mL (NDC 25021-820-05)",
+   "update_date": "10/08/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-3073-22",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 40 mg/1 mL (NDC 0009-3073-22)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-0306-02",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 80 mg/1 mL (NDC 0009-0306-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "70121-1574-1",
+   "company_name": "Amneal Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Methylprednisolone Acetate, Injection, 80 mg/1 mL (NDC 70121-1574-1)",
+   "update_date": "10/06/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-3073-23",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 40 mg/1 mL (NDC 0009-3073-23)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-0274-01",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 20 mg/1 mL (NDC 0009-0274-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "70121-1573-1",
+   "alt_ndc": "0009-0280-52",
+   "company_name": "Pfizer Inc.",
+   "availability": "Available",
+   "presentation": "Depo-medrol, Injection, 40 mg/1 mL (NDC 0009-0280-52)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1005-20",
+   "alt_ndc": "0338-0433-04",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Heparin Sodium In Sodium Chloride, Injection, 200 [USP'U]/100 mL (NDC 0338-0433-04)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1005-20",
+   "alt_ndc": "0409-2222-12",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Heparin Sodium, Injection, 2,000 Units/1,000 mL (2 Units/mL) (NDC 0409-2222-12)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1005-20",
+   "alt_ndc": "63323-519-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Heparin Sodium, Injection, 200 [USP'U]/100 mL (NDC 63323-519-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "36000-283-25",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 36000-283-25)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "63323-280-04",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 63323-280-04)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "55150-324-25",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 100 mg/10 mL (NDC 55150-324-25)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "23155-473-41",
+   "company_name": "Avet Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 23155-473-41)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "71288-203-11",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 71288-203-11)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "23155-473-42",
+   "company_name": "Avet Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 23155-473-42)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "36000-282-25",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 36000-282-25)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "71288-205-03",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/mL, 2 mL (NDC 71288-205-03)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "0409-6102-04",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 40 mg/4 mL (10 mg/1 mL) (NDC 0409-6102-04)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "63323-280-02",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 63323-280-02)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "71288-203-05",
+   "company_name": "Meitheal Pharmaceuticals, Inc.",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 71288-203-05)",
+   "update_date": "08/27/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "36000-284-25",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 36000-284-25)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "63323-280-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 10 mg/1 mL (NDC 63323-280-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "0409-6102-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 100 mg/ 10mL (10 mg/1 mL) (NDC 0409-6102-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-6102-02",
+   "alt_ndc": "55150-323-25",
+   "company_name": "Eugia US LLC",
+   "availability": "Available",
+   "presentation": "Furosemide, Injection, 40 mg/4 mL (NDC 55150-323-25)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "51754-5011-4",
+   "company_name": "Exela Pharma Sciences, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 84 mg/1 mL (NDC 51754-5011-4)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "81298-7620-3",
+   "company_name": "Long Grove Pharmaceuticals LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 84 mg/1 mL (NDC 81298-7620-3)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "63323-089-50",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 84 mg/1 mL (NDC 63323-089-50)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "51754-5012-4",
+   "company_name": "Exela Pharma Sciences, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 42 mg/1 mL (NDC 51754-5012-4)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "51754-5001-5",
+   "company_name": "Exela Pharma Sciences, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 84 mg/1 mL (NDC 51754-5001-5)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-6625-14",
+   "alt_ndc": "63323-083-05",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Bicarbonate, Injection, 42 mg/1 mL (NDC 63323-083-05)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0409-3299-05",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 100 mEq/50 mL (2 mEq/mL) (NDC 0409-3299-05)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0409-7299-25",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 40 mEq/20 mL (2 mEq/mL) (NDC 0409-7299-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "70069-048-20",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 164 mg/1 mL (NDC 70069-048-20)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0409-3299-25",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 200 mEq/100 mL (2 mEq/mL) (NDC 0409-3299-25)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0641-6262-01",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 100 mEq/50mL (2 mEq/mL) (NDC 0641-6262-01)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "71357-007-10",
+   "company_name": "Milla Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 100 mEq/50mL (2 mEq/mL) (NDC 71357-007-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "70069-047-25",
+   "company_name": "Somerset Therapeutics, LLC",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 164 mg/1 mL (NDC 70069-047-25)",
+   "update_date": "09/11/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0641-6261-01",
+   "company_name": "Hikma Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 40 mEq/20mL (2 mEq/mL) (NDC 0641-6261-01)",
+   "update_date": "10/14/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "71357-008-10",
+   "company_name": "Milla Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 200 mEq/100mL (2 mEq/mL) (NDC 71357-008-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0409-7299-73",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 40 mEq/20 mL (2 mEq/mL) (NDC 0409-7299-73)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "71357-002-10",
+   "company_name": "Milla Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 40 mEq/20mL (2 mEq/mL) (NDC 71357-002-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-3299-06",
+   "alt_ndc": "0409-3299-26",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sodium Acetate, Injection, 100 mEq/50 mL (2 mEq/mL) (NDC 0409-3299-26)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0551-11",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-0551-11)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "63323-824-75",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 mg/1 mL (NDC 63323-824-75)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7922-09",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7922-09)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7923-36",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7923-36)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7922-03",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7922-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-18",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-18)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0023-04",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 g/1000 mL (NDC 0338-0023-04)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "65219-462-10",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 65219-462-10)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7510-10",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 5%, Injection, 5 g/100 mL (NDC 0264-7510-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-9666-35",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-9666-35)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7923-13",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7923-13)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0074-30",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-0074-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "63323-824-76",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 mg/1 mL (NDC 63323-824-76)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-03",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7930-09",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 10 g/100 mL (NDC 0990-7930-09)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "65219-458-30",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 65219-458-30)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-10",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0023-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 g/1000 mL (NDC 0338-0023-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7922-02",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7922-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "63323-824-74",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 mg/1 mL (NDC 63323-824-74)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7120-07",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "DEXTROSE 70% IN PLASTIC CONTAINER, Injection, 70 g/100 mL (NDC 0990-7120-07)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7923-23",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7923-23)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0070-10",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-0070-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7510-20",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 5%, Injection, 5 g/100 mL (NDC 0264-7510-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7918-19",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "DEXTROSE 70% IN PLASTIC CONTAINER, Injection, 70 g/100 mL (NDC 0990-7918-19)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7510-00",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 5%, Injection, 5 g/100 mL (NDC 0264-7510-00)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7387-50",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 70%, Injection, 70 g/100 mL (NDC 0264-7387-50)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7930-02",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 10 g/100 mL (NDC 0990-7930-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-31",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-31)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7520-10",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 10%, Injection, 10 g/100 mL (NDC 0264-7520-10)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-1510-31",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-31)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-1510-32",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-32)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0719-06",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 70%, Injection, 70 g/100 mL (NDC 0338-0719-06)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-38",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-38)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7922-55",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7922-55)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0078-20",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-0078-20)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-9664-40",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 2.5 g/50 mL (NDC 0338-9664-40)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7930-03",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 10 g/100 mL (NDC 0990-7930-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0023-03",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 10% In Plastic Container, Injection, 100 g/1000 mL (NDC 0338-0023-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "65219-460-20",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 65219-460-20)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7923-37",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7923-37)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7923-20",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7923-20)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "65219-464-50",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 65219-464-50)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0551-18",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0338-0551-18)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7520-00",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 10%, Injection, 10 g/100 mL (NDC 0264-7520-00)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "65219-456-60",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 65219-456-60)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0264-7520-20",
+   "company_name": "B. Braun Medical Inc.",
+   "availability": "Available",
+   "presentation": "Dextrose Monohydrate 10%, Injection, 10 g/100 mL (NDC 0264-7520-20)",
+   "update_date": "10/19/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0990-7922-61",
+   "company_name": "Otsuka ICU Medical LLC",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 5 g/100 mL (NDC 0990-7922-61)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-7517-16",
+   "alt_ndc": "0338-0017-41",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dextrose 5% In Plastic Container, Injection, 50 g/1000 mL (NDC 0338-0017-41)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "64253-020-30",
+   "company_name": "Medefil, Inc.",
+   "availability": "Available",
+   "presentation": "Sterile Water, Injection, 10 mL/10 mL (NDC 64253-020-30)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "63323-185-20",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sterile Water For Injection In Plastic Container, Injection, 1 mL/1 mL (NDC 63323-185-20)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "63323-178-76",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sterile Water, Injection, 1000 mL/1000 mL (NDC 63323-178-76)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "0409-4887-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sterile Water, Injection, 1 mL/1 mL (NDC 0409-4887-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "63323-185-50",
+   "company_name": "Fresenius Kabi USA, LLC",
+   "availability": "Available",
+   "presentation": "Sterile Water For Injection In Plastic Container, Injection, 1 mL/1 mL (NDC 63323-185-50)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "0409-4887-20",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sterile Water, Injection, 1 mL/1 mL (NDC 0409-4887-20)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "0409-4887-99",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Sterile Water, Injection, 1 mL/1 mL (NDC 0409-4887-99)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-4887-50",
+   "alt_ndc": "0409-3977-03",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Bacteriostatic Water For Injection In Plastic Container, Injection, 1 mL/1 mL (NDC 0409-3977-03)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-0152-24",
+   "alt_ndc": "0338-1055-48",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Flagyl I.v. Rtu In Plastic Container, Injection, 500 mg/100 mL (NDC 0338-1055-48)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0338-1005-03",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 80 mg/100 mL (NDC 0338-1005-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0409-9104-20",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride, Injection, 400 mg/10mL (40 mg/1 mL) (NDC 0409-9104-20)",
+   "update_date": "10/08/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0338-1007-03",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 160 mg/100 mL (NDC 0338-1007-03)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0409-0042-12",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 400 mg/250 mL (1.6 mg/1 mL) (NDC 0409-0042-12)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0409-5820-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride, Injection, 200 mg/5mL (40 mg/1 mL) (NDC 0409-5820-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0338-1007-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 160 mg/100 mL (NDC 0338-1007-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-1858-12",
+   "alt_ndc": "0338-1005-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dopamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 80 mg/100 mL (NDC 0338-1005-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0409-2344-01",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride, Injection, 250 mg/20mL (12.5 mg/1 mL) (NDC 0409-2344-01)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0409-0025-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 250 mg/250mL (1 mg/mL) (NDC 0409-0025-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0409-2344-02",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride, Injection, 250 mg/20mL (12.5 mg/1 mL) (NDC 0409-2344-02)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0338-1077-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 400 mg/100 mL (NDC 0338-1077-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0409-1100-10",
+   "company_name": "Hospira, Inc., a Pfizer Company",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 1,000 mg/250mL (4 mg/mL) (NDC 0409-1100-10)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0338-1073-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 100 mg/100 mL (NDC 0338-1073-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "0338-1075-02",
+   "company_name": "Baxter Healthcare",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride In Dextrose 5% In Plastic Container, Injection, 200 mg/100 mL (NDC 0338-1075-02)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "0409-0151-10",
+   "alt_ndc": "70436-203-80",
+   "company_name": "Hainan Poly Pharm. Co., Ltd.",
+   "availability": "Available",
+   "presentation": "Dobutamine Hydrochloride, Injection, 250 mg/20 mL (NDC 70436-203-80)",
+   "update_date": "10/21/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "50458-585-01",
+   "company_name": "Janssen Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Concerta, Tablet, Extended Release, 18 mg (NDC 50458-585-01)",
+   "update_date": "10/20/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "50458-586-01",
+   "company_name": "Janssen Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Concerta, Tablet, Extended Release, 36 mg (NDC 50458-586-01)",
+   "update_date": "10/20/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-098-10",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 54 mg (NDC 68025-098-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "62175-313-37",
+   "company_name": "Lannett Company, Inc.",
+   "availability": "Available",
+   "presentation": "Methylphenidate Hydrochloride, Tablet, Extended Release, 54 mg (NDC 62175-313-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-084-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 72 mg (NDC 68025-084-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "62175-310-37",
+   "company_name": "Lannett Company, Inc.",
+   "availability": "Available",
+   "presentation": "Methylphenidate Hydrochloride, Tablet, Extended Release, 18 mg (NDC 62175-310-37)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-097-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 36 mg (NDC 68025-097-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-096-10",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 27 mg (NDC 68025-096-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-097-10",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 36 mg (NDC 68025-097-10)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "62037-727-01",
+   "company_name": "Teva Pharmaceuticals USA, Inc.",
+   "availability": "Available",
+   "presentation": "Methylphenidate Hydrochloride, Tablet, Extended Release, 54 mg (NDC 62037-727-01)",
+   "update_date": "10/15/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-096-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 27 mg (NDC 68025-096-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-089-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 63 mg (NDC 68025-089-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "50458-587-01",
+   "company_name": "Janssen Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Concerta, Tablet, Extended Release, 54 mg (NDC 50458-587-01)",
+   "update_date": "10/20/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-098-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 54 mg (NDC 68025-098-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "50458-588-01",
+   "company_name": "Janssen Pharmaceuticals",
+   "availability": "Available",
+   "presentation": "Concerta, Tablet, Extended Release, 27 mg (NDC 50458-588-01)",
+   "update_date": "10/20/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-088-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 45 mg (NDC 68025-088-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-095-30",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 18 mg (NDC 68025-095-30)",
+   "update_date": "10/16/2026"
+  },
+  {
+   "for_ndc": "62037-725-01",
+   "alt_ndc": "68025-095-10",
+   "company_name": "Vertical Pharmaceuticals, LLC",
+   "availability": "Available",
+   "presentation": "Relexxii, Tablet, Extended Release, 18 mg (NDC 68025-095-10)",
+   "update_date": "10/16/2026"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\":\"0409-3382-21\",\"priority\":\"act-today\",\"headline\":\"Sufentanil injection limited; 6 days of stock remain\",\"why\":\"FDA reports limited supply with manufacturing delay; only 6 days of inventory on hand\",\"action\":\"Review swap options before current stock runs out.\",\"buy_instead\":null,\"citations\":[\"stock:0409-3382-21\",\"fda:0409-3382-21\",\"history:0409-3382-21\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1644,
+  "completion_tokens": 130,
+  "total_tokens": 1774
+ },
+ "latencyMs": 19222
+}

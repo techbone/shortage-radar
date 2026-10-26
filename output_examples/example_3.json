@@ -26,8 +26,8 @@
   "log_file": "logs/trace-example-3.jsonl",
   "status": "success",
   "output": {
-    "headline": "4 to act on today",
-    "summary": "Prioritize reviewing swap options for Dexmedetomidine and Sufentanil before current stock runs out; Atropine has an immediate alternative available, and Lidocaine preservative-free supply is limited but no swap recommended at this time.",
+    "headline": "6 to act on today",
+    "summary": "Prioritize reviewing swap options for Sufentanil and Ketorolac injections before current stock depletes; Lidocaine preservative-free and Atropine shortages have specific alternative NDCs available for immediate procurement.",
     "fda_update": {
       "date": "2026-10-23",
       "changes": 13,
@@ -145,7 +145,7 @@
           {
             "id": "stock:0409-3301-10",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "Northwind stock: 91 units, 13/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-3301-10",
@@ -157,7 +157,7 @@
           {
             "id": "fda:0409-3301-10",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-3301-10",
@@ -186,7 +186,7 @@
           {
             "id": "alt:0781-3493-95",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Jiangsu Hengrui Pharmaceuticals Co., Ltd. NDC 0781-3493-95: Available (same concentration and container size)",
             "record": {
               "ndc": "0781-3493-95",
@@ -198,7 +198,7 @@
           {
             "id": "alt:0409-1660-20",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Pfizer Inc. NDC 0409-1660-20: Available (same concentration and container size)",
             "record": {
               "ndc": "0409-1660-20",
@@ -210,7 +210,7 @@
           {
             "id": "alt:70121-1388-1",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Amneal Pharmaceuticals NDC 70121-1388-1: Available (same concentration, 1 mL container instead of 20 mL)",
             "record": {
               "ndc": "70121-1388-1",
@@ -222,7 +222,7 @@
           {
             "id": "alt:55150-209-02",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Eugia US LLC NDC 55150-209-02: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
             "record": {
               "ndc": "55150-209-02",
@@ -234,7 +234,7 @@
           {
             "id": "alt:66794-230-42",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Gland Pharma Limited NDC 66794-230-42: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
             "record": {
               "ndc": "66794-230-42",
@@ -329,7 +329,7 @@
           {
             "id": "stock:0409-1323-05",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "Northwind stock: 188 units, 47/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-1323-05",
@@ -341,7 +341,7 @@
           {
             "id": "fda:0409-1323-05",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-1323-05",
@@ -370,7 +370,7 @@
           {
             "id": "alt:0143-9594-25",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Hikma Pharmaceuticals USA, Inc. NDC 0143-9594-25: Available (same concentration, 1 mL container instead of 5 mL)",
             "record": {
               "ndc": "0143-9594-25",
@@ -382,7 +382,7 @@
           {
             "id": "alt:76329-3390-1",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-3390-1: Available (ours is preservative-free; this one is not)",
             "record": {
               "ndc": "76329-3390-1",
@@ -394,7 +394,7 @@
           {
             "id": "alt:83634-651-10",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Anthea Pharma NDC 83634-651-10: Available (different concentration (10 mg/mL vs ours 20 mg/mL))",
             "record": {
               "ndc": "83634-651-10",
@@ -444,7 +444,7 @@
           {
             "id": "stock:0409-3382-21",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "Northwind stock: 84 units, 14/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-3382-21",
@@ -456,7 +456,7 @@
           {
             "id": "fda:0409-3382-21",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-3382-21",
@@ -596,7 +596,7 @@
           {
             "id": "stock:0409-1630-10",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "Northwind stock: 245 units, 35/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-1630-10",
@@ -608,7 +608,7 @@
           {
             "id": "fda:0409-1630-10",
             "kind": "zetaris",
-            "queryId": "zq_58c13504",
+            "queryId": "zq_e6145412",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-1630-10",
@@ -637,7 +637,7 @@
           {
             "id": "alt:64253-400-91",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Medefil, Inc. NDC 64253-400-91: Available (same concentration and container size)",
             "record": {
               "ndc": "64253-400-91",
@@ -649,7 +649,7 @@
           {
             "id": "alt:16729-484-45",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Accord Healthcare Inc. NDC 16729-484-45: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "16729-484-45",
@@ -661,7 +661,7 @@
           {
             "id": "alt:76329-3340-1",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-3340-1: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "76329-3340-1",
@@ -673,7 +673,7 @@
           {
             "id": "alt:0517-1001-25",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "American Regent, Inc. NDC 0517-1001-25: Available (different concentration (1 mg/mL vs ours 100 mcg/mL))",
             "record": {
               "ndc": "0517-1001-25",
@@ -685,12 +685,336 @@
           {
             "id": "alt:0517-1004-25",
             "kind": "zetaris",
-            "queryId": "zq_19f9b5ff",
+            "queryId": "zq_25e7357e",
             "label": "American Regent, Inc. NDC 0517-1004-25: Available (different concentration (400 mcg/mL vs ours 100 mcg/mL))",
             "record": {
               "ndc": "0517-1004-25",
               "company": "American Regent, Inc.",
               "presentation": "Atropine Sulfate, Injection, .4 mg/1 mL (NDC 0517-1004-25)",
+              "match": "review"
+            }
+          }
+        ],
+        "written_by": "nemotron"
+      },
+      {
+        "ndc": "0409-7517-16",
+        "priority": "act-today",
+        "headline": "Dextrose 50% injection unavailable",
+        "why": "Status changed to unavailable on 2026-10-08; 25 days of stock remain",
+        "action": "Review alternative sources for Dextrose 50% prior to stock depletion",
+        "buy_instead": null,
+        "citations": [
+          "stock:0409-7517-16",
+          "fda:0409-7517-16",
+          "history:0409-7517-16"
+        ],
+        "generic": "dextrose",
+        "fda_state": "unavailable",
+        "days_on_hand": 25,
+        "on_hand_units": 1000,
+        "daily_usage_units": 40,
+        "swaps": [],
+        "review": [
+          {
+            "ndc": "0264-1510-31",
+            "company": "B. Braun Medical Inc.",
+            "availability": "Available",
+            "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-31)",
+            "match": "review",
+            "reason": "different concentration (50 mg/mL vs ours 500 mg/mL)",
+            "strength": {
+              "perMl": 50,
+              "total": 50,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "0264-1510-32",
+            "company": "B. Braun Medical Inc.",
+            "availability": "Available",
+            "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-32)",
+            "match": "review",
+            "reason": "different concentration (50 mg/mL vs ours 500 mg/mL)",
+            "strength": {
+              "perMl": 50,
+              "total": 50,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "history": [
+          {
+            "state": "unavailable",
+            "validFrom": "2026-10-08T00:00:00.000Z",
+            "validTo": null
+          }
+        ],
+        "handling": {
+          "status": "new"
+        },
+        "evidence": [
+          {
+            "id": "stock:0409-7517-16",
+            "kind": "zetaris",
+            "queryId": "zq_e6145412",
+            "label": "Northwind stock: 1000 units, 40/day (northwind_pg.inventory)",
+            "record": {
+              "ndc": "0409-7517-16",
+              "on_hand_units": 1000,
+              "daily_usage_units": 40,
+              "days_on_hand": 25
+            }
+          },
+          {
+            "id": "fda:0409-7517-16",
+            "kind": "zetaris",
+            "queryId": "zq_e6145412",
+            "label": "FDA shortage list: unavailable (fda.shortages)",
+            "record": {
+              "ndc": "0409-7517-16",
+              "state": "unavailable"
+            }
+          },
+          {
+            "id": "history:0409-7517-16",
+            "kind": "world-model",
+            "label": "Status history: unavailable from 2026-10-08",
+            "record": {
+              "history": [
+                {
+                  "state": "unavailable",
+                  "validFrom": "2026-10-08T00:00:00.000Z",
+                  "validTo": null
+                }
+              ]
+            }
+          },
+          {
+            "id": "alt:0264-1510-31",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "B. Braun Medical Inc. NDC 0264-1510-31: Available (different concentration (50 mg/mL vs ours 500 mg/mL))",
+            "record": {
+              "ndc": "0264-1510-31",
+              "company": "B. Braun Medical Inc.",
+              "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-31)",
+              "match": "review"
+            }
+          },
+          {
+            "id": "alt:0264-1510-32",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "B. Braun Medical Inc. NDC 0264-1510-32: Available (different concentration (50 mg/mL vs ours 500 mg/mL))",
+            "record": {
+              "ndc": "0264-1510-32",
+              "company": "B. Braun Medical Inc.",
+              "presentation": "Dextrose 5% In Plastic Container, Injection, 50 mg/1 mL (NDC 0264-1510-32)",
+              "match": "review"
+            }
+          }
+        ],
+        "written_by": "nemotron"
+      },
+      {
+        "ndc": "0409-3795-01",
+        "priority": "act-today",
+        "headline": "Ketorolac injection unavailable",
+        "why": "FDA reports unavailable status with 9 days of stock remain",
+        "action": "Review swap options before current stock runs out",
+        "buy_instead": "62332-600-25",
+        "citations": [
+          "stock:0409-3795-01",
+          "fda:0409-3795-01",
+          "history:0409-3795-01",
+          "alt:62332-600-25"
+        ],
+        "generic": "ketorolac",
+        "fda_state": "unavailable",
+        "days_on_hand": 9,
+        "on_hand_units": 216,
+        "daily_usage_units": 24,
+        "swaps": [
+          {
+            "ndc": "62332-600-25",
+            "company": "Alembic Pharmaceuticals",
+            "availability": "Available",
+            "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 62332-600-25)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 30,
+              "total": 30,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "0338-0072-25",
+            "company": "Baxter Healthcare",
+            "availability": "Available",
+            "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 0338-0072-25)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 30,
+              "total": 30,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "25021-701-01",
+            "company": "Gland Pharma Limited",
+            "availability": "Available",
+            "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-01)",
+            "match": "same-product",
+            "reason": "same concentration and container size",
+            "strength": {
+              "perMl": 30,
+              "total": 30,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "review": [
+          {
+            "ndc": "62332-599-25",
+            "company": "Alembic Pharmaceuticals",
+            "availability": "Available",
+            "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 62332-599-25)",
+            "match": "review",
+            "reason": "different concentration (15 mg/mL vs ours 30 mg/mL)",
+            "strength": {
+              "perMl": 15,
+              "total": 15,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          },
+          {
+            "ndc": "63323-161-01",
+            "company": "Fresenius Kabi USA, LLC",
+            "availability": "Available",
+            "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 63323-161-01)",
+            "match": "review",
+            "reason": "different concentration (15 mg/mL vs ours 30 mg/mL)",
+            "strength": {
+              "perMl": 15,
+              "total": 15,
+              "unit": "mg",
+              "volumeMl": 1
+            }
+          }
+        ],
+        "history": [
+          {
+            "state": "unavailable",
+            "validFrom": "2026-10-08T00:00:00.000Z",
+            "validTo": null
+          }
+        ],
+        "handling": {
+          "status": "new"
+        },
+        "evidence": [
+          {
+            "id": "stock:0409-3795-01",
+            "kind": "zetaris",
+            "queryId": "zq_e6145412",
+            "label": "Northwind stock: 216 units, 24/day (northwind_pg.inventory)",
+            "record": {
+              "ndc": "0409-3795-01",
+              "on_hand_units": 216,
+              "daily_usage_units": 24,
+              "days_on_hand": 9
+            }
+          },
+          {
+            "id": "fda:0409-3795-01",
+            "kind": "zetaris",
+            "queryId": "zq_e6145412",
+            "label": "FDA shortage list: unavailable (fda.shortages)",
+            "record": {
+              "ndc": "0409-3795-01",
+              "state": "unavailable"
+            }
+          },
+          {
+            "id": "history:0409-3795-01",
+            "kind": "world-model",
+            "label": "Status history: unavailable from 2026-10-08",
+            "record": {
+              "history": [
+                {
+                  "state": "unavailable",
+                  "validFrom": "2026-10-08T00:00:00.000Z",
+                  "validTo": null
+                }
+              ]
+            }
+          },
+          {
+            "id": "alt:62332-600-25",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "Alembic Pharmaceuticals NDC 62332-600-25: Available (same concentration and container size)",
+            "record": {
+              "ndc": "62332-600-25",
+              "company": "Alembic Pharmaceuticals",
+              "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 62332-600-25)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:0338-0072-25",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "Baxter Healthcare NDC 0338-0072-25: Available (same concentration and container size)",
+            "record": {
+              "ndc": "0338-0072-25",
+              "company": "Baxter Healthcare",
+              "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 0338-0072-25)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:25021-701-01",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "Gland Pharma Limited NDC 25021-701-01: Available (same concentration and container size)",
+            "record": {
+              "ndc": "25021-701-01",
+              "company": "Gland Pharma Limited",
+              "presentation": "Ketorolac Tromethamine, Injection, 30 mg/1 mL (NDC 25021-701-01)",
+              "match": "same-product"
+            }
+          },
+          {
+            "id": "alt:62332-599-25",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "Alembic Pharmaceuticals NDC 62332-599-25: Available (different concentration (15 mg/mL vs ours 30 mg/mL))",
+            "record": {
+              "ndc": "62332-599-25",
+              "company": "Alembic Pharmaceuticals",
+              "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 62332-599-25)",
+              "match": "review"
+            }
+          },
+          {
+            "id": "alt:63323-161-01",
+            "kind": "zetaris",
+            "queryId": "zq_25e7357e",
+            "label": "Fresenius Kabi USA, LLC NDC 63323-161-01: Available (different concentration (15 mg/mL vs ours 30 mg/mL))",
+            "record": {
+              "ndc": "63323-161-01",
+              "company": "Fresenius Kabi USA, LLC",
+              "presentation": "Ketorolac Tromethamine, Injection, 15 mg/1 mL (NDC 63323-161-01)",
               "match": "review"
             }
           }
@@ -720,5 +1044,5 @@
   "models": [
     "nvidia/nemotron-3.5-lightning-30b-a3b"
   ],
-  "execution_time_seconds": 156.1
+  "execution_time_seconds": 121.9
 }

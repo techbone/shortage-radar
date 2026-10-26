@@ -1,0 +1,5 @@
+{
+  "run_id": "coverage",
+  "input": { "query": "Cover every item that needs attention." },
+  "options": { "max_items": 16 }
+}

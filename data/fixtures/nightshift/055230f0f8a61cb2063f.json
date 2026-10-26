@@ -1,12 +1,12 @@
 {
- "content": "{\"focus\": [\"0409-6695-01\", \"0409-3301-10\", \"0409-1323-05\"], \"rationale\": \"Etomidate (0409-6695-01) is unavailable with 6 days on hand and no same-strength alternate listed; dexmedetomidine (0409-3301-10) is limited with 7 days on hand; lidocaine (0409-1323-05) is limited with 4 days on hand. All three are critical anesthesia items with current shortages of 7 days or fewer.\"}",
+ "content": "{\"focus\": [\"0409-6695-01\", \"0409-3301-10\", \"0409-1323-05\"], \"rationale\": \"Etomidate (unavailable, 6d), dexmedetomidine (limited, 7d), and lidocaine (limited, 4d) are the anesthesia drugs short; etomidate and lidocaine have no same-strength alternate listed, marking them as urgent swap candidates.\"}",
  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
  "requestedModel": "meterless/auto",
  "toolCalls": [],
  "usage": {
-  "prompt_tokens": 1931,
-  "completion_tokens": 4237,
-  "total_tokens": 6168
+  "prompt_tokens": 1904,
+  "completion_tokens": 2433,
+  "total_tokens": 4337
  },
- "latencyMs": 36278
+ "latencyMs": 22421
 }

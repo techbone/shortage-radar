@@ -194,3 +194,22 @@ details summary { cursor: pointer; font-size: 13px; color: var(--muted); }
 .engine h3 { font-size: 16px; }
 .limits { margin: 12px 0 0; padding-left: 18px; color: var(--muted); }
 code { font-family: var(--font-mono); font-size: 12px; background: var(--sunken); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
+
+/* ---- small screens: the brief comes first, rows become cards ---- */
+@media (max-width: 900px) {
+  .rail { order: 2; border-right: 0; border-top: 1px solid var(--border); border-bottom: 0; }
+  .main { order: 1; }
+}
+@media (max-width: 760px) {
+  .t.brief thead { display: none; }
+  .t.brief, .t.brief tbody, .t.brief tr, .t.brief td { display: block; }
+  .t.brief tr { padding: 12px; border-bottom: 1px solid var(--border); }
+  .t.brief tr:last-child { border-bottom: 0; }
+  .t.brief td { border: 0; padding: 4px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; text-align: right; }
+  .t.brief td::before { content: attr(data-label); color: var(--muted); font-size: 12px; text-align: left; flex: none; padding-top: 2px; }
+  .t.brief td:first-child { display: block; text-align: left; padding-bottom: 8px; }
+  .t.brief td:first-child::before { content: none; }
+  .t.brief td.hide-sm { display: none; }
+  .t.brief tr.row:hover td { background: none; }
+  .sub { max-width: none; white-space: normal; }
+}

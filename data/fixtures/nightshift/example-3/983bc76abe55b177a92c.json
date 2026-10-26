@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\":\"0409-7517-16\",\"priority\":\"act-today\",\"headline\":\"Dextrose 50% injection unavailable\",\"why\":\"Status changed to unavailable on 2026-10-08; 25 days of stock remain\",\"action\":\"Review alternative sources for Dextrose 50% prior to stock depletion\",\"buy_instead\":null,\"citations\":[\"stock:0409-7517-16\",\"fda:0409-7517-16\",\"history:0409-7517-16\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1592,
+  "completion_tokens": 139,
+  "total_tokens": 1731
+ },
+ "latencyMs": 33513
+}

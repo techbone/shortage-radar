@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\":\"Prioritize reviewing swap options for Sufentanil and Ketorolac injections before current stock depletes; Lidocaine preservative-free and Atropine shortages have specific alternative NDCs available for immediate procurement.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1024,
+  "completion_tokens": 50,
+  "total_tokens": 1074
+ },
+ "latencyMs": 2621
+}

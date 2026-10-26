@@ -1,5 +1,7 @@
-# Shortage Radar services. Zetaris and Nightshift run on the host, outside this file.
-#   docker compose up -d hospital-db
+# Shortage Radar.
+#   docker compose up -d hospital-db      the synthetic hospital database (for live runs)
+#   docker compose up --build app         the web app on http://localhost:8000 (Sample mode needs nothing else)
+# Zetaris and Meterless Nightshift run on the host, outside this file.
 services:
   hospital-db:
     image: postgres:16-alpine
@@ -8,7 +10,7 @@ services:
       POSTGRES_USER: radar
       POSTGRES_PASSWORD: radar
     ports:
-      # Published on the host so Zetaris's containers reach it at host.docker.internal:5433.
+      # Published on the host so Zetaris's own containers reach it at host.docker.internal:5433.
       - "5433:5432"
     volumes:
       - ./db/hospital:/docker-entrypoint-initdb.d:ro
@@ -17,6 +19,23 @@ services:
       test: ["CMD-SHELL", "pg_isready -U radar -d hospital"]
       interval: 5s
       retries: 10
+
+  app:
+    build: .
+    image: oah-submission
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Inside a container, localhost is the container itself: reach the host's Zetaris and Nightshift here.
+      ZETARIS_REST_URL: ${ZETARIS_REST_URL_DOCKER:-http://host.docker.internal:8888/api/v1.0}
+      METERLESS_BASE_URL: ${METERLESS_BASE_URL_DOCKER:-http://host.docker.internal:8088/v1}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./logs:/app/logs
 
 volumes:
   hospital-data:

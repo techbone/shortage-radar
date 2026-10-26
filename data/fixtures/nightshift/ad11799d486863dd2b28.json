@@ -1,0 +1,12 @@
+{
+ "content": "{\"ndc\": \"0409-3795-01\", \"priority\": \"act-today\", \"headline\": \"Ketorolac injection unavailable\", \"why\": \"FDA reports unavailable status with 9 days of stock remain\", \"action\": \"Review swap options before current stock runs out\", \"buy_instead\": \"62332-600-25\", \"citations\": [\"stock:0409-3795-01\", \"fda:0409-3795-01\", \"history:0409-3795-01\", \"alt:62332-600-25\"]}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1840,
+  "completion_tokens": 158,
+  "total_tokens": 1998
+ },
+ "latencyMs": 27115
+}

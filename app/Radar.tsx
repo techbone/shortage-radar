@@ -75,9 +75,9 @@ function deriveSteps(events: Trace[], running: boolean, done: boolean) {
         detail = `${checks.length} items checked, ${sentBack} sent back for a fix${d.events.some((e) => e.action === "fallback") ? ", 1+ replaced with plain text" : ""}`;
       } else if (s.id === "brief") {
         const w = d.events.filter((e) => e.action === "write" && e.status === "success").length;
-        detail = `${w} items written by ${d.events.find((e) => e.model)?.model ?? "Nemotron"}`;
+        detail = w ? `${w} items written by ${d.events.find((e) => e.model)?.model ?? "Nemotron"}` : (d.events.at(-1)?.input_summary ?? d.events.at(-1)?.output_summary ?? s.hint);
       } else {
-        detail = (d.events.at(-1)?.output_summary ?? s.hint).slice(0, 140);
+        detail = (d.events.at(-1)?.output_summary ?? d.events.at(-1)?.input_summary ?? s.hint).slice(0, 140);
       }
     }
     return { ...s, state, detail, secs: d ? Math.max(0, Math.round((d.last - d.first) / 100) / 10) : null };
@@ -194,6 +194,9 @@ export function Radar() {
   const selectedRec = recs.find((r) => r.ndc === selected) ?? null;
   const sqlById = useMemo(() => new Map(events.filter((e) => e.query_id && e.sql).map((e) => [e.query_id!, e.sql!])), [events]);
   const steps = deriveSteps(events, running, !!result);
+  const nHidden = justHandled.length;
+  const headline = nHidden ? (recs.length ? `${recs.filter((r) => r.priority === "act-today").length} to act on today` : "Nothing left to act on") : out?.headline ?? "";
+  const summary = nHidden ? `You handled ${nHidden} ${nHidden === 1 ? "item" : "items"} since this run. Run again to refresh this summary.` : out?.summary ?? "";
   const customQuestion = mode === "sample" && !QUERIES.some((q) => q.text === query);
 
   const decide = (r: Rec, action: DecisionAction, note: string) => {
@@ -236,7 +239,7 @@ export function Radar() {
               </li>
             ))}
           </ol>
-          {result && <p className="muted" style={{ fontSize: 12, marginTop: 8 }}>Finished in <span className="mono">{result.execution_time_seconds}s</span>. Trace: <span className="mono">{result.log_file}</span></p>}
+          {result && <p className="muted" style={{ fontSize: 12, marginTop: 8 }}>{mode === "sample" ? "Replayed" : "Finished"} in <span className="mono">{result.execution_time_seconds}s</span>. Trace: <span className="mono">{result.log_file}</span></p>}
           {running && <p className="muted" style={{ fontSize: 12, marginTop: 8 }}>Running for <span className="mono">{elapsed}s</span>{mode === "live" ? ". A live run takes about a minute or two: Nemotron reasons before it answers." : "."}</p>}
         </aside>
 
@@ -257,19 +260,20 @@ export function Radar() {
           {tab === "brief" && (
             <>
               {!out && !running && !error && <Empty />}
-              {!out && running && <p className="muted">Working through the steps on the left…</p>}
+              {!out && running && <p className="muted">{(() => { const cur = steps.find((x) => x.state === "running"); return cur ? `${cur.label}: ${cur.detail}` : "Starting…"; })()}</p>}
               {out && (
                 <>
                   <section className="hero">
-                    <h1>{out.headline}</h1>
-                    <p>{out.summary}</p>
+                    <h1>{headline}</h1>
+                    <p className={nHidden ? "muted" : undefined}>{summary}</p>
                     <div className="facts">
                       <span>FDA update <span className="mono">{out.fda_update.date ?? "none"}</span></span>
                       <span><span className="mono">{out.fda_update.changes}</span> NDCs changed status</span>
                       <span><span className="mono">{out.fda_update.hit_your_shelf}</span> on your shelf</span>
                       {result?.models.map((m) => <span key={m} className="chip accent mono">{m}</span>)}
                       {mode === "sample" && <span className="chip">Replay of a recorded live run</span>}
-                      {result?.status === "partial" && <span className="chip limited">Some items use plain text</span>}
+                      {result?.fallback && <span className="chip limited" title={result.fallback.reason}>Live services unreachable: showing a recorded run</span>}
+                      {result?.status === "partial" && !result.fallback && <span className="chip limited">Some items use plain text</span>}
                     </div>
                   </section>
 
@@ -320,7 +324,7 @@ function Empty() {
 function BriefTable({ recs, selected, onSelect }: { recs: Rec[]; selected: string | null; onSelect: (ndc: string) => void }) {
   return (
     <div className="table-wrap">
-      <table className="t">
+      <table className="t brief">
         <thead><tr><th>Drug</th><th>FDA status</th><th className="num">Days on hand</th><th>Buy instead</th><th className="hide-sm" /></tr></thead>
         <tbody>
           {recs.map((r) => {
@@ -329,9 +333,9 @@ function BriefTable({ recs, selected, onSelect }: { recs: Rec[]; selected: strin
             return (
               <tr key={r.ndc} className="row" tabIndex={0} aria-selected={selected === r.ndc} onClick={() => onSelect(r.ndc)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSelect(r.ndc)}>
                 <td><div className="drug" style={{ textTransform: "capitalize" }}>{r.generic}</div><div className="sub mono">{r.ndc}</div><div className="sub">{r.headline}</div></td>
-                <td><StateChip state={r.fda_state} />{was && was !== r.fda_state && <div className="sub">was {stateLabel[was]?.toLowerCase() ?? was}</div>}</td>
-                <td className="num"><span className={`days ${r.days_on_hand <= 7 ? "low" : ""}`}>{num(r.days_on_hand)}</span><div className="sub mono">{r.on_hand_units} at {r.daily_usage_units}/day</div></td>
-                <td>{swap ? <><div>{swap.company}</div><div className="sub mono">{swap.ndc} · {matchLabel[swap.match]}</div></> : <span className="muted">{r.review.length ? `No same-strength swap. ${r.review.length} to review` : "No listed alternate"}</span>}</td>
+                <td data-label="FDA status"><div><StateChip state={r.fda_state} />{was && was !== r.fda_state && <div className="sub">was {stateLabel[was]?.toLowerCase() ?? was}</div>}</div></td>
+                <td className="num" data-label="Days on hand"><div><span className={`days ${r.days_on_hand <= 7 ? "low" : ""}`}>{num(r.days_on_hand)}</span><div className="sub mono">{r.on_hand_units} at {r.daily_usage_units}/day</div></div></td>
+                <td data-label="Buy instead">{swap ? <div><div>{swap.company}</div><div className="sub mono">{swap.ndc} · {matchLabel[swap.match]}</div></div> : <span className="muted">{r.review.length ? `No same-strength swap. ${r.review.length} to review` : "No listed alternate"}</span>}</td>
                 <td className="hide-sm"><ChevronRight className="i muted" /></td>
               </tr>
             );

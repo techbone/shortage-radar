@@ -1,6 +1,6 @@
 # Scout eval report
 
-_Generated: 2026-10-23T10:17:07.358Z · corpus v1 · 2316 examples_
+_Generated: 2026-10-26T04:12:09.599Z · corpus v1 · 2316 examples_
 
 ## Verdict: ❌ FAIL
 
