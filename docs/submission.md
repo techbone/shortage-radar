@@ -36,7 +36,7 @@ The three official runners are included unmodified (checksums in `conformance/RE
 
 ## Links
 - Repo (public): https://github.com/techbone/shortage-radar
-- Demo video: _add after upload_
+- Demo video: https://youtu.be/xAKDnQNLiOQ
 - Proof clip (68 s: the official World Model and H-MEM runners, the Scout evals, a live Zetaris federated query and `npm test`, run live): _add after upload_
 - Slide deck: `docs/deck/Shortage-Radar-deck.pdf` (also `.pptx` with speaker notes) in the repo
 - Live app: runs locally in Sample mode with `docker build -t oah-submission . && docker run --rm -p 8000:8000 oah-submission`
@@ -48,6 +48,6 @@ The three official runners are included unmodified (checksums in `conformance/RE
 - [x] Docker image builds and runs with no keys (Sample mode); live-to-sample fallback
 - [x] No secrets committed (scanned); NVIDIA key only in Nightshift
 - [x] Slide deck (12 slides, covers all eight required points)
-- [ ] Demo video recorded, 1-4 minutes, uploaded, link added above and in README
+- [x] Demo video recorded, 1-4 minutes, uploaded, link added above and in README
 - [ ] Roster confirmed before the first submission is created
 - [ ] Submitted on HackOS before 27 Oct 23:45 UTC

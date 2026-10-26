@@ -18,7 +18,7 @@ An agent for a hospital pharmacy buyer. Every morning it checks the FDA drug sho
 
 ## Demo
 
-_Demo video (3.5 minutes, one real live run, nothing sped up): link added at submission._ How it was made, and the script it follows, are in [docs/demo/](docs/demo/README.md). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
+**[Demo video](https://youtu.be/xAKDnQNLiOQ)** (3:54, one real live run, narrated; nothing sped up). How it was made, and the script it follows, are in [docs/demo/](docs/demo/README.md). The slide deck is [docs/deck/Shortage-Radar-deck.pdf](docs/deck/Shortage-Radar-deck.pdf) (also as `.pptx` with speaker notes).
 
 The app also runs in **Sample mode** on a fresh clone with no Zetaris, Nightshift or network: it replays a recorded live run, labelled as a replay, so what you see is what the live system produced.
 
