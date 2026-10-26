@@ -52,4 +52,14 @@ Options: \`--music\` adds a quiet synthesized pad under your voice that ducks wh
 - [ ] Uploaded, and the link is in README.md and docs/submission.md
 `;
 fs.writeFileSync(path.join(OUT, "README.md"), md);
+
+// A plain sheet to read aloud: one block per beat, with the time the picture for it starts.
+const sheet = `NARRATION SHEET  (video length ${mmss(t.duration_seconds)}; max 4:00)
+Say each block in your own words. Start when the picture changes at the time shown. Stay inside the length shown, or tell me and I will stretch that beat.
+${gaps.map((g) => `\nSILENT ${mmss(g.from.end)}-${mmss(g.to.start)}: the run is still finishing on screen. Stay quiet or add a line.`).join("")}
+
+${t.beats.map((b) => `[${mmss(b.start)}]  ${b.id.toUpperCase()}  (${Math.round(b.end - b.start)} s)\n${b.narration}\n`).join("\n")}
+Save one file per beat named <beat>.m4a (${t.beats.map((b) => b.id).join(", ")}), or one take for the whole video.
+`;
+fs.writeFileSync(path.join(OUT, "narration.txt"), sheet);
 console.log("wrote docs/demo/README.md");
