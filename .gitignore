@@ -24,3 +24,4 @@ __pycache__/
 *.pyc
 docs/demo/raw/
 docs/demo/*.mp4
+docs/demo/takes/
