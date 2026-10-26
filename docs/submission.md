@@ -9,6 +9,8 @@ Shortage Radar
 An agent that tells a hospital pharmacy buyer which FDA drug shortage changes hit their shelf, how many days of stock they have, and what to buy instead, with every claim traceable to the query, record or memory behind it.
 
 ## Description
+Shortage Radar is an agent for a hospital pharmacy buyer: each morning it says which FDA drug-shortage changes hit their shelf, how many days of stock they have left, and which same-strength product to buy instead, with every claim traced to the query, record or memory behind it.
+
 A hospital pharmacy buyer faces a shortage list that moves constantly: 746 of the FDA's 1,609 entries were updated in the week we measured. Shortage Radar joins the hospital's own stock database with the live FDA feed through Zetaris, uses the World Model to know what changed since the last update, and has Nemotron (through Nightshift) plan the brief and write each item. A Critic written in plain code rejects any claim its evidence does not back: a recommended NDC that is not a same-strength swap, a missing citation, a wrong day count, an unsupported cause, a prediction. The buyer's decisions are remembered in H-MEM, so handled items stay out of tomorrow's brief until the FDA status changes. It deliberately does not predict shortages: we tested whether recalls predict them (they do not, 0.7-0.9x baseline over 142 shortages) and dropped the idea. The FDA data and NDCs are real; the hospital is fictional.
 
 ## Sponsor technology explanation
