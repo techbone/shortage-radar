@@ -1,12 +1,12 @@
 {
- "content": "{\"focus\": [\"0409-6695-01\", \"0409-3815-12\", \"0409-3301-10\", \"0409-1323-05\", \"0409-3382-21\", \"0409-1630-10\"], \"rationale\": \"Six FDA-listed items now have 7 or fewer days on hand and are unavailable or limited, urgently impacting Anesthesia, Analgesia, and Cardiology shelves. Etomidate is unavailable, morphine and sufenatil are limited (6d each), dexmedetomidine and lidocaine are limited (7d and 4d), and atropine improved from unavailable to limited (7d), requiring immediate swap coordination.\"}",
+ "content": "{\n  \"focus\": [\"0409-6695-01\", \"0409-3815-12\", \"0409-3301-10\", \"0409-1323-05\", \"0409-3382-21\", \"0409-1630-10\"],\n  \"rationale\": \"Six FDA-listed items now have 7 or fewer days on hand after status changes: etomidate and morphine moved from available to unavailable/limited (6 days), dexmedetomidine and lidocaine became limited after availability changes (7 and 4 days), sufenatil shifted to limited (6 days), and atropine improved from unavailable to limited (7 days). These impact Anesthesia, Analgesia, and Cardiology shelves urgently.\"\n}",
  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
  "requestedModel": "meterless/auto",
  "toolCalls": [],
  "usage": {
   "prompt_tokens": 1901,
-  "completion_tokens": 4423,
-  "total_tokens": 6324
+  "completion_tokens": 3194,
+  "total_tokens": 5095
  },
- "latencyMs": 49035
+ "latencyMs": 39383
 }

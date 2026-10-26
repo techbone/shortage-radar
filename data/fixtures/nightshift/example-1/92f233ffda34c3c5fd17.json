@@ -1,0 +1,12 @@
+{
+ "content": "{\"summary\":\"Order the etomidate swap from Caplin Steriles first, then review swap options for sufentanil, morphine, and dexmedetomidine before their respective 6-7 day stock expirations, and consider the Hikma alternative for lidocaine preservative-free shortage.\"}",
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "requestedModel": "meterless/auto",
+ "toolCalls": [],
+ "usage": {
+  "prompt_tokens": 1046,
+  "completion_tokens": 63,
+  "total_tokens": 1109
+ },
+ "latencyMs": 1424
+}

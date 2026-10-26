@@ -27,7 +27,7 @@
   "status": "success",
   "output": {
     "headline": "6 to act on today",
-    "summary": "Order the etomidate swap from Caplin Steriles immediately as the only unavailable item; review swap options for morphine, dexmedetomidine, lidocaine, and sufentanil before their current stock depletes, and proceed with the atropine substitution to Medefil.",
+    "summary": "Order the etomidate swap from Caplin Steriles first, then review swap options for sufentanil, morphine, and dexmedetomidine before their respective 6-7 day stock expirations, and consider the Hikma alternative for lidocaine preservative-free shortage.",
     "fda_update": {
       "date": "2026-10-23",
       "changes": 13,
@@ -116,7 +116,7 @@
           {
             "id": "stock:0409-6695-01",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 192 units, 32/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-6695-01",
@@ -128,7 +128,7 @@
           {
             "id": "fda:0409-6695-01",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: unavailable (fda.shortages)",
             "record": {
               "ndc": "0409-6695-01",
@@ -157,7 +157,7 @@
           {
             "id": "alt:65219-445-10",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Caplin Steriles, Ltd. NDC 65219-445-10: Available (same concentration and container size)",
             "record": {
               "ndc": "65219-445-10",
@@ -169,7 +169,7 @@
           {
             "id": "alt:65219-447-20",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Caplin Steriles, Ltd. NDC 65219-447-20: Available (same concentration and container size)",
             "record": {
               "ndc": "65219-447-20",
@@ -181,7 +181,7 @@
           {
             "id": "alt:72485-508-10",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Caplin Steriles, Ltd. NDC 72485-508-10: Available (same concentration and container size)",
             "record": {
               "ndc": "72485-508-10",
@@ -291,7 +291,7 @@
           {
             "id": "stock:0409-3815-12",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 270 units, 45/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-3815-12",
@@ -303,7 +303,7 @@
           {
             "id": "fda:0409-3815-12",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-3815-12",
@@ -332,7 +332,7 @@
           {
             "id": "alt:76329-1912-1",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-1912-1: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "76329-1912-1",
@@ -344,7 +344,7 @@
           {
             "id": "alt:0641-6019-10",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Hikma Pharmaceuticals USA, Inc. NDC 0641-6019-10: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "0641-6019-10",
@@ -356,7 +356,7 @@
           {
             "id": "alt:63323-451-01",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Fresenius Kabi USA, LLC NDC 63323-451-01: Available (different concentration (10 mg/mL vs ours 1 mg/mL))",
             "record": {
               "ndc": "63323-451-01",
@@ -368,7 +368,7 @@
           {
             "id": "alt:63323-452-01",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Fresenius Kabi USA, LLC NDC 63323-452-01: Available (different concentration (2 mg/mL vs ours 1 mg/mL))",
             "record": {
               "ndc": "63323-452-01",
@@ -491,7 +491,7 @@
           {
             "id": "stock:0409-3301-10",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 91 units, 13/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-3301-10",
@@ -503,7 +503,7 @@
           {
             "id": "fda:0409-3301-10",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-3301-10",
@@ -532,7 +532,7 @@
           {
             "id": "alt:0781-3493-95",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Jiangsu Hengrui Pharmaceuticals Co., Ltd. NDC 0781-3493-95: Available (same concentration and container size)",
             "record": {
               "ndc": "0781-3493-95",
@@ -544,7 +544,7 @@
           {
             "id": "alt:0409-1660-20",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Pfizer Inc. NDC 0409-1660-20: Available (same concentration and container size)",
             "record": {
               "ndc": "0409-1660-20",
@@ -556,7 +556,7 @@
           {
             "id": "alt:70121-1388-1",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Amneal Pharmaceuticals NDC 70121-1388-1: Available (same concentration, 1 mL container instead of 20 mL)",
             "record": {
               "ndc": "70121-1388-1",
@@ -568,7 +568,7 @@
           {
             "id": "alt:55150-209-02",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Eugia US LLC NDC 55150-209-02: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
             "record": {
               "ndc": "55150-209-02",
@@ -580,7 +580,7 @@
           {
             "id": "alt:66794-230-42",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Gland Pharma Limited NDC 66794-230-42: Available (different concentration (100 mcg/mL vs ours 4 mcg/mL))",
             "record": {
               "ndc": "66794-230-42",
@@ -675,7 +675,7 @@
           {
             "id": "stock:0409-1323-05",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 188 units, 47/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-1323-05",
@@ -687,7 +687,7 @@
           {
             "id": "fda:0409-1323-05",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-1323-05",
@@ -716,7 +716,7 @@
           {
             "id": "alt:0143-9594-25",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Hikma Pharmaceuticals USA, Inc. NDC 0143-9594-25: Available (same concentration, 1 mL container instead of 5 mL)",
             "record": {
               "ndc": "0143-9594-25",
@@ -728,7 +728,7 @@
           {
             "id": "alt:76329-3390-1",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-3390-1: Available (ours is preservative-free; this one is not)",
             "record": {
               "ndc": "76329-3390-1",
@@ -740,7 +740,7 @@
           {
             "id": "alt:83634-651-10",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Anthea Pharma NDC 83634-651-10: Available (different concentration (10 mg/mL vs ours 20 mg/mL))",
             "record": {
               "ndc": "83634-651-10",
@@ -755,9 +755,9 @@
       {
         "ndc": "0409-3382-21",
         "priority": "act-today",
-        "headline": "Sufentanil citrate injection limited to 6 days of stock",
-        "why": "FDA reports limited status since 2026-10-21; 84 units on hand at 14 daily usage",
-        "action": "Review swap options before current stock runs out",
+        "headline": "Sufentanil injection limited; 6 days of stock remain",
+        "why": "FDA reports limited supply with manufacturing delay; only 6 days of inventory on hand",
+        "action": "Review swap options before current stock runs out.",
         "buy_instead": null,
         "citations": [
           "stock:0409-3382-21",
@@ -790,7 +790,7 @@
           {
             "id": "stock:0409-3382-21",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 84 units, 14/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-3382-21",
@@ -802,7 +802,7 @@
           {
             "id": "fda:0409-3382-21",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-3382-21",
@@ -942,7 +942,7 @@
           {
             "id": "stock:0409-1630-10",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "Northwind stock: 245 units, 35/day (northwind_pg.inventory)",
             "record": {
               "ndc": "0409-1630-10",
@@ -954,7 +954,7 @@
           {
             "id": "fda:0409-1630-10",
             "kind": "zetaris",
-            "queryId": "zq_ebd7c394",
+            "queryId": "zq_f0df3a83",
             "label": "FDA shortage list: limited (fda.shortages)",
             "record": {
               "ndc": "0409-1630-10",
@@ -983,7 +983,7 @@
           {
             "id": "alt:64253-400-91",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Medefil, Inc. NDC 64253-400-91: Available (same concentration and container size)",
             "record": {
               "ndc": "64253-400-91",
@@ -995,7 +995,7 @@
           {
             "id": "alt:16729-484-45",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Accord Healthcare Inc. NDC 16729-484-45: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "16729-484-45",
@@ -1007,7 +1007,7 @@
           {
             "id": "alt:76329-3340-1",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "Amphastar Pharmaceuticals, Inc. NDC 76329-3340-1: Available (same concentration, 1 mL container instead of 10 mL)",
             "record": {
               "ndc": "76329-3340-1",
@@ -1019,7 +1019,7 @@
           {
             "id": "alt:0517-1001-25",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "American Regent, Inc. NDC 0517-1001-25: Available (different concentration (1 mg/mL vs ours 100 mcg/mL))",
             "record": {
               "ndc": "0517-1001-25",
@@ -1031,7 +1031,7 @@
           {
             "id": "alt:0517-1004-25",
             "kind": "zetaris",
-            "queryId": "zq_95817721",
+            "queryId": "zq_7a3c2e4d",
             "label": "American Regent, Inc. NDC 0517-1004-25: Available (different concentration (400 mcg/mL vs ours 100 mcg/mL))",
             "record": {
               "ndc": "0517-1004-25",
@@ -1055,5 +1055,5 @@
   "models": [
     "nvidia/nemotron-3.5-lightning-30b-a3b"
   ],
-  "execution_time_seconds": 62.6
+  "execution_time_seconds": 58.9
 }

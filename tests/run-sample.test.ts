@@ -85,3 +85,20 @@ describe("a live run that cannot reach its services", () => {
     }
   });
 });
+
+describe("the committed live traces are the evidence judges read", () => {
+  for (const n of [1, 2, 3]) {
+    it(`trace-example-${n}.jsonl is a complete live run that names the model on every call`, () => {
+      const rows = fs.readFileSync(`logs/trace-example-${n}.jsonl`, "utf-8").trim().split("\n").map((l) => JSON.parse(l));
+      expect(rows.length).toBeGreaterThan(15);
+      expect(rows[0]).toMatchObject({ agent_name: "Orchestrator", action: "start" });
+      expect(rows.at(-1)).toMatchObject({ agent_name: "Orchestrator", action: "complete", status: "success" });
+      expect(rows[0].details.sample_mode).toBe(false);
+      expect(rows.some((r) => r.action === "zetaris:exposure" && r.query_id && r.sql)).toBe(true);
+      const calls = rows.filter((r) => r.action === "write" && r.status === "success");
+      expect(calls.length).toBeGreaterThan(0);
+      expect(calls.every((r) => r.model === "nvidia/nemotron-3.5-lightning-30b-a3b")).toBe(true);
+      expect(rows.some((r) => r.action === "fallback")).toBe(false);
+    });
+  }
+});
