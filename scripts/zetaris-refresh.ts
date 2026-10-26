@@ -6,10 +6,20 @@
 import { runSql } from "../src/adapters/zetaris";
 
 const admin = { admin: true, timeoutMs: 300_000, retries: 0 } as const;
+// An uncached page makes every query call openFDA live, so keep retrying the re-cache rather than leave it dropped.
 for (const page of ["shortages_p0", "shortages_p1"]) {
   await runSql(`UNCACHE TABLE fda_rest.${page}`, admin);
-  const r = await runSql(`CACHE TABLE fda_rest.${page}`, admin);
-  console.log(`[INFO] fda_rest.${page} re-cached (${r.ms} ms)`);
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const r = await runSql(`CACHE TABLE fda_rest.${page}`, admin);
+      console.log(`[INFO] fda_rest.${page} re-cached (${r.ms} ms)`);
+      break;
+    } catch (err) {
+      if (attempt === 5) throw err;
+      console.warn(`[WARN] re-caching fda_rest.${page} failed (${(err as Error).message.slice(0, 80)}), retry ${attempt}/4 in 60 s`);
+      await new Promise((r) => setTimeout(r, 60_000));
+    }
+  }
 }
 
 const meta = (await (await fetch("https://api.fda.gov/drug/shortages.json?limit=1", { signal: AbortSignal.timeout(30_000) })).json()) as { meta: { last_updated: string; results: { total: number } } };

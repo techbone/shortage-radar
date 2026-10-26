@@ -98,3 +98,13 @@ Preflight: platform images are amd64 only, and Docker had 7 GB of the recommende
 **Path.** Checked which releases were clean (`npm view next@<v> deprecated`): 15.3.6, 15.4.8 and 15.5.7 were themselves deprecated for the follow-up advisory; 15.3.8 and 15.5.9+ were not. Upgraded to 15.5.28, ran `npm audit fix`, and upgraded the dev tools that had advisories (vitest 5, yaml, pptxgenjs 4). Rebuilt, re-ran the 76 tests, the official runners, and every browser flow (decisions, reload, Forget, a live Nemotron run, `POST /run`).
 
 **Left, on purpose.** `npm audit` still reports `postcss` inside Next's build (fixable only by moving to Next 16, a breaking change) and `image-size` in the PPTX builder script. Both only process our own files at build time; neither is reachable from a network request. **Lesson:** read the install log of a fresh build, not just the exit code.
+
+---
+
+## 2026-10-26 · The daily refresh emptied Zetaris's cache when openFDA was down
+
+**Symptom.** Every Zetaris query failed with `REST API call failed: api.fda.gov ... skip=1000`, and a re-recorded live run spent 3 minutes before the brief.
+
+**Cause.** The 07:15 UTC job re-cached the FDA tables on every run, even though the feed had not changed since 23 Oct. A refresh is `UNCACHE` then `CACHE`; openFDA was returning 500s and its second page takes about 30 s, so `CACHE` failed and left that page uncached. From then on each query fetched openFDA live.
+
+**Fix.** Re-cached the page (1,611 rows, queries back to under 1 s). The daily job now refreshes Zetaris only when it saved a new snapshot, and the refresh retries the re-cache up to five times instead of leaving a page dropped. **Lesson:** a refresh that destroys before it rebuilds should run only when there is something new to rebuild.
