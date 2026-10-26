@@ -35,6 +35,7 @@ The three official runners are included unmodified (checksums in `conformance/RE
 ## Links
 - Repo (public): https://github.com/techbone/shortage-radar
 - Demo video: _add after upload_
+- Proof clip (68 s: the official World Model and H-MEM runners, the Scout evals, a live Zetaris federated query and `npm test`, run live): _add after upload_
 - Slide deck: `docs/deck/Shortage-Radar-deck.pdf` (also `.pptx` with speaker notes) in the repo
 - Live app: runs locally in Sample mode with `docker build -t oah-submission . && docker run --rm -p 8000:8000 oah-submission`
 
